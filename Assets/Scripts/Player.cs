@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _horizontalAxis;
     [SerializeField] private float _verticalAxis;
     [SerializeField] private Vector3 _direction;
-    [SerializeField] private float _speed;
-    [SerializeField] private Vector3 _position;
+    [SerializeField] private float _speed = 10f;
+    [SerializeField] private Vector3 _position = new Vector3(-7, 0, 0);
 
     private float _playerLeftBoundary = 9f;
     private float _playerRightBoundary = -9f;
@@ -19,13 +19,13 @@ public class Player : MonoBehaviour
     //private float _playerLeftWrap = 11f;
     //private float _playerRightWrap = -11f;
     //private float _playerUpperWrap = 7.5f;
-    //private float _playerLowerWrap = -5.5f; 
+    //private float _playerLowerWrap = -5.5f;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-
+        this.transform.position = _position;
     }
 
     // Update is called once per frame
@@ -43,6 +43,8 @@ public class Player : MonoBehaviour
         _direction.y = _verticalAxis;
 
         #region PlayerWrap
+        //_position = this.transform.position;
+
         //if (this.transform.position.x > _playerLeftWrap)
         //{
         //    _position.x = _playerRightWrap;
@@ -60,10 +62,11 @@ public class Player : MonoBehaviour
         //{
         //    _position.y = _playerUpperWrap;
         //}
+
+        //this.transform.position = _position;
         #endregion
 
-        this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, _playerRightBoundary, _playerLeftBoundary),                                          Mathf.Clamp(this.transform.position.y, _playerLowerBoundary, _playerUpperBoundary),
-                                              0);
+        this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, _playerRightBoundary, _playerLeftBoundary), Mathf.Clamp(this.transform.position.y, _playerLowerBoundary, _playerUpperBoundary), 0);
 
         this.transform.Translate(_direction * _speed * Time.deltaTime);
     }
