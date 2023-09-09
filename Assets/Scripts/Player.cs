@@ -62,7 +62,8 @@ public class Player : MonoBehaviour
         //}
         #endregion
 
-        this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, _playerRightBoundary, _playerLeftBoundary), Mathf.Clamp(this.transform.position.y, _playerLowerBoundary, _playerUpperBoundary), 0);
+        this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, _playerRightBoundary, _playerLeftBoundary),                                          Mathf.Clamp(this.transform.position.y, _playerLowerBoundary, _playerUpperBoundary),
+                                              0);
 
         this.transform.Translate(_direction * _speed * Time.deltaTime);
     }
