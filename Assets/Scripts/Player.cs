@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _horizontalAxis;
     [SerializeField] private float _verticalAxis;
     [SerializeField] private Vector3 _direction;
-    [SerializeField] private float _speed = 10f;
-    [SerializeField] private Vector3 _position = new Vector3(-7, 0, 0);
+    [SerializeField] private float _speed;
+    [SerializeField] private Vector3 _position;
 
     private float _playerLeftBoundary = 9f;
     private float _playerRightBoundary = -9f;
@@ -22,6 +23,9 @@ public class Player : MonoBehaviour
     //private float _playerLowerWrap = -5.5f;
     #endregion
 
+    [SerializeField] private GameObject _laser;
+    private Quaternion _laserRotation = Quaternion.Euler(0, 0, -90);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+
+        Fire();
     }
 
     private void Move()
@@ -69,6 +75,15 @@ public class Player : MonoBehaviour
         this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, _playerRightBoundary, _playerLeftBoundary), Mathf.Clamp(this.transform.position.y, _playerLowerBoundary, _playerUpperBoundary), 0);
 
         this.transform.Translate(_direction * _speed * Time.deltaTime);
+    }
+
+    private void Fire()
+    {
+        // If player hits the space key, spawn a laser gameObject
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(_laser, this.transform.position, _laserRotation);
+        }
     }
 }
 
