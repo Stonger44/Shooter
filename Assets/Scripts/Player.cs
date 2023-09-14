@@ -37,7 +37,10 @@ public class Player : MonoBehaviour
     {
         Move();
 
-        Fire();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Fire();
+        }
     }
 
     private void Move()
@@ -79,11 +82,7 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-        // If player hits the space key, spawn a laser gameObject
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Instantiate(_laser, this.transform.position, _laserRotation);
-        }
+        Instantiate(_laser, this.transform.position, _laserRotation);
     }
 }
 
