@@ -24,7 +24,14 @@ public class Player : MonoBehaviour
     #endregion
 
     [SerializeField] private GameObject _laser;
+    private Vector3 _laserPosition;
+    private float _laserOffset = 0.8f;
     private Quaternion _laserRotation = Quaternion.Euler(0, 0, -90);
+
+    [SerializeField] private float _fireRate;
+
+    // private float _fireReadyTime; // Cooldown System using Time.time
+    [SerializeField] private bool _canFire;
 
     // Start is called before the first frame update
     void Start()
@@ -37,10 +44,7 @@ public class Player : MonoBehaviour
     {
         Move();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Fire();
-        }
+        Fire();
     }
 
     private void Move()
@@ -82,10 +86,31 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-        Instantiate(_laser, this.transform.position, _laserRotation);
+        #region Cooldown System using Time.time
+        //if (Input.GetKeyDown(KeyCode.Space) && (Time.time > _fireReadyTime))
+        //{
+        //    _laserPosition = this.transform.position;
+        //    _laserPosition.x += _laserOffset;
+
+        //    Instantiate(_laser, _laserPosition, _laserRotation);
+        //    _fireReadyTime = Time.time + _fireRate;
+        //} 
+        #endregion
+
+        if (Input.GetKeyDown(KeyCode.Space) && _canFire)
+        {
+            _laserPosition = this.transform.position;
+            _laserPosition.x += _laserOffset;
+
+            Instantiate(_laser, _laserPosition, _laserRotation);
+            _canFire = false;
+            StartCoroutine(ReadyFire());
+        }
+    }
+
+    private IEnumerator ReadyFire()
+    {
+        yield return new WaitForSeconds(_fireRate);
+        _canFire = true;
     }
 }
-
-
-
-

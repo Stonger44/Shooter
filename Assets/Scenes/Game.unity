@@ -316,6 +316,8 @@ MonoBehaviour:
   _speed: 10
   _position: {x: -7, y: 0, z: 0}
   _laser: {fileID: 4409535781117558406, guid: d7cbe1258bbbafc4caf874d9da0f87b7, type: 3}
+  _fireRate: 0.25
+  _canFire: 1
 --- !u!1 &1653587730
 GameObject:
   m_ObjectHideFlags: 0
