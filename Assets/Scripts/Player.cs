@@ -11,10 +11,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private Vector3 _position;
 
-    private float _playerLeftBoundary = 9f;
-    private float _playerRightBoundary = -9f;
-    private float _playerUpperBoundary = 5.8f;
-    private float _playerLowerBoundary = -3.8f;
+    private const float _playerLeftBoundary = 9f;
+    private const float _playerRightBoundary = -9f;
+    private const float _playerUpperBoundary = 5.8f;
+    private const float _playerLowerBoundary = -3.8f;
 
     #region PlayerWrap
     //private float _playerLeftWrap = 11f;

@@ -8,7 +8,7 @@ public class Laser : MonoBehaviour
     [SerializeField] private float _speed;
     private Vector3 _laserDirection = Vector3.up;
 
-    private float _boundary = 11f;
+    private const float _boundary = 11f;
 
     // Start is called before the first frame update
     void Start()

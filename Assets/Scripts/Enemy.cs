@@ -10,10 +10,13 @@ public class Enemy : MonoBehaviour
     private Vector3 _position;
     private Vector3 _direction = Vector3.left;
 
-    private float _enemyLeftBoundary = -12f;
-    private float _enemyRightBoundary = 12f;
-    private float _enemyUpperBoundary = 5.5f;
-    private float _enemyLowerBoundary = -3.5f;
+    private const float _enemyLeftBoundary = -12f;
+    private const float _enemyRightBoundary = 12f;
+    private const float _enemyUpperBoundary = 5.5f;
+    private const float _enemyLowerBoundary = -3.5f;
+
+    private const string _player = "Player";
+    private const string _laser = "Laser";
 
     // Start is called before the first frame update
     void Start()
@@ -42,5 +45,19 @@ public class Enemy : MonoBehaviour
         _position.y = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
         _position = new Vector3(_enemyRightBoundary, _position.y, 0);
         this.transform.position = _position;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == _player)
+        {
+            Debug.Log($"{other.tag} damaged!");
+            Destroy(this.gameObject);
+        }
+        else if (other.tag == _laser)
+        {
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 }
