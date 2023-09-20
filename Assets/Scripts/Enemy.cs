@@ -15,8 +15,8 @@ public class Enemy : MonoBehaviour
     private const float _enemyUpperBoundary = 5.5f;
     private const float _enemyLowerBoundary = -3.5f;
 
-    private const string _player = "Player";
-    private const string _laser = "Laser";
+    private const string _playerTag = "Player";
+    private const string _laserTag = "Laser";
 
     // Start is called before the first frame update
     void Start()
@@ -49,12 +49,16 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == _player)
+        if (other.tag == _playerTag)
         {
-            Debug.Log($"{other.tag} damaged!");
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Damage();
+            }
             Destroy(this.gameObject);
         }
-        else if (other.tag == _laser)
+        else if (other.tag == _laserTag)
         {
             Destroy(other.gameObject);
             Destroy(this.gameObject);

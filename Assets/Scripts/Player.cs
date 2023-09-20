@@ -29,9 +29,12 @@ public class Player : MonoBehaviour
     private Quaternion _laserRotation = Quaternion.Euler(0, 0, -90);
 
     [SerializeField] private float _fireRate;
-
-    // private float _fireReadyTime; // Cooldown System using Time.time
     [SerializeField] private bool _canFire;
+    #region Cooldown System using Time.time
+    // private float _fireReadyTime;
+    #endregion
+
+    [SerializeField] private int _health;
 
     // Start is called before the first frame update
     void Start()
@@ -112,5 +115,17 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(_fireRate);
         _canFire = true;
+    }
+
+    public void Damage()
+    {
+        _health--;
+        Debug.Log($"Player damaged!");
+
+        if (_health < 1)
+        {
+            Debug.Log($"Game Over, man.");
+            Destroy(this.gameObject);
+        }
     }
 }
