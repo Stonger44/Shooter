@@ -35,6 +35,13 @@ public class Player : MonoBehaviour
     #endregion
 
     [SerializeField] private int _health;
+    public int Health { get; private set; }
+
+
+    private void Awake()
+    {
+        Health = _health;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -120,6 +127,7 @@ public class Player : MonoBehaviour
     public void Damage()
     {
         _health--;
+        Health = _health;
         Debug.Log($"Player damaged!");
 
         if (_health < 1)
