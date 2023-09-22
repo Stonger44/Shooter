@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemyPrefab;
     private GameObject _spawnedEnemy;
     private Vector3 _enemySpawnPosition;
+    [SerializeField] private float _spawnTime;
 
     private float _enemySpawnRightBoundary = 12f;
     private float _enemySpawnUpperBoundary = 4.5f;
@@ -35,7 +36,7 @@ public class SpawnManager : MonoBehaviour
             _enemySpawnPosition = new Vector3(_enemySpawnPosition.x, _enemySpawnRightBoundary, 0);
             _spawnedEnemy = Instantiate(_enemyPrefab, _enemySpawnPosition, Quaternion.identity);
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(_spawnTime);
         }
     }
 

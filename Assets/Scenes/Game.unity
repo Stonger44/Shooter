@@ -153,6 +153,7 @@ MonoBehaviour:
   _enemyContainer: {fileID: 793658857}
   _enemyPrefab: {fileID: 3368753958657129261, guid: 2762299b33f74ab49ba85c94fc4b96aa,
     type: 3}
+  _spawnTime: 3
 --- !u!4 &455001553
 Transform:
   m_ObjectHideFlags: 0
