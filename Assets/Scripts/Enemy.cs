@@ -12,8 +12,8 @@ public class Enemy : MonoBehaviour
 
     private const float _enemyLeftBoundary = -12f;
     private const float _enemyRightBoundary = 12f;
-    private const float _enemyUpperBoundary = 5.5f;
-    private const float _enemyLowerBoundary = -3.5f;
+    private const float _enemyUpperBoundary = 4.5f;
+    private const float _enemyLowerBoundary = -4.5f;
 
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";

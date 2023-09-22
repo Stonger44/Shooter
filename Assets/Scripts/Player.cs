@@ -13,8 +13,8 @@ public class Player : MonoBehaviour
 
     private const float _playerLeftBoundary = 9f;
     private const float _playerRightBoundary = -9f;
-    private const float _playerUpperBoundary = 5.8f;
-    private const float _playerLowerBoundary = -3.8f;
+    private const float _playerUpperBoundary = 4.8f;
+    private const float _playerLowerBoundary = -4.8f;
 
     #region PlayerWrap
     //private float _playerLeftWrap = 11f;
@@ -35,18 +35,19 @@ public class Player : MonoBehaviour
     #endregion
 
     [SerializeField] private int _health;
-    public int Health { get; private set; }
 
-
-    private void Awake()
-    {
-        Health = _health;
-    }
+    private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
     void Start()
     {
         this.transform.position = _position;
+        
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if (_spawnManager == null)
+        {
+            Debug.LogError($"SpawnManager is null!");
+        }
     }
 
     // Update is called once per frame
@@ -107,7 +108,7 @@ public class Player : MonoBehaviour
         //} 
         #endregion
 
-        if (Input.GetKeyDown(KeyCode.Space) && _canFire)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) && _canFire)
         {
             _laserPosition = this.transform.position;
             _laserPosition.x += _laserOffset;
@@ -127,13 +128,11 @@ public class Player : MonoBehaviour
     public void Damage()
     {
         _health--;
-        Health = _health;
-        Debug.Log($"Player damaged!");
 
         if (_health < 1)
         {
-            Debug.Log($"Game Over, man.");
             Destroy(this.gameObject);
+            _spawnManager.StopSpawning();
         }
     }
 }
