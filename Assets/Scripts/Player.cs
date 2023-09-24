@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject _laser;
     private Vector3 _laserPosition;
-    private float _laserOffset = 0.8f;
+    private float _laserOffset = 1.07f;
     private Quaternion _laserRotation = Quaternion.Euler(0, 0, -90);
 
     [SerializeField] private float _fireRate;
