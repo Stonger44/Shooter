@@ -17,15 +17,15 @@ public class Player : MonoBehaviour
     private const float _playerLowerBoundary = -4.8f;
 
     #region PlayerWrap
-    //private float _playerLeftWrap = 11f;
-    //private float _playerRightWrap = -11f;
-    //private float _playerUpperWrap = 7.5f;
-    //private float _playerLowerWrap = -5.5f;
+    //private const float _playerLeftWrap = 11f;
+    //private const float _playerRightWrap = -11f;
+    //private const float _playerUpperWrap = 7.5f;
+    //private const float _playerLowerWrap = -5.5f;
     #endregion
 
     [SerializeField] private GameObject _laser;
     private Vector3 _laserPosition;
-    private float _laserOffset = 1.07f;
+    private const float _laserOffset = 1.07f;
     private Quaternion _laserRotation = Quaternion.Euler(0, 0, -90);
 
     [SerializeField] private float _fireRate;

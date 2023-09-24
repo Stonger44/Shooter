@@ -10,9 +10,9 @@ public class SpawnManager : MonoBehaviour
     private Vector3 _enemySpawnPosition;
     [SerializeField] private float _spawnTime;
 
-    private float _enemySpawnRightBoundary = 12f;
-    private float _enemySpawnUpperBoundary = 4.5f;
-    private float _enemySpawnLowerBoundary = -4.5f;
+    private const float _enemySpawnRightBoundary = 12f;
+    private const float _enemySpawnUpperBoundary = 4.5f;
+    private const float _enemySpawnLowerBoundary = -4.5f;
 
     private bool _stopSpawning;
 
