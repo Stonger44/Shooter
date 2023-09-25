@@ -10,9 +10,9 @@ public class SpawnManager : MonoBehaviour
     private Vector3 _enemySpawnPosition;
     [SerializeField] private float _spawnTime;
 
-    private const float _enemySpawnRightBoundary = 12f;
-    private const float _enemySpawnUpperBoundary = 4.5f;
-    private const float _enemySpawnLowerBoundary = -4.5f;
+    [SerializeField] private float _enemySpawnRightBoundary = 12f;
+    [SerializeField] private float _enemySpawnUpperBoundary = 4.5f;
+    [SerializeField] private float _enemySpawnLowerBoundary = -4.5f;
 
     private bool _stopSpawning;
 
@@ -32,8 +32,8 @@ public class SpawnManager : MonoBehaviour
     {
         while (_stopSpawning == false)
         {
-            _enemySpawnPosition.x = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
-            _enemySpawnPosition = new Vector3(_enemySpawnPosition.x, _enemySpawnRightBoundary, 0);
+            float xPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
+            _enemySpawnPosition = new Vector3(xPositionEnemySpawn, _enemySpawnRightBoundary, 0);
             _spawnedEnemy = Instantiate(_enemyPrefab, _enemySpawnPosition, Quaternion.identity);
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(_spawnTime);

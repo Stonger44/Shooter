@@ -5,28 +5,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _horizontalAxis;
-    [SerializeField] private float _verticalAxis;
-    [SerializeField] private Vector3 _direction;
+    private float _horizontalAxis;
+    private float _verticalAxis;
+    private Vector3 _direction;
     [SerializeField] private float _speed;
-    [SerializeField] private Vector3 _position;
 
-    private const float _playerLeftBoundary = 9f;
-    private const float _playerRightBoundary = -9f;
-    private const float _playerUpperBoundary = 4.8f;
-    private const float _playerLowerBoundary = -4.8f;
+    [SerializeField] private float _playerLeftBoundary = 9f;
+    [SerializeField] private float _playerRightBoundary = -9f;
+    [SerializeField] private float _playerUpperBoundary = 4.8f;
+    [SerializeField] private float _playerLowerBoundary = -4.8f;
 
     #region PlayerWrap
-    //private const float _playerLeftWrap = 11f;
-    //private const float _playerRightWrap = -11f;
-    //private const float _playerUpperWrap = 7.5f;
-    //private const float _playerLowerWrap = -5.5f;
+    //private Vector3 _position;
+
+    //[SerializeField] private float _playerLeftWrap = 11f;
+    //[SerializeField] private float _playerRightWrap = -11f;
+    //[SerializeField] private float _playerUpperWrap = 6f;
+    //[SerializeField] private float _playerLowerWrap = -6f;
     #endregion
 
     [SerializeField] private GameObject _laser;
     private Vector3 _laserPosition;
-    private const float _laserOffset = 1.07f;
-    private Quaternion _laserRotation = Quaternion.Euler(0, 0, -90);
+    [SerializeField] private float _laserOffset = 1.07f;
 
     [SerializeField] private float _fireRate;
     [SerializeField] private bool _canFire;
@@ -34,19 +34,17 @@ public class Player : MonoBehaviour
     // private float _fireReadyTime;
     #endregion
 
-    [SerializeField] private int _health;
+    [SerializeField] private int _lives;
 
     private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.transform.position = _position;
-        
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         if (_spawnManager == null)
         {
-            Debug.LogError($"SpawnManager is null!");
+            Debug.LogError("SpawnManager is null!");
         }
     }
 
@@ -90,9 +88,9 @@ public class Player : MonoBehaviour
         //this.transform.position = _position;
         #endregion
 
-        this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, _playerRightBoundary, _playerLeftBoundary), Mathf.Clamp(this.transform.position.y, _playerLowerBoundary, _playerUpperBoundary), 0);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, _playerRightBoundary, _playerLeftBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary), 0);
 
-        this.transform.Translate(_direction * _speed * Time.deltaTime);
+        transform.Translate(_direction * _speed * Time.deltaTime);
     }
 
     private void Fire()
@@ -110,10 +108,10 @@ public class Player : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) && _canFire)
         {
-            _laserPosition = this.transform.position;
+            _laserPosition = transform.position;
             _laserPosition.x += _laserOffset;
 
-            Instantiate(_laser, _laserPosition, _laserRotation);
+            Instantiate(_laser, _laserPosition, Quaternion.identity);
             _canFire = false;
             StartCoroutine(ReadyFire());
         }
@@ -127,12 +125,12 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        _health--;
+        _lives--;
 
-        if (_health < 1)
+        if (_lives < 1)
         {
-            Destroy(this.gameObject);
             _spawnManager.StopSpawning();
+            Destroy(this.gameObject);
         }
     }
 }

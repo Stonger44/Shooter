@@ -6,9 +6,9 @@ using UnityEngine.Scripting.APIUpdating;
 public class Laser : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    private Vector3 _laserDirection = Vector3.up;
+    private Vector3 _laserDirection = Vector3.right;
 
-    private const float _boundary = 11f;
+    [SerializeField] private float _boundary = 11f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class Laser : MonoBehaviour
     {
         Move();
 
-        if (this.transform.position.x > _boundary)
+        if (transform.position.x > _boundary)
         {
             Destroy(this.gameObject);
         }
@@ -29,6 +29,6 @@ public class Laser : MonoBehaviour
 
     private void Move()
     {
-        this.transform.Translate(_laserDirection * _speed * Time.deltaTime);
+        transform.Translate(_laserDirection * _speed * Time.deltaTime);
     }
 }

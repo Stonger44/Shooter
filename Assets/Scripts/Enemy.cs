@@ -10,10 +10,10 @@ public class Enemy : MonoBehaviour
     private Vector3 _position;
     private Vector3 _direction = Vector3.left;
 
-    private const float _enemyLeftBoundary = -12f;
-    private const float _enemyRightBoundary = 12f;
-    private const float _enemyUpperBoundary = 4.5f;
-    private const float _enemyLowerBoundary = -4.5f;
+    [SerializeField] private float _enemyLeftBoundary = -12f;
+    [SerializeField] private float _enemyRightBoundary = 12f;
+    [SerializeField] private float _enemyUpperBoundary = 4.5f;
+    [SerializeField] private float _enemyLowerBoundary = -4.5f;
 
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     {
         this.transform.Translate(_direction * _speed * Time.deltaTime);
 
-        if (this.transform.position.x < _enemyLeftBoundary)
+        if (transform.position.x < _enemyLeftBoundary)
         {
             Warp();
         }
@@ -42,9 +42,9 @@ public class Enemy : MonoBehaviour
 
     private void Warp()
     {
-        _position.y = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
-        _position = new Vector3(_enemyRightBoundary, _position.y, 0);
-        this.transform.position = _position;
+        float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
+        _position = new Vector3(_enemyRightBoundary, yPosition, 0);
+        transform.position = _position;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
