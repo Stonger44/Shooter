@@ -6,14 +6,14 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-    private Vector3 _position;
-    private Vector3 _direction = Vector3.left;
-
     [SerializeField] private float _enemyLeftBoundary = -12f;
     [SerializeField] private float _enemyRightBoundary = 12f;
     [SerializeField] private float _enemyUpperBoundary = 4.5f;
     [SerializeField] private float _enemyLowerBoundary = -4.5f;
+
+    [SerializeField] private float _speed;
+    private Vector3 _position;
+    private Vector3 _direction = Vector3.left;
 
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
