@@ -5,16 +5,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float _horizontalAxis;
-    private float _verticalAxis;
-    private Vector3 _direction;
-    [SerializeField] private float _speed;
-
     [SerializeField] private float _playerLeftBoundary = 9f;
     [SerializeField] private float _playerRightBoundary = -9f;
     [SerializeField] private float _playerUpperBoundary = 4.8f;
     [SerializeField] private float _playerLowerBoundary = -4.8f;
-
+    
     #region PlayerWrap
     //private Vector3 _position;
 
@@ -23,6 +18,11 @@ public class Player : MonoBehaviour
     //[SerializeField] private float _playerUpperWrap = 6f;
     //[SerializeField] private float _playerLowerWrap = -6f;
     #endregion
+
+    private float _horizontalAxis;
+    private float _verticalAxis;
+    private Vector3 _direction;
+    [SerializeField] private float _speed;
 
     [SerializeField] private GameObject _laser;
     private Vector3 _laserPosition;
