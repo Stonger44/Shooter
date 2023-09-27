@@ -150,13 +150,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d3dc4d8af2272f4aac05056da6b96f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemySpawnRightBoundary: 12
+  _enemySpawnUpperBoundary: 4.5
+  _enemySpawnLowerBoundary: -4.5
   _enemyContainer: {fileID: 793658857}
   _enemyPrefab: {fileID: 3368753958657129261, guid: 2762299b33f74ab49ba85c94fc4b96aa,
     type: 3}
   _spawnTime: 1
-  _enemySpawnRightBoundary: 12
-  _enemySpawnUpperBoundary: 4.5
-  _enemySpawnLowerBoundary: -4.5
 --- !u!4 &455001553
 Transform:
   m_ObjectHideFlags: 0
@@ -276,7 +276,7 @@ Transform:
   m_GameObject: {fileID: 487352428}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -293,14 +293,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d22dc27c29bdec419237cb33784e034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
   _playerLeftBoundary: 9
   _playerRightBoundary: -9
   _playerUpperBoundary: 4.8
   _playerLowerBoundary: -4.8
+  _speed: 12
   _laser: {fileID: 3264114618247424463, guid: d7cbe1258bbbafc4caf874d9da0f87b7, type: 3}
-  _laserOffset: 1.07
-  _fireRate: 0.25
+  _laserOffset: 0.8
+  _fireRate: 0.2
   _canFire: 1
   _lives: 3
 --- !u!1 &793658857

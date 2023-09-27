@@ -21,20 +21,20 @@ public class Player : MonoBehaviour
 
     private float _horizontalAxis;
     private float _verticalAxis;
-    private Vector3 _direction;
-    [SerializeField] private float _speed;
+    private Vector2 _direction;
+    [SerializeField] private float _speed = 12f;
 
     [SerializeField] private GameObject _laser;
-    private Vector3 _laserPosition;
-    [SerializeField] private float _laserOffset = 1.07f;
+    private Vector2 _laserPosition;
+    [SerializeField] private float _laserOffset = 0.8f;
 
-    [SerializeField] private float _fireRate;
+    [SerializeField] private float _fireRate = 0.2f;
     [SerializeField] private bool _canFire;
     #region Cooldown System using Time.time
     // private float _fireReadyTime;
     #endregion
 
-    [SerializeField] private int _lives;
+    [SerializeField] private int _lives = 3;
 
     private SpawnManager _spawnManager;
 
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
         //this.transform.position = _position;
         #endregion
 
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, _playerRightBoundary, _playerLeftBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary), 0);
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, _playerRightBoundary, _playerLeftBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary));
 
         transform.Translate(_direction * _speed * Time.deltaTime);
     }

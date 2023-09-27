@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyContainer;
-    [SerializeField] private GameObject _enemyPrefab;
-    private GameObject _spawnedEnemy;
-    private Vector3 _enemySpawnPosition;
-    [SerializeField] private float _spawnTime;
-
     [SerializeField] private float _enemySpawnRightBoundary = 12f;
     [SerializeField] private float _enemySpawnUpperBoundary = 4.5f;
     [SerializeField] private float _enemySpawnLowerBoundary = -4.5f;
 
-    private bool _stopSpawning;
+    [SerializeField] private GameObject _enemyContainer;
+    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private float _spawnTime = 1;
+
+    private GameObject _spawnedEnemy;
+    private Vector3 _enemySpawnPosition;
+    
+
+    private bool _stopSpawning = false;
 
     // Start is called before the first frame update
     void Start()

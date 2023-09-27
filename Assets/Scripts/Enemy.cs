@@ -11,9 +11,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _enemyUpperBoundary = 4.5f;
     [SerializeField] private float _enemyLowerBoundary = -4.5f;
 
-    [SerializeField] private float _speed;
-    private Vector3 _position;
-    private Vector3 _direction = Vector3.left;
+    [SerializeField] private float _speed = 6f;
+    private Vector2 _position;
+    private Vector2 _direction = Vector2.left;
 
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     private void Warp()
     {
         float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
-        _position = new Vector3(_enemyRightBoundary, yPosition, 0);
+        _position = new Vector2(_enemyRightBoundary, yPosition);
         transform.position = _position;
     }
 
