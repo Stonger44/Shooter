@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speed = 12f;
 
     [SerializeField] private GameObject _laser;
+    [SerializeField] private GameObject _tripleShot;
+
     private Vector2 _laserPosition;
     [SerializeField] private float _laserOffset = 0.8f;
 
@@ -37,6 +39,9 @@ public class Player : MonoBehaviour
     [SerializeField] private int _lives = 3;
 
     private SpawnManager _spawnManager;
+
+    [SerializeField] private bool _isTripleShotActive = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -111,7 +116,15 @@ public class Player : MonoBehaviour
             _laserPosition = transform.position;
             _laserPosition.x += _laserOffset;
 
-            Instantiate(_laser, _laserPosition, Quaternion.identity);
+            if (_isTripleShotActive)
+            {
+                Instantiate(_tripleShot, _laserPosition, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(_laser, _laserPosition, Quaternion.identity);
+            }
+            
             _canFire = false;
             StartCoroutine(ReadyFire());
         }
