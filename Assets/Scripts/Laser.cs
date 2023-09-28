@@ -5,7 +5,7 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class Laser : MonoBehaviour
 {
-    [SerializeField] private float _boundary = 11f;
+    [SerializeField] private float _boundary = 10.5f;
 
     [SerializeField] private float _speed = 20f;
     private Vector2 _laserDirection = Vector2.right;
@@ -23,6 +23,10 @@ public class Laser : MonoBehaviour
 
         if (transform.position.x > _boundary)
         {
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
             Destroy(this.gameObject);
         }
     }

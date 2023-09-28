@@ -6,10 +6,10 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _enemyLeftBoundary = -12f;
-    [SerializeField] private float _enemyRightBoundary = 12f;
-    [SerializeField] private float _enemyUpperBoundary = 4.5f;
-    [SerializeField] private float _enemyLowerBoundary = -4.5f;
+    [SerializeField] private float _enemyLeftBoundary = -11.2f;
+    [SerializeField] private float _enemyRightBoundary = 11.2f;
+    [SerializeField] private float _enemyUpperBoundary = 4.9f;
+    [SerializeField] private float _enemyLowerBoundary = -4.9f;
 
     [SerializeField] private float _speed = 6f;
     private Vector2 _position;
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
-        this.transform.Translate(_direction * _speed * Time.deltaTime);
+        transform.Translate(_direction * _speed * Time.deltaTime);
 
         if (transform.position.x < _enemyLeftBoundary)
         {
@@ -60,6 +60,10 @@ public class Enemy : MonoBehaviour
         }
         else if (other.tag == _laserTag)
         {
+            if (other.transform.parent != null)
+            {
+                Destroy(other.transform.parent.gameObject);
+            }
             Destroy(other.gameObject);
             Destroy(this.gameObject);
         }

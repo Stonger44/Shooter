@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _playerLeftBoundary = 9f;
-    [SerializeField] private float _playerRightBoundary = -9f;
-    [SerializeField] private float _playerUpperBoundary = 4.8f;
-    [SerializeField] private float _playerLowerBoundary = -4.8f;
-    
+    [SerializeField] private float _playerLeftBoundary = 9.4f;
+    [SerializeField] private float _playerRightBoundary = -9.4f;
+    [SerializeField] private float _playerUpperBoundary = 5.1f;
+    [SerializeField] private float _playerLowerBoundary = -5.1f;
+
     #region PlayerWrap
     //private Vector3 _position;
 
-    //[SerializeField] private float _playerLeftWrap = 11f;
-    //[SerializeField] private float _playerRightWrap = -11f;
+    //[SerializeField] private float _playerLeftWrap = 10.5f;
+    //[SerializeField] private float _playerRightWrap = -10.5f;
     //[SerializeField] private float _playerUpperWrap = 6f;
     //[SerializeField] private float _playerLowerWrap = -6f;
     #endregion
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _laserOffset = 0.8f;
 
     [SerializeField] private float _fireRate = 0.2f;
-    [SerializeField] private bool _canFire;
+    [SerializeField] private bool _canFire = true;
     #region Cooldown System using Time.time
     // private float _fireReadyTime;
     #endregion
@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
 
     private SpawnManager _spawnManager;
 
+    [SerializeField] private float _powerUpTime = 5f;
     [SerializeField] private bool _isTripleShotActive = false;
     
 
@@ -145,5 +146,17 @@ public class Player : MonoBehaviour
             _spawnManager.StopSpawning();
             Destroy(this.gameObject);
         }
+    }
+
+    public void ActivateTripleShot()
+    {
+        _isTripleShotActive = true;
+        StartCoroutine(DeactivatePowerup());
+    }
+
+    private IEnumerator DeactivatePowerup()
+    {
+        yield return new WaitForSeconds(_powerUpTime);
+        _isTripleShotActive = false;
     }
 }
