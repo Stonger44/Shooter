@@ -186,7 +186,12 @@ PrefabInstance:
     - target: {fileID: 7875646962571878835, guid: 75fa82b6d7ebea747a53876222b1f5a3,
         type: 3}
       propertyPath: m_Name
-      value: TripleShot_PowerUp
+      value: PowerUp_TripleShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7875646962571878835, guid: 75fa82b6d7ebea747a53876222b1f5a3,
+        type: 3}
+      propertyPath: m_TagString
+      value: PowerUp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75fa82b6d7ebea747a53876222b1f5a3, type: 3}
