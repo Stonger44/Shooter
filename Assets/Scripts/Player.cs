@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
         //} 
         #endregion
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) && _canFire)
+        if (DidPlayerFire() && _canFire)
         {
             _laserPosition = transform.position;
             _laserPosition.x += _laserOffset;
@@ -129,6 +129,16 @@ public class Player : MonoBehaviour
             _canFire = false;
             StartCoroutine(ReadyFire());
         }
+    }
+
+    private bool DidPlayerFire()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private IEnumerator ReadyFire()
