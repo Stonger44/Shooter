@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 6902426978028695884}
   - component: {fileID: 4426769424050758518}
   - component: {fileID: 4799251883551220839}
+  - component: {fileID: 775245760}
   m_Layer: 0
   m_Name: TripleShot_PowerUp
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,3 +139,22 @@ MonoBehaviour:
   _powerUpUpperBoundary: 4.8
   _powerUpLowerBoundary: -4.9
   _speed: 3
+--- !u!95 &775245760
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7875646962571878835}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 52f8573294081f54e93f5ae5360bbbdc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
