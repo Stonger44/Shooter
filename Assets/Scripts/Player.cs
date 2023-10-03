@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float _powerUpTime = 5f;
     [SerializeField] private bool _isTripleShotActive = false;
-    
+    [SerializeField] private int _tripleShotAmmo = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -120,6 +120,7 @@ public class Player : MonoBehaviour
             if (_isTripleShotActive)
             {
                 Instantiate(_tripleShot, _laserPosition, Quaternion.identity);
+                CheckTripleShotAmmo();
             }
             else
             {
@@ -161,12 +162,16 @@ public class Player : MonoBehaviour
     public void ActivateTripleShot()
     {
         _isTripleShotActive = true;
-        StartCoroutine(DeactivatePowerup());
+        _tripleShotAmmo = 15;
     }
 
-    private IEnumerator DeactivatePowerup()
+    public void CheckTripleShotAmmo()
     {
-        yield return new WaitForSeconds(_powerUpTime);
-        _isTripleShotActive = false;
+        _tripleShotAmmo--;
+
+        if (_tripleShotAmmo < 1)
+        {
+            _isTripleShotActive = false;
+        }
     }
 }

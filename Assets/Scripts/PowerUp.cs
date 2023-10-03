@@ -7,11 +7,8 @@ using UnityEngine.Scripting.APIUpdating;
 public class PowerUp : MonoBehaviour
 {
     [SerializeField] private float _powerUpLeftBoundary = -11.1f;
-    [SerializeField] private float _powerUpRightBoundary = 11.1f;
-    [SerializeField] private float _powerUpUpperBoundary = 4.8f;
-    [SerializeField] private float _powerUpLowerBoundary = -4.9f;
 
-    [SerializeField] private float _speed = 3f;
+    [SerializeField] private float _speed = 0.5f;
     private Vector2 _direction = Vector2.left;
 
     private const string _playerTag = "Player";

@@ -10,11 +10,12 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject _enemyPrefab;
-    [SerializeField] private float _spawnTime = 1;
+    [SerializeField] private float _enemySpawnTime = 1;
 
     private GameObject _spawnedEnemy;
-    private Vector3 _enemySpawnPosition;
-    
+    private Vector2 _enemySpawnPosition;
+
+    [SerializeField] private GameObject[] _powerUps;
 
     [SerializeField] private bool _stopSpawning = false;
 
@@ -22,6 +23,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnEnemy());
+        //StartCoroutine();
     }
 
     // Update is called once per frame
@@ -32,18 +34,27 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        while (_stopSpawning == false)
+        while (!_stopSpawning)
         {
-            float xPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
-            _enemySpawnPosition = new Vector3(xPositionEnemySpawn, _enemySpawnRightBoundary, 0);
+            float yPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
+            _enemySpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionEnemySpawn);
             _spawnedEnemy = Instantiate(_enemyPrefab, _enemySpawnPosition, Quaternion.identity);
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(_spawnTime);
+            yield return new WaitForSeconds(_enemySpawnTime);
         }
     }
 
     public void StopSpawning()
     {
         _stopSpawning = true;
+    }
+
+    public void SpawnPowerUp(Vector2 spawnPosition)
+    {
+        if (!_stopSpawning)
+        {
+            int randomPowerUpIndex = Random.Range(0, _powerUps.Length);
+            Instantiate(_powerUps[randomPowerUpIndex], spawnPosition, Quaternion.identity);
+        }
     }
 }

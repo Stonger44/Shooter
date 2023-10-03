@@ -135,10 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerUpLeftBoundary: -11.1
-  _powerUpRightBoundary: 11.1
-  _powerUpUpperBoundary: 4.8
-  _powerUpLowerBoundary: -4.9
-  _speed: 3
+  _speed: 0.5
 --- !u!95 &775245760
 Animator:
   serializedVersion: 3

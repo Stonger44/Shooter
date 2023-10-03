@@ -11,16 +11,27 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _enemyUpperBoundary = 4.9f;
     [SerializeField] private float _enemyLowerBoundary = -4.9f;
 
+    [SerializeField] private int _health = 3;
     [SerializeField] private float _speed = 6f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
 
+    private string _otherTag = string.Empty;
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
+    private const string _tripleShotTag = "TripleShot";
+
+    private SpawnManager _spawnManager;
+    [SerializeField] private float _powerUpDropChance = 0.20f;
 
     // Start is called before the first frame update
     void Start()
     {
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if (_spawnManager == null)
+        {
+            Debug.LogError("SpawnManager is null!");
+        }
         Warp();
     }
 
@@ -45,27 +56,46 @@ public class Enemy : MonoBehaviour
         float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
         _position = new Vector2(_enemyRightBoundary, yPosition);
         transform.position = _position;
+        _health = 3;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == _playerTag)
+        _otherTag = other.tag;
+
+        if (_otherTag == _playerTag)
         {
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
                 player.Damage();
             }
+            Damage(_otherTag);
+        }
+        else if (_otherTag == _laserTag || _otherTag == _tripleShotTag)
+        {
+            Destroy(other.gameObject);
+            Damage(_otherTag);
+        }
+    }
+
+    private void Damage(string otherTag)
+    {
+        _health--;
+
+        if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag)
+        {
+            RollPowerUpDrop();
             Destroy(this.gameObject);
         }
-        else if (other.tag == _laserTag)
+    }
+
+    private void RollPowerUpDrop()
+    {
+        float randomFloat = Random.Range(0f, 1.0f);
+        if (randomFloat <= _powerUpDropChance)
         {
-            if (other.transform.parent != null)
-            {
-                Destroy(other.transform.parent.gameObject);
-            }
-            Destroy(other.gameObject);
-            Destroy(this.gameObject);
+            _spawnManager.SpawnPowerUp(this.transform.position);
         }
     }
 }
