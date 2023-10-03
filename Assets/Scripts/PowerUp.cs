@@ -13,10 +13,12 @@ public class PowerUp : MonoBehaviour
 
     private const string _playerTag = "Player";
 
+    [SerializeField] private float _powerUpAvailableTime = 5f;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(DestroyPowerUp());
     }
 
     // Update is called once per frame
@@ -46,5 +48,11 @@ public class PowerUp : MonoBehaviour
             }
             Destroy(this.gameObject);
         }
+    }
+
+    private IEnumerator DestroyPowerUp()
+    {
+        yield return new WaitForSeconds(_powerUpAvailableTime);
+        Destroy(this.gameObject);
     }
 }
