@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject _enemyPrefab;
-    [SerializeField] private float _enemySpawnTime = 1;
+    [SerializeField] private float _enemySpawnTime = 2;
 
     private GameObject _spawnedEnemy;
     private Vector2 _enemySpawnPosition;

@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     private const string _tripleShotTag = "TripleShot";
 
     private SpawnManager _spawnManager;
-    [SerializeField] private float _powerUpDropChance = 0.20f;
+    [SerializeField] private float _powerUpDropChance = 0.15f;
 
     // Start is called before the first frame update
     void Start()
