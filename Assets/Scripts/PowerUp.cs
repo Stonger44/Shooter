@@ -14,6 +14,10 @@ public class PowerUp : MonoBehaviour
     private Vector2 _direction = Vector2.left;
 
     [SerializeField] private float _powerUpAvailableTime = 3f;
+
+    // 0 = TripleShot
+    // 1 = Speed
+    // 2 = Shield
     [SerializeField] private int _powerUpID;
 
     // Start is called before the first frame update
