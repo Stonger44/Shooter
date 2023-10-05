@@ -13,7 +13,7 @@ public class PowerUp : MonoBehaviour
 
     private const string _playerTag = "Player";
 
-    [SerializeField] private float _powerUpAvailableTime = 5f;
+    [SerializeField] private float _powerUpAvailableTime = 3f;
 
     // Start is called before the first frame update
     void Start()

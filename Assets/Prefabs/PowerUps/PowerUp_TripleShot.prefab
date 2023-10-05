@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4799251883551220839}
   - component: {fileID: 775245760}
   m_Layer: 0
-  m_Name: TripleShot_PowerUp
+  m_Name: PowerUp_TripleShot
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _powerUpLeftBoundary: -11.1
   _speed: 0.5
+  _powerUpAvailableTime: 3
 --- !u!95 &775245760
 Animator:
   serializedVersion: 3

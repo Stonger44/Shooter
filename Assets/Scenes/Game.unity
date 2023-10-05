@@ -158,7 +158,7 @@ MonoBehaviour:
     type: 3}
   _enemySpawnTime: 2
   _powerUps:
-  - {fileID: 7875646962571878835, guid: d7535d92f2f863843a7229db6458e63a, type: 3}
+  - {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
   _stopSpawning: 0
 --- !u!4 &455001553
 Transform:
