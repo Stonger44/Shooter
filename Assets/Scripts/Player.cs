@@ -199,4 +199,9 @@ public class Player : MonoBehaviour
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
     }
+
+    public void ActivateShields()
+    {
+        Debug.Log("Shields Up!");
+    }
 }
