@@ -6,14 +6,15 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class PowerUp : MonoBehaviour
 {
+    private const string _playerTag = "Player";
+
     [SerializeField] private float _powerUpLeftBoundary = -11.1f;
 
     [SerializeField] private float _speed = 0.5f;
     private Vector2 _direction = Vector2.left;
 
-    private const string _playerTag = "Player";
-
     [SerializeField] private float _powerUpAvailableTime = 3f;
+    [SerializeField] private int _powerUpID;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,19 @@ public class PowerUp : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
+                switch (_powerUpID)
+                {
+                    case 0:
+                        player.ActivateTripleShot();
+                        break;
+                    case 1:
+
+                        break;
+                    default:
+
+                        break;
+                }
+
                 player.ActivateTripleShot();
             }
             Destroy(this.gameObject);

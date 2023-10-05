@@ -156,9 +156,10 @@ MonoBehaviour:
   _enemyContainer: {fileID: 793658857}
   _enemyPrefab: {fileID: 3368753958657129261, guid: 07a25606273788949a87fa6d12c5e870,
     type: 3}
-  _enemySpawnTime: 2
+  _enemySpawnTime: 1
   _powerUps:
   - {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
+  - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
   _stopSpawning: 0
 --- !u!4 &455001553
 Transform:
@@ -301,12 +302,13 @@ MonoBehaviour:
   _tripleShot: {fileID: 4511263273684437505, guid: 6f85859e3f6c63147b4fcc1cfe1de2fd,
     type: 3}
   _laserOffset: 0.8
-  _fireRate: 0.2
+  _fireRate: 0.15
   _canFire: 1
   _lives: 3
-  _powerUpTime: 5
   _isTripleShotActive: 0
   _tripleShotAmmo: 0
+  _isSpeedBoostActive: 0
+  _speedBoostActiveTime: 7
 --- !u!61 &487352433
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -6,6 +6,11 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class Enemy : MonoBehaviour
 {
+    private const string _playerTag = "Player";
+    private const string _laserTag = "Laser";
+    private const string _tripleShotTag = "TripleShot";
+    private string _otherTag = string.Empty;
+
     [SerializeField] private float _enemyLeftBoundary = -11.2f;
     [SerializeField] private float _enemyRightBoundary = 11.2f;
     [SerializeField] private float _enemyUpperBoundary = 4.9f;
@@ -15,11 +20,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _speed = 6f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
-
-    private string _otherTag = string.Empty;
-    private const string _playerTag = "Player";
-    private const string _laserTag = "Laser";
-    private const string _tripleShotTag = "TripleShot";
 
     private SpawnManager _spawnManager;
     [SerializeField] private float _powerUpDropChance = 0.15f;
