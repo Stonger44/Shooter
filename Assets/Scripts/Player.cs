@@ -42,11 +42,11 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
 
     [SerializeField] private bool _isTripleShotActive = false;
-    [SerializeField] private float _isTripleFireRate = 0.2f;
+    [SerializeField] private float _tripleShotFireRate = 0.2f;
     [SerializeField] private int _tripleShotAmmo = 0;
 
-    [SerializeField] private bool _isSpeedBoostActive = false;
     [SerializeField] private float _speedBoostActiveTime = 5f;
+    private float _speedBoostDeactivationTime;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +64,8 @@ public class Player : MonoBehaviour
         Move();
 
         Fire();
+
+        CheckSpeedBoost();
     }
 
     private void Move()
@@ -166,7 +168,7 @@ public class Player : MonoBehaviour
     public void ActivateTripleShot()
     {
         _isTripleShotActive = true;
-        _fireRate = _isTripleFireRate;
+        _fireRate = _tripleShotFireRate;
         _tripleShotAmmo = 15;
     }
 
@@ -178,6 +180,23 @@ public class Player : MonoBehaviour
         {
             _isTripleShotActive = false;
             _fireRate = _laserFireRate;
+        }
+    }
+
+    public void ActivateSpeedBoost()
+    {
+        Time.timeScale = 0.7f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        _speedBoostDeactivationTime = Time.time + _speedBoostActiveTime;
+    }
+
+    private void CheckSpeedBoost()
+    {
+        if (Time.time > _speedBoostDeactivationTime)
+        {
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
     }
 }
