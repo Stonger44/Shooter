@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     private Vector2 _direction = Vector2.left;
 
     private SpawnManager _spawnManager;
-    [SerializeField] private float _powerUpDropChance = 0.15f;
+    [SerializeField] private float _powerUpDropChance = 0.2f;
 
     // Start is called before the first frame update
     void Start()

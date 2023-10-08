@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     private float _verticalAxis;
     private Vector2 _direction;
     [SerializeField] private float _speed = 12f;
+    [SerializeField] private float _speedStandard = 12f;
 
     [SerializeField] private GameObject _laser;
     [SerializeField] private GameObject _tripleShot;
@@ -47,6 +48,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float _speedBoostActiveTime = 5f;
     private float _speedBoostDeactivationTime;
+    [SerializeField] private float _speedBoostTimeScale = 0.7f;
+    [SerializeField] private float _speedBoostSpeed = 18f;
 
     // Start is called before the first frame update
     void Start()
@@ -185,8 +188,9 @@ public class Player : MonoBehaviour
 
     public void ActivateSpeedBoost()
     {
-        Time.timeScale = 0.7f;
+        Time.timeScale = _speedBoostTimeScale;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        _speed = _speedBoostSpeed;
 
         _speedBoostDeactivationTime = Time.time + _speedBoostActiveTime;
     }
@@ -197,11 +201,12 @@ public class Player : MonoBehaviour
         {
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            _speed = _speedStandard;
         }
     }
 
-    public void ActivateShields()
+    public void ActivateShield()
     {
-        Debug.Log("Shields Up!");
+        Debug.Log("Shield Up!");
     }
 }

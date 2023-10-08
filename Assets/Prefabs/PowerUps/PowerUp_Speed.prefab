@@ -156,4 +156,4 @@ MonoBehaviour:
   _powerUpLeftBoundary: -11.1
   _speed: 0.5
   _powerUpAvailableTime: 3
-  _powerUpID: 1
+  _powerUpId: 1

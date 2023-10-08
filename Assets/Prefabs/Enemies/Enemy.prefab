@@ -149,4 +149,4 @@ MonoBehaviour:
   _enemyLowerBoundary: -4.9
   _health: 3
   _speed: 6
-  _powerUpDropChance: 0.2
+  _powerUpDropChance: 0.25
