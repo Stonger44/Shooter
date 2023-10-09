@@ -205,8 +205,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ActivateShield()
+    public void ActivateShields()
     {
-        Debug.Log("Shield Up!");
+        Debug.Log("Shields Up!");
     }
 }
