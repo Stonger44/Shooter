@@ -67,8 +67,6 @@ public class Player : MonoBehaviour
         Move();
 
         Fire();
-
-        CheckSpeedBoost();
     }
 
     private void Move()
@@ -104,6 +102,8 @@ public class Player : MonoBehaviour
         #endregion
 
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, _playerRightBoundary, _playerLeftBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary));
+
+        CheckSpeedBoost();
 
         transform.Translate(_direction * _speed * Time.deltaTime);
     }
