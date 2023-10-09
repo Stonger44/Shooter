@@ -23,7 +23,6 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnEnemy());
-        //StartCoroutine();
     }
 
     // Update is called once per frame
