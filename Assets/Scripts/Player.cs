@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speedBoostTimeScale = 0.7f;
     [SerializeField] private float _speedBoostSpeed = 18f;
 
+    [SerializeField] private float _shields = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -159,6 +160,13 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_shields > 0)
+        {
+            _shields--;
+            Debug.Log($"Shield Power: {_shields}");
+            return;
+        }
+
         _lives--;
 
         if (_lives < 1)
@@ -207,6 +215,10 @@ public class Player : MonoBehaviour
 
     public void ActivateShields()
     {
-        Debug.Log("Shields Up!");
+        if (_shields < 3)
+        {
+            _shields++;
+            Debug.Log($"Shield Power: {_shields}");
+        }
     }
 }
