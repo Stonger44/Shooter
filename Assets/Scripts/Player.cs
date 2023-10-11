@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("SpawnManager is null!");
         }
+        _shield.SetActive(false);
     }
 
     // Update is called once per frame
