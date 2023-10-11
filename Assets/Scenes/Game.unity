@@ -160,6 +160,7 @@ MonoBehaviour:
   _powerUps:
   - {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
   - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
+  - {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a, type: 3}
   _stopSpawning: 0
 --- !u!4 &455001553
 Transform:
