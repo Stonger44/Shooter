@@ -53,6 +53,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float _shields = 0;
     [SerializeField] private GameObject _shield;
+
+    [SerializeField] private int _score = 0;
+    private UIManager _uiManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +64,11 @@ public class Player : MonoBehaviour
         if (_spawnManager == null)
         {
             Debug.LogError("SpawnManager is null!");
+        }
+        _uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        if (_uiManager == null)
+        {
+            Debug.Log("UIManager is null!");
         }
         _shield.SetActive(false);
     }
@@ -182,6 +191,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    #region PowerUps
     public void ActivateTripleShot()
     {
         _isTripleShotActive = true;
@@ -227,5 +237,12 @@ public class Player : MonoBehaviour
             _shield.SetActive(true);
             Debug.Log($"Shield Power: {_shields}");
         }
+    }
+    #endregion
+
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScore(_score);
     }
 }

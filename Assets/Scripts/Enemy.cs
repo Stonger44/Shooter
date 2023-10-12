@@ -22,11 +22,17 @@ public class Enemy : MonoBehaviour
     private Vector2 _direction = Vector2.left;
 
     private SpawnManager _spawnManager;
+    private Player _player;
     [SerializeField] private float _powerUpDropChance = 0.2f;
 
     // Start is called before the first frame update
     void Start()
     {
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is null!");
+        }
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         if (_spawnManager == null)
         {
@@ -65,11 +71,7 @@ public class Enemy : MonoBehaviour
 
         if (_otherTag == _playerTag)
         {
-            Player player = other.GetComponent<Player>();
-            if (player != null)
-            {
-                player.Damage();
-            }
+            _player.Damage();
             Damage(_otherTag);
         }
         else if (_otherTag == _laserTag || _otherTag == _tripleShotTag)
@@ -86,6 +88,7 @@ public class Enemy : MonoBehaviour
         if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag)
         {
             RollPowerUpDrop();
+            _player.AddScore(10);
             Destroy(this.gameObject);
         }
     }
