@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyLeftBoundary: -11.2
   _enemyRightBoundary: 11.2
-  _enemyUpperBoundary: 4.9
+  _enemyUpperBoundary: 3.7
   _enemyLowerBoundary: -4.9
   _health: 3
   _speed: 6

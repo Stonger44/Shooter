@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float _playerLeftBoundary = 9.4f;
     [SerializeField] private float _playerRightBoundary = -9.4f;
-    [SerializeField] private float _playerUpperBoundary = 5.1f;
+    [SerializeField] private float _playerUpperBoundary = 3.7f;
     [SerializeField] private float _playerLowerBoundary = -5.1f;
 
     #region PlayerWrap

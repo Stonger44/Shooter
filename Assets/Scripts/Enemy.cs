@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float _enemyLeftBoundary = -11.2f;
     [SerializeField] private float _enemyRightBoundary = 11.2f;
-    [SerializeField] private float _enemyUpperBoundary = 4.9f;
+    [SerializeField] private float _enemyUpperBoundary = 3.7f;
     [SerializeField] private float _enemyLowerBoundary = -4.9f;
 
     [SerializeField] private int _health = 3;

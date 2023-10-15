@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private float _enemySpawnRightBoundary = 11.2f;
-    [SerializeField] private float _enemySpawnUpperBoundary = 4.9f;
+    [SerializeField] private float _enemySpawnUpperBoundary = 3.7f;
     [SerializeField] private float _enemySpawnLowerBoundary = -4.9f;
 
     [SerializeField] private GameObject _enemyContainer;
