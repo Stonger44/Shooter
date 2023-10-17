@@ -8,20 +8,26 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _score;
     [SerializeField] private Image _lives;
     [SerializeField] private Sprite[] _livesSpriteArray;
-    [SerializeField] private GameObject _gameOver;
+    [SerializeField] private GameObject _gameOverUI;
+    [SerializeField] private GameObject _restartUI;
     [SerializeField] private float _gameOverBlinkTime = 0.5f;
-    private bool _gameOverActive = false;
+    private bool _displayGameOver = false;
+    private GameManager _gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (_gameManager == null)
+        {
+            Debug.LogError("GameManager is null!");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void UpdateScore(int score)
@@ -35,22 +41,35 @@ public class UIManager : MonoBehaviour
 
         if (lives < 1)
         {
-            // Set game time back to normal in case SpeedBoost is active when the player dies
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
-
-            StartCoroutine(GameOverBlink(lives));
+            InitiateGameOverUI();
         }
     }
 
-    private IEnumerator GameOverBlink(int lives)
+    private void InitiateGameOverUI()
     {
-        while (lives < 1)
+        // Set game time back to normal in case SpeedBoost is active when the player dies
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        StartCoroutine(GameOverBlink());
+        StartCoroutine(DisplayRestart());
+    }
+
+    private IEnumerator GameOverBlink()
+    {
+        while (true)
         {
-            _gameOverActive = !_gameOverActive;
-            _gameOver.SetActive(_gameOverActive);
+            _displayGameOver = !_displayGameOver;
+            _gameOverUI.SetActive(_displayGameOver);
 
             yield return new WaitForSeconds(_gameOverBlinkTime);
         }
+    }
+
+    private IEnumerator DisplayRestart()
+    {
+        yield return new WaitForSeconds(3);
+        _restartUI.SetActive(true);
+        _gameManager.GameOver();
     }
 }

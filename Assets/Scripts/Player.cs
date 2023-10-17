@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         if (_uiManager == null)
         {
-            Debug.Log("UIManager is null!");
+            Debug.LogError("UIManager is null!");
         }
         _shield.SetActive(false);
     }

@@ -33,6 +33,8 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
+        yield return new WaitForSeconds(_enemySpawnTime);
+
         while (!_stopSpawning)
         {
             float yPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
