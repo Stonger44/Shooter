@@ -3,31 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private bool _gameOver = false;
-
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_gameOver && Input.GetKeyDown(KeyCode.R))
-        {
-            RestartGame();
-        }
+        
     }
 
-    public void GameOver()
-    {
-        _gameOver = true;
-    }
-
-    private void RestartGame()
+    public void LoadGame()
     {
         SceneManager.LoadScene(1); // Game Scene
     }
