@@ -25,6 +25,10 @@ public class Enemy : MonoBehaviour
     private Player _player;
     [SerializeField] private float _powerUpDropChance = 0.2f;
 
+    private bool _isExploding;
+    private Animator _animator;
+    private CircleCollider2D _collider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +41,16 @@ public class Enemy : MonoBehaviour
         if (_spawnManager == null)
         {
             Debug.LogError("SpawnManager is null!");
+        }
+        _animator = GetComponent<Animator>();
+        if (_animator == null)
+        {
+            Debug.LogError("Enemy Animator is null!");
+        }
+        _collider = GetComponent<CircleCollider2D>();
+        if (_collider == null)
+        {
+            Debug.LogError("Enemy Collider is null!");
         }
         Warp();
     }
@@ -51,7 +65,7 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(_direction * _speed * Time.deltaTime);
 
-        if (transform.position.x < _enemyLeftBoundary)
+        if (!_isExploding && transform.position.x < _enemyLeftBoundary)
         {
             Warp();
         }
@@ -87,14 +101,19 @@ public class Enemy : MonoBehaviour
 
         if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag)
         {
-            RollPowerUpDrop();
             _player.AddScore(10);
-            Destroy(this.gameObject);
+            _isExploding = true;
+            _collider.enabled = false;
+            _animator.SetTrigger("OnEnemyDeath");
+            StartCoroutine(RollPowerUpDrop());
+            Destroy(this.gameObject, 2.6f);
         }
     }
 
-    private void RollPowerUpDrop()
+    private IEnumerator RollPowerUpDrop()
     {
+        yield return new WaitForSeconds(1f);
+
         float randomFloat = Random.Range(0f, 1.0f);
         if (randomFloat <= _powerUpDropChance)
         {

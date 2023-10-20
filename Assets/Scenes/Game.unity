@@ -477,7 +477,7 @@ MonoBehaviour:
   _enemyContainer: {fileID: 793658857}
   _enemyPrefab: {fileID: 3368753958657129261, guid: 07a25606273788949a87fa6d12c5e870,
     type: 3}
-  _enemySpawnTime: 1
+  _enemySpawnTime: 2
   _powerUps:
   - {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
   - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
