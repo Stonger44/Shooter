@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float _gameOverBlinkTime = 0.5f;
     private bool _displayGameOver = false;
     private GameManager _gameManager;
+    [SerializeField] private GameObject[] _shieldsArray;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,21 @@ public class UIManager : MonoBehaviour
         if (lives < 1)
         {
             InitiateGameOverUI();
+        }
+    }
+
+    public void UpdateShields(int shieldLevel)
+    {
+        for (int i = 0; i < _shieldsArray.Length; i++)
+        {
+            if (i < shieldLevel)
+            {
+                _shieldsArray[i].SetActive(true);
+            }
+            else
+            {
+                _shieldsArray[i].SetActive(false);
+            }
         }
     }
 

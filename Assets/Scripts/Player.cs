@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speedBoostTimeScale = 0.7f;
     [SerializeField] private float _speedBoostSpeed = 18f;
 
-    [SerializeField] private float _shields = 0;
+    [SerializeField] private int _shields = 0;
     [SerializeField] private GameObject _shield;
 
     [SerializeField] private int _score = 0;
@@ -174,7 +174,7 @@ public class Player : MonoBehaviour
         if (_shields > 0)
         {
             _shields--;
-            Debug.Log($"Shield Power: {_shields}");
+            _uiManager.UpdateShields(_shields);
             if (_shields < 1)
             {
                 _shield.SetActive(false);
@@ -236,7 +236,7 @@ public class Player : MonoBehaviour
         {
             _shields++;
             _shield.SetActive(true);
-            Debug.Log($"Shield Power: {_shields}");
+            _uiManager.UpdateShields(_shields);
         }
     }
     #endregion
