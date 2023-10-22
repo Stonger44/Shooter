@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour
             _collider.enabled = false;
             _animator.SetTrigger("OnEnemyDeath");
             StartCoroutine(RollPowerUpDrop());
-            Destroy(this.gameObject, 2.6f);
+            Destroy(this.gameObject, 2.7f);
         }
     }
 
