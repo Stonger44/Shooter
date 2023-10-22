@@ -1,10 +1,8 @@
-﻿// using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 
-public class Enemy : MonoBehaviour
+public class Asteroid : MonoBehaviour
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
@@ -13,7 +11,6 @@ public class Enemy : MonoBehaviour
 
     private SpawnManager _spawnManager;
     private Player _player;
-    private Animator _animator;
     private CircleCollider2D _collider;
 
     [SerializeField] private float _enemyLeftBoundary = -11.2f;
@@ -25,9 +22,11 @@ public class Enemy : MonoBehaviour
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
 
-    [SerializeField] private int _health = 3;
+    [SerializeField] private float _rotationSpeed;
+    private float _rotationRange = 200;
+
+    [SerializeField] private int _health = 6;
     private bool _isExploding;
-    [SerializeField] private float _powerUpDropChance = 0.25f;
 
     // Start is called before the first frame update
     void Start()
@@ -42,23 +41,26 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("SpawnManager is null!");
         }
-        _animator = GetComponent<Animator>();
-        if (_animator == null)
-        {
-            Debug.LogError("Enemy Animator is null!");
-        }
         _collider = GetComponent<CircleCollider2D>();
         if (_collider == null)
         {
             Debug.LogError("Enemy Collider is null!");
         }
+
+        _rotationSpeed = Random.Range(-_rotationRange, _rotationRange);
         Warp();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Rotate();
         Move();
+    }
+
+    private void Rotate()
+    {
+        transform.Rotate(Vector3.forward * _rotationSpeed * Time.deltaTime);
     }
 
     private void Move()
@@ -76,7 +78,7 @@ public class Enemy : MonoBehaviour
         float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
         _position = new Vector2(_enemyRightBoundary, yPosition);
         transform.position = _position;
-        _health = 3;
+        _health = 6;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -99,25 +101,26 @@ public class Enemy : MonoBehaviour
     {
         _health--;
 
-        if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag)
+        if (otherTag == _tripleShotTag)
         {
-            _player.AddScore(10);
+            _health -= 3;
+        }
+
+        if (_health < 1 || otherTag == _playerTag)
+        {
+            _player.AddScore(20);
             _isExploding = true;
             _collider.enabled = false;
-            _animator.SetTrigger("OnEnemyDeath");
-            StartCoroutine(RollPowerUpDrop());
-            Destroy(this.gameObject, 2.7f);
+            StartCoroutine(DropPowerUp());
+            Destroy(this.gameObject, 0.25f);
         }
     }
 
-    private IEnumerator RollPowerUpDrop()
+    private IEnumerator DropPowerUp()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.2f);
 
         float randomFloat = Random.Range(0f, 1.0f);
-        if (randomFloat <= _powerUpDropChance)
-        {
-            _spawnManager.SpawnPowerUp(this.transform.position);
-        }
+        _spawnManager.SpawnPowerUp(this.transform.position);
     }
 }
