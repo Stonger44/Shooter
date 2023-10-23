@@ -11,9 +11,12 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private float _enemySpawnTime = 2;
-
     private GameObject _spawnedEnemy;
     private Vector2 _enemySpawnPosition;
+    [SerializeField] private GameObject _asteroidPrefab;
+    [SerializeField] private float _asteroidSpawnTime = 4;
+    private GameObject _spawnedAsteroid;
+    private Vector2 _asteroidSpawnPosition;
 
     [SerializeField] private GameObject[] _powerUps;
 
@@ -23,6 +26,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnAsteroid());
     }
 
     // Update is called once per frame
@@ -42,6 +46,20 @@ public class SpawnManager : MonoBehaviour
             _spawnedEnemy = Instantiate(_enemyPrefab, _enemySpawnPosition, Quaternion.identity);
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(_enemySpawnTime);
+        }
+    }
+
+    private IEnumerator SpawnAsteroid()
+    {
+        yield return new WaitForSeconds(_asteroidSpawnTime);
+
+        while (!_stopSpawning)
+        {
+            float yPositionAsteroidSpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
+            _asteroidSpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionAsteroidSpawn);
+            _spawnedAsteroid = Instantiate(_asteroidPrefab, _asteroidSpawnPosition, Quaternion.identity);
+            _spawnedAsteroid.transform.parent = _enemyContainer.transform;
+            yield return new WaitForSeconds(_asteroidSpawnTime);
         }
     }
 

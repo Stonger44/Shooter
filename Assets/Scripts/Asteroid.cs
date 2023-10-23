@@ -12,18 +12,17 @@ public class Asteroid : MonoBehaviour
     private SpawnManager _spawnManager;
     private Player _player;
     private CircleCollider2D _collider;
+    [SerializeField] private GameObject _asteroidSprite;
+    [SerializeField] private GameObject _explosion;
 
-    [SerializeField] private float _enemyLeftBoundary = -11.2f;
-    [SerializeField] private float _enemyRightBoundary = 11.2f;
-    [SerializeField] private float _enemyUpperBoundary = 3.7f;
-    [SerializeField] private float _enemyLowerBoundary = -4.9f;
+    [SerializeField] private float _asteroidLeftBoundary = -11.2f;
+    [SerializeField] private float _asteroidRightBoundary = 11.2f;
+    [SerializeField] private float _asteroidUpperBoundary = 3.7f;
+    [SerializeField] private float _asteroidLowerBoundary = -4.9f;
 
-    [SerializeField] private float _speed = 6f;
+    [SerializeField] private float _speed = 4f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
-
-    [SerializeField] private float _rotationSpeed;
-    private float _rotationRange = 200;
 
     [SerializeField] private int _health = 6;
     private bool _isExploding;
@@ -47,27 +46,20 @@ public class Asteroid : MonoBehaviour
             Debug.LogError("Enemy Collider is null!");
         }
 
-        _rotationSpeed = Random.Range(-_rotationRange, _rotationRange);
         Warp();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Rotate();
         Move();
-    }
-
-    private void Rotate()
-    {
-        transform.Rotate(Vector3.forward * _rotationSpeed * Time.deltaTime);
     }
 
     private void Move()
     {
         transform.Translate(_direction * _speed * Time.deltaTime);
 
-        if (!_isExploding && transform.position.x < _enemyLeftBoundary)
+        if (!_isExploding && transform.position.x < _asteroidLeftBoundary)
         {
             Warp();
         }
@@ -75,8 +67,8 @@ public class Asteroid : MonoBehaviour
 
     private void Warp()
     {
-        float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
-        _position = new Vector2(_enemyRightBoundary, yPosition);
+        float yPosition = Random.Range(_asteroidLowerBoundary, _asteroidUpperBoundary);
+        _position = new Vector2(_asteroidRightBoundary, yPosition);
         transform.position = _position;
         _health = 6;
     }
@@ -111,16 +103,17 @@ public class Asteroid : MonoBehaviour
             _player.AddScore(20);
             _isExploding = true;
             _collider.enabled = false;
-            StartCoroutine(DropPowerUp());
-            Destroy(this.gameObject, 0.25f);
+            _explosion.SetActive(true);
+            StartCoroutine(DestroyAsteroid());
+            Destroy(this.gameObject, 2.7f);
         }
     }
 
-    private IEnumerator DropPowerUp()
+    private IEnumerator DestroyAsteroid()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.25f);
 
-        float randomFloat = Random.Range(0f, 1.0f);
+        _asteroidSprite.SetActive(false);
         _spawnManager.SpawnPowerUp(this.transform.position);
     }
 }
