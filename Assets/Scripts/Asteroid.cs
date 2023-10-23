@@ -43,7 +43,7 @@ public class Asteroid : MonoBehaviour
         _collider = GetComponent<CircleCollider2D>();
         if (_collider == null)
         {
-            Debug.LogError("Enemy Collider is null!");
+            Debug.LogError("Asteroid Collider is null!");
         }
 
         Warp();
