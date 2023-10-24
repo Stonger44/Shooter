@@ -755,6 +755,8 @@ MonoBehaviour:
   - {fileID: 1500530325}
   - {fileID: 1016917269}
   - {fileID: 601607743}
+  _explosion: {fileID: 7482745557342030904, guid: 6b8d777b108c0454a883d046118a996d,
+    type: 3}
   _isTripleShotActive: 0
   _tripleShotFireRate: 0.2
   _tripleShotAmmo: 0

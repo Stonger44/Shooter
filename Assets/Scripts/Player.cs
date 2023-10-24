@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private int _lives = 3;
     [SerializeField] private List<GameObject> _damageEffectList;
+    [SerializeField] private GameObject _explosion;
 
     private SpawnManager _spawnManager;
 
@@ -190,6 +191,7 @@ public class Player : MonoBehaviour
         if (_lives < 1)
         {
             _spawnManager.StopSpawning();
+            Instantiate(_explosion, this.transform.position, Quaternion.Euler(0, 0, 90));
             Destroy(this.gameObject);
         }
     }
