@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     private Vector2 _laserPosition;
     [SerializeField] private float _laserOffset = 0.8f;
 
-    [SerializeField] private float _fireRate = 0.15f;
+    private float _fireRate;
     [SerializeField] private float _laserFireRate = 0.15f;
     [SerializeField] private bool _canFire = true;
     #region Cooldown System using Time.time
@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     #endregion
 
     [SerializeField] private int _lives = 3;
+    [SerializeField] private List<GameObject> _damageEffectList;
 
     private SpawnManager _spawnManager;
 
@@ -70,7 +71,7 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("UIManager is null!");
         }
-        _shield.SetActive(false);
+        _fireRate = _laserFireRate;
     }
 
     // Update is called once per frame
@@ -184,12 +185,21 @@ public class Player : MonoBehaviour
 
         _lives--;
         _uiManager.UpdateLives(_lives);
+        StartCoroutine(ShowPlayerDamage());
 
         if (_lives < 1)
         {
             _spawnManager.StopSpawning();
             Destroy(this.gameObject);
         }
+    }
+
+    private IEnumerator ShowPlayerDamage()
+    {
+        yield return new WaitForSeconds(.3f);
+        int randomIndex = UnityEngine.Random.Range(0, _damageEffectList.Count);
+        _damageEffectList[randomIndex].SetActive(true);
+        _damageEffectList.RemoveAt(randomIndex);
     }
 
     #region PowerUps
