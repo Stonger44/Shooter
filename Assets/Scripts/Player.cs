@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _laserOffset = 0.8f;
 
     private float _fireRate;
-    [SerializeField] private float _laserFireRate = 0.15f;
+    [SerializeField] private float _laserFireRate = 0.12f;
     [SerializeField] private bool _canFire = true;
     #region Cooldown System using Time.time
     // private float _fireReadyTime;
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
 
     [SerializeField] private bool _isTripleShotActive = false;
-    [SerializeField] private float _tripleShotFireRate = 0.2f;
+    [SerializeField] private float _tripleShotFireRate = 0.18f;
     [SerializeField] private int _tripleShotAmmo = 0;
 
     [SerializeField] private float _speedBoostActiveTime = 5f;
@@ -209,7 +209,7 @@ public class Player : MonoBehaviour
     {
         _isTripleShotActive = true;
         _fireRate = _tripleShotFireRate;
-        _tripleShotAmmo = 15;
+        _tripleShotAmmo = 17;
     }
 
     private void CheckTripleShotAmmo()
