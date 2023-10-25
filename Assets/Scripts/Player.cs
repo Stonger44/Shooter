@@ -198,7 +198,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator ShowPlayerDamage()
     {
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.4f);
         int randomIndex = UnityEngine.Random.Range(0, _damageEffectList.Count);
         _damageEffectList[randomIndex].SetActive(true);
         _damageEffectList.RemoveAt(randomIndex);
