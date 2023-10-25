@@ -45,13 +45,14 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
 
     [SerializeField] private bool _isTripleShotActive = false;
-    [SerializeField] private float _tripleShotFireRate = 0.18f;
-    [SerializeField] private int _tripleShotAmmo = 0;
+    [SerializeField] private float _tripleShotFireRate = 0.15f;
+    [SerializeField] private int _tripleShotAmmo;
+    [SerializeField] private int _tripleShotMaxAmmo = 17;
 
     [SerializeField] private float _speedBoostActiveTime = 5f;
     private float _speedBoostDeactivationTime;
     [SerializeField] private float _speedBoostTimeScale = 0.7f;
-    [SerializeField] private float _speedBoostSpeed = 18f;
+    [SerializeField] private float _speedBoostSpeed = 22f;
 
     [SerializeField] private int _shields = 0;
     [SerializeField] private GameObject _shield;
@@ -209,12 +210,14 @@ public class Player : MonoBehaviour
     {
         _isTripleShotActive = true;
         _fireRate = _tripleShotFireRate;
-        _tripleShotAmmo = 17;
+        _tripleShotAmmo = _tripleShotMaxAmmo;
+        _uiManager.UpdateTripleShotAmmo(_tripleShotAmmo);
     }
 
     private void CheckTripleShotAmmo()
     {
         _tripleShotAmmo--;
+        _uiManager.UpdateTripleShotAmmo(_tripleShotAmmo);
 
         if (_tripleShotAmmo < 1)
         {

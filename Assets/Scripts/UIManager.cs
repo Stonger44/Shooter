@@ -8,12 +8,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _score;
     [SerializeField] private Image _lives;
     [SerializeField] private Sprite[] _livesSpriteArray;
+    [SerializeField] private GameObject[] _shieldsArray;
     [SerializeField] private GameObject _gameOverUI;
     [SerializeField] private GameObject _restartUI;
     [SerializeField] private float _gameOverBlinkTime = 0.5f;
     private bool _displayGameOver = false;
     private GameManager _gameManager;
-    [SerializeField] private GameObject[] _shieldsArray;
+    
+    [SerializeField] private Text _tripleShotAmmo;
+    private string _tripleShotAmmoCount;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,8 @@ public class UIManager : MonoBehaviour
         {
             Debug.LogError("GameManager is null!");
         }
+
+        _tripleShotAmmo.text = string.Empty;
     }
 
     // Update is called once per frame
@@ -59,6 +64,18 @@ public class UIManager : MonoBehaviour
                 _shieldsArray[i].SetActive(false);
             }
         }
+    }
+
+    public void UpdateTripleShotAmmo(int tripleShotAmmo)
+    {
+        _tripleShotAmmoCount = string.Empty;
+
+        for (int i = 0; i < tripleShotAmmo; i++)
+        {
+            _tripleShotAmmoCount += "|";
+        }
+
+        _tripleShotAmmo.text = _tripleShotAmmoCount;
     }
 
     private void InitiateGameOverUI()
