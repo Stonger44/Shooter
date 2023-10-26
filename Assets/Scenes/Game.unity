@@ -325,6 +325,7 @@ MonoBehaviour:
   _returnToMainMenuUI: {fileID: 1169881340}
   _gameOverBlinkTime: 0.5
   _tripleShotAmmo: {fileID: 590601433}
+  _speedBoostBar: {fileID: 426377160}
 --- !u!1 &108732070
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 68.3, y: -11}
+  m_AnchoredPosition: {x: 68.3, y: -10.5}
   m_SizeDelta: {x: 53.8, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &426377160
@@ -579,12 +580,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 55fa8388456bb0f40ad03c641eba1cb6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59c4f39873fb05c4cbf11280e6e3c2ec, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -879,7 +880,7 @@ MonoBehaviour:
   _tripleShotFireRate: 0.15
   _tripleShotAmmo: 0
   _tripleShotMaxAmmo: 15
-  _speedBoostActiveTime: 5
+  _speedBoostActiveTime: 4
   _speedBoostTimeScale: 0.5
   _speedBoostSpeed: 22
   _shields: 0
@@ -1029,7 +1030,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 69.1, y: -10}
+  m_AnchoredPosition: {x: 68, y: -10}
   m_SizeDelta: {x: 65, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &590601433
@@ -1064,7 +1065,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '|||||||||||||||'
+  m_Text: 
 --- !u!222 &590601434
 CanvasRenderer:
   m_ObjectHideFlags: 0

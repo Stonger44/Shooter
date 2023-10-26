@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     
     [SerializeField] private Text _tripleShotAmmo;
     private string _tripleShotAmmoCount;
+    [SerializeField] private Image _speedBoostBar;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
         }
 
         _tripleShotAmmo.text = string.Empty;
+        _speedBoostBar.fillAmount = 0f;
     }
 
     // Update is called once per frame
@@ -77,6 +79,20 @@ public class UIManager : MonoBehaviour
         }
 
         _tripleShotAmmo.text = _tripleShotAmmoCount;
+    }
+
+    public void UpdateSpeedBoostBar(float speedBoostActiveTime, float speedBoostDeactivationTime)
+    {
+        float speedBoostTimeRemaining = speedBoostDeactivationTime - Time.time;
+
+        if (speedBoostTimeRemaining <= 0)
+        {
+            _speedBoostBar.fillAmount = 0f;
+            return;
+        }
+
+        float speedBoostActivePercent = speedBoostTimeRemaining / speedBoostActiveTime;
+        _speedBoostBar.fillAmount = speedBoostActivePercent;
     }
 
     private void InitiateGameOverUI()

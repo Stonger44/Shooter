@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _tripleShotAmmo;
     [SerializeField] private int _tripleShotMaxAmmo = 15;
 
-    [SerializeField] private float _speedBoostActiveTime = 5f;
+    [SerializeField] private float _speedBoostActiveTime = 4f;
     private float _speedBoostDeactivationTime;
     [SerializeField] private float _speedBoostTimeScale = 0.7f;
     [SerializeField] private float _speedBoostSpeed = 22f;
@@ -239,6 +239,7 @@ public class Player : MonoBehaviour
         _speed = _speedBoostSpeed;
 
         _speedBoostDeactivationTime = Time.time + _speedBoostActiveTime;
+        _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
     }
 
     private void CheckSpeedBoost()
@@ -249,6 +250,7 @@ public class Player : MonoBehaviour
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
             _speed = _speedStandard;
         }
+        _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
     }
 
     public void ActivateShields()
