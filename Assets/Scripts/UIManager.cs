@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] _shieldsArray;
     [SerializeField] private GameObject _gameOverUI;
     [SerializeField] private GameObject _restartUI;
+    [SerializeField] private GameObject _returnToMainMenuUI;
     [SerializeField] private float _gameOverBlinkTime = 0.5f;
     private bool _displayGameOver = false;
     private GameManager _gameManager;
@@ -85,7 +86,7 @@ public class UIManager : MonoBehaviour
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         StartCoroutine(GameOverBlink());
-        StartCoroutine(DisplayRestart());
+        StartCoroutine(DisplayMenuOptions());
     }
 
     private IEnumerator GameOverBlink()
@@ -99,10 +100,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private IEnumerator DisplayRestart()
+    private IEnumerator DisplayMenuOptions()
     {
         yield return new WaitForSeconds(3);
         _restartUI.SetActive(true);
+        _returnToMainMenuUI.SetActive(true);
         _gameManager.GameOver();
     }
 }

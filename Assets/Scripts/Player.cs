@@ -40,14 +40,15 @@ public class Player : MonoBehaviour
 
     [SerializeField] private int _lives = 3;
     [SerializeField] private List<GameObject> _damageEffectList;
-    [SerializeField] private GameObject _explosion;
+    [SerializeField] private GameObject _damageExplosion;
+    [SerializeField] private GameObject _deathExplosion;
 
     private SpawnManager _spawnManager;
 
     [SerializeField] private bool _isTripleShotActive = false;
     [SerializeField] private float _tripleShotFireRate = 0.15f;
     [SerializeField] private int _tripleShotAmmo;
-    [SerializeField] private int _tripleShotMaxAmmo = 17;
+    [SerializeField] private int _tripleShotMaxAmmo = 15;
 
     [SerializeField] private float _speedBoostActiveTime = 5f;
     private float _speedBoostDeactivationTime;
@@ -192,17 +193,22 @@ public class Player : MonoBehaviour
         if (_lives < 1)
         {
             _spawnManager.StopSpawning();
-            Instantiate(_explosion, this.transform.position, Quaternion.Euler(0, 0, 90));
+            Instantiate(_deathExplosion, this.transform.position, Quaternion.Euler(0, 0, 90));
             Destroy(this.gameObject);
         }
     }
 
     private IEnumerator ShowPlayerDamage()
     {
-        yield return new WaitForSeconds(.4f);
+        _damageExplosion.SetActive(true);
+
+        yield return new WaitForSeconds(.3f);
         int randomIndex = UnityEngine.Random.Range(0, _damageEffectList.Count);
         _damageEffectList[randomIndex].SetActive(true);
         _damageEffectList.RemoveAt(randomIndex);
+
+        yield return new WaitForSeconds(2.4f);
+        _damageExplosion.SetActive(false);
     }
 
     #region PowerUps
