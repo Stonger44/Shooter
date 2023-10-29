@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
 
     private bool DidPlayerFire()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             return true;
         }
