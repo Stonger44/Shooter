@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private UIManager _uiManager;
+    private AudioSource _audioSource;
+
     [SerializeField] private float _playerLeftBoundary = 9.4f;
     [SerializeField] private float _playerRightBoundary = -9.4f;
     [SerializeField] private float _playerUpperBoundary = 3.7f;
@@ -27,13 +30,13 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject _laser;
     [SerializeField] private GameObject _tripleShot;
-
     private Vector2 _laserPosition;
     [SerializeField] private float _laserOffset = 0.8f;
-
     private float _fireRate;
     [SerializeField] private float _laserFireRate = 0.12f;
     [SerializeField] private bool _canFire = true;
+    [SerializeField] private AudioClip _laserAudioClip;
+    
     #region Cooldown System using Time.time
     // private float _fireReadyTime;
     #endregion
@@ -59,7 +62,6 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _shield;
 
     [SerializeField] private int _score = 0;
-    private UIManager _uiManager;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +75,11 @@ public class Player : MonoBehaviour
         if (_uiManager == null)
         {
             Debug.LogError("UIManager is null!");
+        }
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            Debug.LogError("Player Audio Source is null!");
         }
         _fireRate = _laserFireRate;
     }
@@ -151,9 +158,39 @@ public class Player : MonoBehaviour
             {
                 Instantiate(_laser, _laserPosition, Quaternion.identity);
             }
-            
+
+            SetLaserAudio(_isTripleShotActive, _speed);
+            _audioSource.Play();
+
             _canFire = false;
             StartCoroutine(ReadyFire());
+        }
+    }
+
+    private void SetLaserAudio(bool isTripleShotActive, float speed)
+    {
+        _audioSource.clip = _laserAudioClip;
+        if (isTripleShotActive)
+        {
+            if (_speed == _speedStandard)
+            {
+                _audioSource.pitch = 0.75f;
+            }
+            else
+            {
+                _audioSource.pitch = 0.55f;
+            }
+        }
+        else
+        {
+            if (_speed == _speedStandard)
+            {
+                _audioSource.pitch = 1f;
+            }
+            else
+            {
+                _audioSource.pitch = 0.8f;
+            }
         }
     }
 
