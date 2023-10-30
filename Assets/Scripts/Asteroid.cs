@@ -101,9 +101,6 @@ public class Asteroid : MonoBehaviour
         if (_health < 1 || otherTag == _playerTag)
         {
             _player.AddScore(20);
-            _isExploding = true;
-            _collider.enabled = false;
-            _explosion.SetActive(true);
             StartCoroutine(DestroyAsteroid());
             Destroy(this.gameObject, 2.7f);
         }
@@ -111,6 +108,10 @@ public class Asteroid : MonoBehaviour
 
     private IEnumerator DestroyAsteroid()
     {
+        _isExploding = true;
+        _collider.enabled = false;
+        _explosion.SetActive(true);
+
         yield return new WaitForSeconds(0.25f);
 
         _asteroidSprite.SetActive(false);
