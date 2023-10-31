@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitApplication();
+        }
+
         if (_gameOver)
         {
             if (Input.GetKeyDown(KeyCode.R))
@@ -43,5 +48,10 @@ public class GameManager : MonoBehaviour
     private void ReturnToMainMenu()
     {
         SceneManager.LoadScene(0); // Main Menu Scene
+    }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
     }
 }
