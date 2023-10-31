@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private SpawnManager _spawnManager;
     private UIManager _uiManager;
+    private AudioManager _audioManager;
     private AudioSource _audioSource;
 
     [SerializeField] private float _playerLeftBoundary = 9.4f;
@@ -35,7 +37,7 @@ public class Player : MonoBehaviour
     private float _fireRate;
     [SerializeField] private float _laserFireRate = 0.12f;
     [SerializeField] private bool _canFire = true;
-    [SerializeField] private AudioClip _laserAudioClip;
+    [SerializeField] private AudioClip _laserSound;
     
     #region Cooldown System using Time.time
     // private float _fireReadyTime;
@@ -45,8 +47,6 @@ public class Player : MonoBehaviour
     [SerializeField] private List<GameObject> _damageEffectList;
     [SerializeField] private GameObject _damageExplosion;
     [SerializeField] private GameObject _deathExplosion;
-
-    private SpawnManager _spawnManager;
 
     [SerializeField] private bool _isTripleShotActive = false;
     [SerializeField] private float _tripleShotFireRate = 0.15f;
@@ -75,6 +75,11 @@ public class Player : MonoBehaviour
         if (_uiManager == null)
         {
             Debug.LogError("UIManager is null!");
+        }
+        _audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        if (_audioManager == null)
+        {
+            Debug.LogError("AudioManager is null!");
         }
         _audioSource = GetComponent<AudioSource>();
         if (_audioSource == null)
@@ -159,7 +164,7 @@ public class Player : MonoBehaviour
                 Instantiate(_laser, _laserPosition, Quaternion.identity);
             }
 
-            SetLaserAudio(_isTripleShotActive, _speed);
+            SetLaserSound(_isTripleShotActive, _speed);
             _audioSource.Play();
 
             _canFire = false;
@@ -167,9 +172,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void SetLaserAudio(bool isTripleShotActive, float speed)
+    private void SetLaserSound(bool isTripleShotActive, float speed)
     {
-        _audioSource.clip = _laserAudioClip;
+        _audioSource.clip = _laserSound;
         if (isTripleShotActive)
         {
             if (_speed == _speedStandard)
@@ -225,14 +230,21 @@ public class Player : MonoBehaviour
 
         _lives--;
         _uiManager.UpdateLives(_lives);
+        _audioManager.PlayExplosionSound();
         StartCoroutine(ShowPlayerDamage());
 
         if (_lives < 1)
         {
             _spawnManager.StopSpawning();
-            Instantiate(_deathExplosion, this.transform.position, Quaternion.Euler(0, 0, 90));
-            Destroy(this.gameObject);
+            DestroyPlayer();
         }
+    }
+
+    private void DestroyPlayer()
+    {
+        Instantiate(_deathExplosion, this.transform.position, Quaternion.Euler(0, 0, 90));
+        _audioManager.PlayExplosionSound();
+        Destroy(this.gameObject);
     }
 
     private IEnumerator ShowPlayerDamage()

@@ -9,9 +9,11 @@ public class Asteroid : MonoBehaviour
     private const string _tripleShotTag = "TripleShot";
     private string _otherTag = string.Empty;
 
-    private SpawnManager _spawnManager;
     private Player _player;
+    private SpawnManager _spawnManager;
+    private AudioManager _audioManager;
     private CircleCollider2D _collider;
+
     [SerializeField] private GameObject _asteroidSprite;
     [SerializeField] private GameObject _explosion;
 
@@ -39,6 +41,11 @@ public class Asteroid : MonoBehaviour
         if (_spawnManager == null)
         {
             Debug.LogError("SpawnManager is null!");
+        }
+        _audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        if (_audioManager == null)
+        {
+            Debug.LogError("AudioManager is null!");
         }
         _collider = GetComponent<CircleCollider2D>();
         if (_collider == null)
@@ -102,7 +109,6 @@ public class Asteroid : MonoBehaviour
         {
             _player.AddScore(20);
             StartCoroutine(DestroyAsteroid());
-            Destroy(this.gameObject, 2.7f);
         }
     }
 
@@ -111,6 +117,8 @@ public class Asteroid : MonoBehaviour
         _isExploding = true;
         _collider.enabled = false;
         _explosion.SetActive(true);
+        _audioManager.PlayExplosionSound();
+        Destroy(this.gameObject, 2.7f);
 
         yield return new WaitForSeconds(0.25f);
 

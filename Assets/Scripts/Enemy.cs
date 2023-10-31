@@ -11,8 +11,9 @@ public class Enemy : MonoBehaviour
     private const string _tripleShotTag = "TripleShot";
     private string _otherTag = string.Empty;
 
-    private SpawnManager _spawnManager;
     private Player _player;
+    private SpawnManager _spawnManager;
+    private AudioManager _audioManager;
     private Animator _animator;
     private CircleCollider2D _collider;
 
@@ -41,6 +42,11 @@ public class Enemy : MonoBehaviour
         if (_spawnManager == null)
         {
             Debug.LogError("SpawnManager is null!");
+        }
+        _audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        if (_audioManager == null)
+        {
+            Debug.LogError("AudioManager is null!");
         }
         _animator = GetComponent<Animator>();
         if (_animator == null)
@@ -102,12 +108,18 @@ public class Enemy : MonoBehaviour
         if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag)
         {
             _player.AddScore(10);
-            _isExploding = true;
-            _collider.enabled = false;
-            _animator.SetTrigger("OnEnemyDeath");
-            StartCoroutine(RollPowerUpDrop());
-            Destroy(this.gameObject, 2.7f);
+            DestroyEnemy();
         }
+    }
+
+    private void DestroyEnemy()
+    {
+        _isExploding = true;
+        _collider.enabled = false;
+        _animator.SetTrigger("OnEnemyDeath");
+        StartCoroutine(RollPowerUpDrop());
+        _audioManager.PlayExplosionSound();
+        Destroy(this.gameObject, 2.7f);
     }
 
     private IEnumerator RollPowerUpDrop()

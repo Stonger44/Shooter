@@ -8,6 +8,8 @@ public class PowerUp : MonoBehaviour
 {
     private const string _playerTag = "Player";
 
+    private AudioManager _audioManager;
+
     [SerializeField] private float _powerUpLeftBoundary = -11.1f;
 
     [SerializeField] private float _speed = 0.5f;
@@ -19,6 +21,12 @@ public class PowerUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        if (_audioManager == null)
+        {
+            Debug.LogError("Audio Manager is null!");
+        }
+
         StartCoroutine(DestroyPowerUp());
     }
 
@@ -60,6 +68,7 @@ public class PowerUp : MonoBehaviour
                         break;
                 }
             }
+            _audioManager.PlayPowerUpSound();
             Destroy(this.gameObject);
         }
     }
