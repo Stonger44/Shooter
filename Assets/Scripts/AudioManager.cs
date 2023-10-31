@@ -7,8 +7,6 @@ public class AudioManager : MonoBehaviour
     private AudioSource _explosionSound;
     private AudioSource _powerUpSound;
 
-    [SerializeField] private AudioSource _powerDownSound;
-
     // Start is called before the first frame update
     void Start()
     {
