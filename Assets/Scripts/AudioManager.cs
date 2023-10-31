@@ -32,7 +32,14 @@ public class AudioManager : MonoBehaviour
 
     public void PlayExplosionSound()
     {
-        _explosionSound.pitch = Time.timeScale;
+        if (Time.timeScale == 1f)
+        {
+            _explosionSound.pitch = 0.25f;
+        }
+        else
+        {
+            _explosionSound.pitch = 0.15f;
+        }
         _explosionSound.Play();
     }
 
