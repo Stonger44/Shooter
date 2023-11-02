@@ -12,10 +12,10 @@ public class Player : MonoBehaviour
     private AudioManager _audioManager;
     private AudioSource _audioSource;
 
-    [SerializeField] private float _playerLeftBoundary = 9.4f;
-    [SerializeField] private float _playerRightBoundary = -9.4f;
-    [SerializeField] private float _playerUpperBoundary = 3.7f;
-    [SerializeField] private float _playerLowerBoundary = -5.1f;
+    [SerializeField] private float _playerLeftBoundary = -9.5f;
+    [SerializeField] private float _playerRightBoundary = 9.5f;
+    [SerializeField] private float _playerUpperBoundary = 4.2f;
+    [SerializeField] private float _playerLowerBoundary = -5.2f;
 
     #region PlayerWrap
     //private Vector3 _position;
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _laser;
     [SerializeField] private GameObject _tripleShot;
     private Vector2 _laserPosition;
-    [SerializeField] private float _laserOffset = 0.8f;
+    [SerializeField] private float _laserOffset = 0.57f;
     private float _fireRate;
     [SerializeField] private float _laserFireRate = 0.12f;
     [SerializeField] private bool _canFire = true;
@@ -190,7 +190,7 @@ public class Player : MonoBehaviour
         //this.transform.position = _position;
         #endregion
 
-        transform.position = new Vector2(Mathf.Clamp(transform.position.x, _playerRightBoundary, _playerLeftBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary));
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, _playerLeftBoundary, _playerRightBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary));
 
         CheckSpeedBoost();
 

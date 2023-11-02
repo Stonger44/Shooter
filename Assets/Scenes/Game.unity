@@ -942,7 +942,7 @@ MonoBehaviour:
   - {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
   - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
   - {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a, type: 3}
-  _stopSpawning: 1
+  _stopSpawning: 0
 --- !u!4 &455001553
 Transform:
   m_ObjectHideFlags: 0
@@ -1079,16 +1079,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d22dc27c29bdec419237cb33784e034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerLeftBoundary: 9.4
-  _playerRightBoundary: -9.4
-  _playerUpperBoundary: 3.7
-  _playerLowerBoundary: -5.1
+  _playerLeftBoundary: -9.5
+  _playerRightBoundary: 9.5
+  _playerUpperBoundary: 4.2
+  _playerLowerBoundary: -5.2
   _speed: 12
   _speedStandard: 12
   _laser: {fileID: 3264114618247424463, guid: d7cbe1258bbbafc4caf874d9da0f87b7, type: 3}
   _tripleShot: {fileID: 4511263273684437505, guid: 6f85859e3f6c63147b4fcc1cfe1de2fd,
     type: 3}
-  _laserOffset: 0.8
+  _laserOffset: 0.57
   _laserFireRate: 0.12
   _canFire: 1
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
@@ -2621,7 +2621,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -165.5, y: -31}
+  m_AnchoredPosition: {x: -165.5, y: -32}
   m_SizeDelta: {x: 59.314835, y: 14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1526249265
@@ -3175,7 +3175,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '[o][o][o]'
+  m_Text: 
 --- !u!222 &1919339557
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3443,7 +3443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -272.4, y: -31}
+  m_AnchoredPosition: {x: -272.4, y: -32}
   m_SizeDelta: {x: 63.900818, y: 14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2100551433
