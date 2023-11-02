@@ -1076,8 +1076,8 @@ MonoBehaviour:
   _playerRightBoundary: 9.5
   _playerUpperBoundary: 4.2
   _playerLowerBoundary: -5.2
-  _speed: 4
-  _speedStandard: 4
+  _speed: 5
+  _speedStandard: 5
   _laser: {fileID: 3264114618247424463, guid: d7cbe1258bbbafc4caf874d9da0f87b7, type: 3}
   _tripleShot: {fileID: 4511263273684437505, guid: 6f85859e3f6c63147b4fcc1cfe1de2fd,
     type: 3}
@@ -1097,7 +1097,7 @@ MonoBehaviour:
   _tripleShotMaxAmmo: 15
   _speedBoostActiveTime: 3
   _speedBoostTimeScale: 0.5
-  _speedBoostSpeed: 8
+  _speedBoostSpeed: 10
   _shield: {fileID: 1268655119}
 --- !u!61 &487352433
 BoxCollider2D:

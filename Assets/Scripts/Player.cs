@@ -29,8 +29,8 @@ public class Player : MonoBehaviour
     private float _horizontalAxis;
     private float _verticalAxis;
     private Vector2 _direction;
-    [SerializeField] private float _speed = 4f;
-    [SerializeField] private float _speedStandard = 4f;
+    [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _speedStandard = 5f;
 
     [SerializeField] private GameObject _laser;
     [SerializeField] private GameObject _tripleShot;
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speedBoostActiveTime = 3f;
     private float _speedBoostDeactivationTime;
     [SerializeField] private float _speedBoostTimeScale = 0.5f;
-    [SerializeField] private float _speedBoostSpeed = 8f;
+    [SerializeField] private float _speedBoostSpeed = 10f;
 
     [SerializeField] private GameObject _shield;
     private int _shields = 0;
