@@ -45,25 +45,25 @@ public class Player : MonoBehaviour
     // private float _fireReadyTime;
     #endregion
 
-    [SerializeField] private int _lives = 3;
+    private int _lives = 3;
     [SerializeField] private List<GameObject> _damageEffectList;
     [SerializeField] private GameObject _damageExplosion;
     [SerializeField] private GameObject _deathExplosion;
 
-    [SerializeField] private bool _isTripleShotActive = false;
+    private bool _isTripleShotActive = false;
     [SerializeField] private float _tripleShotFireRate = 0.15f;
     [SerializeField] private int _tripleShotAmmo;
     [SerializeField] private int _tripleShotMaxAmmo = 15;
 
-    [SerializeField] private float _speedBoostActiveTime = 4f;
+    [SerializeField] private float _speedBoostActiveTime = 3f;
     private float _speedBoostDeactivationTime;
-    [SerializeField] private float _speedBoostTimeScale = 0.7f;
+    [SerializeField] private float _speedBoostTimeScale = 0.5f;
     [SerializeField] private float _speedBoostSpeed = 22f;
 
-    [SerializeField] private int _shields = 0;
     [SerializeField] private GameObject _shield;
+    private int _shields = 0;
 
-    [SerializeField] private int _score = 0;
+    private int _score = 0;
 
     // Start is called before the first frame update
     void Start()
