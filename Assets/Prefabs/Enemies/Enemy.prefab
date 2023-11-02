@@ -139,7 +139,7 @@ MonoBehaviour:
   _enemyRightBoundary: 11.2
   _enemyUpperBoundary: 3.7
   _enemyLowerBoundary: -4.9
-  _speed: 6
+  _speed: 4
   _health: 3
   _powerUpDropChance: 0.25
   _laserShot: {fileID: 1635626956414016838, guid: 3663298b9822d5648b551e8fec538563,
@@ -147,7 +147,7 @@ MonoBehaviour:
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _xLaserShotOffset: -1.2
   _fireRate: 2
-  _xWEZ: 8
+  _xWEZ: 6
   _yWEZ: 0.5
 --- !u!95 &1714212125148499326
 Animator:

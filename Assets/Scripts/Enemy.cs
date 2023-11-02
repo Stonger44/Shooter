@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _enemyUpperBoundary = 3.7f;
     [SerializeField] private float _enemyLowerBoundary = -4.9f;
 
-    [SerializeField] private float _speed = 6f;
+    [SerializeField] private float _speed = 4f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
 
@@ -93,15 +93,18 @@ public class Enemy : MonoBehaviour
 
     private bool TargetFound()
     {
-        if (transform.position.x < 10)
+        if (!_isExploding)
         {
-            if (_player != null)
+            if (transform.position.x < 10)
             {
-                if ((_player.transform.position.y < transform.position.y + _yWEZ) && (_player.transform.position.y > transform.position.y - _yWEZ))
+                if (_player != null)
                 {
-                    if (_player.transform.position.x < transform.position.x - _xWEZ)
+                    if ((_player.transform.position.y < transform.position.y + _yWEZ) && (_player.transform.position.y > transform.position.y - _yWEZ))
                     {
-                        return true;
+                        if (_player.transform.position.x < transform.position.x - _xWEZ)
+                        {
+                            return true;
+                        }
                     }
                 }
             } 

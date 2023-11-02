@@ -22,7 +22,7 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private float _asteroidUpperBoundary = 3.7f;
     [SerializeField] private float _asteroidLowerBoundary = -4.9f;
 
-    [SerializeField] private float _speed = 4f;
+    [SerializeField] private float _speed = 2f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
 

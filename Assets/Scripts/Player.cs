@@ -29,15 +29,15 @@ public class Player : MonoBehaviour
     private float _horizontalAxis;
     private float _verticalAxis;
     private Vector2 _direction;
-    [SerializeField] private float _speed = 12f;
-    [SerializeField] private float _speedStandard = 12f;
+    [SerializeField] private float _speed = 4f;
+    [SerializeField] private float _speedStandard = 4f;
 
     [SerializeField] private GameObject _laser;
     [SerializeField] private GameObject _tripleShot;
     private Vector2 _laserPosition;
     [SerializeField] private float _laserOffset = 0.57f;
     private float _fireRate;
-    [SerializeField] private float _laserFireRate = 0.12f;
+    [SerializeField] private float _laserFireRate = 0.15f;
     [SerializeField] private bool _canFire = true;
     [SerializeField] private AudioClip _laserSound;
     
@@ -47,18 +47,17 @@ public class Player : MonoBehaviour
 
     private int _lives = 3;
     [SerializeField] private List<GameObject> _damageEffectList;
-    [SerializeField] private GameObject _damageExplosion;
     [SerializeField] private GameObject _deathExplosion;
 
     private bool _isTripleShotActive = false;
-    [SerializeField] private float _tripleShotFireRate = 0.15f;
+    [SerializeField] private float _tripleShotFireRate = 0.18f;
     [SerializeField] private int _tripleShotAmmo;
     [SerializeField] private int _tripleShotMaxAmmo = 15;
 
     [SerializeField] private float _speedBoostActiveTime = 3f;
     private float _speedBoostDeactivationTime;
     [SerializeField] private float _speedBoostTimeScale = 0.5f;
-    [SerializeField] private float _speedBoostSpeed = 22f;
+    [SerializeField] private float _speedBoostSpeed = 8f;
 
     [SerializeField] private GameObject _shield;
     private int _shields = 0;
@@ -294,15 +293,10 @@ public class Player : MonoBehaviour
 
     private IEnumerator ShowPlayerDamage()
     {
-        _damageExplosion.SetActive(true);
-
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.1f);
         int randomIndex = UnityEngine.Random.Range(0, _damageEffectList.Count);
         _damageEffectList[randomIndex].SetActive(true);
         _damageEffectList.RemoveAt(randomIndex);
-
-        yield return new WaitForSeconds(2.4f);
-        _damageExplosion.SetActive(false);
     }
 
     private void CheckTripleShotAmmo()

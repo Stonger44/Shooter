@@ -186,7 +186,7 @@ MonoBehaviour:
   _asteroidRightBoundary: 11.2
   _asteroidUpperBoundary: 3.7
   _asteroidLowerBoundary: -4.9
-  _speed: 4
+  _speed: 2
   _health: 6
 --- !u!1001 &7461290498352474923
 PrefabInstance:
