@@ -35,6 +35,20 @@ public class SpawnManager : MonoBehaviour
 
     }
 
+    public void StopSpawning()
+    {
+        _stopSpawning = true;
+    }
+
+    public void SpawnPowerUp(Vector2 spawnPosition)
+    {
+        if (!_stopSpawning)
+        {
+            int randomPowerUpIndex = Random.Range(0, _powerUps.Length);
+            Instantiate(_powerUps[randomPowerUpIndex], spawnPosition, Quaternion.identity);
+        }
+    }
+
     private IEnumerator SpawnEnemy()
     {
         yield return new WaitForSeconds(_enemySpawnTime);
@@ -60,20 +74,6 @@ public class SpawnManager : MonoBehaviour
             _spawnedAsteroid = Instantiate(_asteroidPrefab, _asteroidSpawnPosition, Quaternion.identity);
             _spawnedAsteroid.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(_asteroidSpawnTime);
-        }
-    }
-
-    public void StopSpawning()
-    {
-        _stopSpawning = true;
-    }
-
-    public void SpawnPowerUp(Vector2 spawnPosition)
-    {
-        if (!_stopSpawning)
-        {
-            int randomPowerUpIndex = Random.Range(0, _powerUps.Length);
-            Instantiate(_powerUps[randomPowerUpIndex], spawnPosition, Quaternion.identity);
         }
     }
 }
