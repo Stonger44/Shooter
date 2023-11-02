@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour
     private void SetLaserSound()
     {
         _audioSource.clip = _laserSound;
-        if (Time.time == 1)
+        if (Time.timeScale == 1)
         {
             _audioSource.pitch = 0.5f;
         }
