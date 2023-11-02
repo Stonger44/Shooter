@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private const string _laserEnemyTag = "LaserEnemy";
+
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
     private AudioManager _audioManager;
@@ -84,7 +86,7 @@ public class Player : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         if (_audioSource == null)
         {
-            Debug.LogError("Player Audio Source is null!");
+            Debug.LogError("Player AudioSource is null!");
         }
         _fireRate = _laserFireRate;
     }
@@ -95,6 +97,65 @@ public class Player : MonoBehaviour
         Move();
 
         Fire();
+    }
+
+    public void Damage()
+    {
+        if (_shields > 0)
+        {
+            _shields--;
+            _uiManager.UpdateShields(_shields);
+            if (_shields < 1)
+            {
+                _shield.SetActive(false);
+            }
+            return;
+        }
+
+        _lives--;
+        _uiManager.UpdateLives(_lives);
+        _audioManager.PlayExplosionSound();
+        StartCoroutine(ShowPlayerDamage());
+
+        if (_lives < 1)
+        {
+            _spawnManager.StopSpawning();
+            DestroyPlayer();
+        }
+    }
+
+    public void ActivateTripleShot()
+    {
+        _isTripleShotActive = true;
+        _fireRate = _tripleShotFireRate;
+        _tripleShotAmmo = _tripleShotMaxAmmo;
+        _uiManager.UpdateTripleShotAmmo(_tripleShotAmmo);
+    }
+
+    public void ActivateSpeedBoost()
+    {
+        Time.timeScale = _speedBoostTimeScale;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        _speed = _speedBoostSpeed;
+
+        _speedBoostDeactivationTime = Time.time + _speedBoostActiveTime;
+        _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
+    }
+
+    public void ActivateShields()
+    {
+        if (_shields < 3)
+        {
+            _shields++;
+            _shield.SetActive(true);
+            _uiManager.UpdateShields(_shields);
+        }
+    }
+
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScore(_score);
     }
 
     private void Move()
@@ -215,28 +276,12 @@ public class Player : MonoBehaviour
         _canFire = true;
     }
 
-    public void Damage()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_shields > 0)
+        if (other.tag == _laserEnemyTag)
         {
-            _shields--;
-            _uiManager.UpdateShields(_shields);
-            if (_shields < 1)
-            {
-                _shield.SetActive(false);
-            }
-            return;
-        }
-
-        _lives--;
-        _uiManager.UpdateLives(_lives);
-        _audioManager.PlayExplosionSound();
-        StartCoroutine(ShowPlayerDamage());
-
-        if (_lives < 1)
-        {
-            _spawnManager.StopSpawning();
-            DestroyPlayer();
+            Damage();
+            Destroy(other.gameObject);
         }
     }
 
@@ -260,15 +305,6 @@ public class Player : MonoBehaviour
         _damageExplosion.SetActive(false);
     }
 
-    #region PowerUps
-    public void ActivateTripleShot()
-    {
-        _isTripleShotActive = true;
-        _fireRate = _tripleShotFireRate;
-        _tripleShotAmmo = _tripleShotMaxAmmo;
-        _uiManager.UpdateTripleShotAmmo(_tripleShotAmmo);
-    }
-
     private void CheckTripleShotAmmo()
     {
         _tripleShotAmmo--;
@@ -281,16 +317,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ActivateSpeedBoost()
-    {
-        Time.timeScale = _speedBoostTimeScale;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        _speed = _speedBoostSpeed;
-
-        _speedBoostDeactivationTime = Time.time + _speedBoostActiveTime;
-        _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
-    }
-
     private void CheckSpeedBoost()
     {
         if (Time.time > _speedBoostDeactivationTime)
@@ -300,22 +326,5 @@ public class Player : MonoBehaviour
             _speed = _speedStandard;
         }
         _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
-    }
-
-    public void ActivateShields()
-    {
-        if (_shields < 3)
-        {
-            _shields++;
-            _shield.SetActive(true);
-            _uiManager.UpdateShields(_shields);
-        }
-    }
-    #endregion
-
-    public void AddScore(int points)
-    {
-        _score += points;
-        _uiManager.UpdateScore(_score);
     }
 }

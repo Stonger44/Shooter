@@ -5,10 +5,14 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class Laser : MonoBehaviour
 {
-    [SerializeField] private float _boundary = 10.5f;
+    // 0: Player Laser 
+    // 1: Enemy Laser
+    [SerializeField] private int _laserId;
 
-    [SerializeField] private float _speed = 20f;
-    private Vector2 _laserDirection = Vector2.right;
+    [SerializeField] private float _boundary;
+
+    [SerializeField] private float _speed;
+    [SerializeField] private Vector2 _laserDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -20,19 +24,38 @@ public class Laser : MonoBehaviour
     void Update()
     {
         Move();
-
-        if (transform.position.x > _boundary)
-        {
-            if (transform.parent != null)
-            {
-                Destroy(transform.parent.gameObject);
-            }
-            Destroy(this.gameObject);
-        }
     }
 
     private void Move()
     {
         transform.Translate(_laserDirection * _speed * Time.deltaTime);
+
+        DestroyIfOutOfBounds();
+    }
+
+    private void DestroyIfOutOfBounds()
+    {
+        if (_laserId == 0)
+        {
+            if (transform.position.x > _boundary)
+            {
+                if (transform.parent != null)
+                {
+                    Destroy(transform.parent.gameObject);
+                }
+                Destroy(this.gameObject);
+            }
+        }
+        else // _laserId == 1
+        {
+            if (transform.position.x < _boundary)
+            {
+                if (transform.parent != null)
+                {
+                    Destroy(transform.parent.gameObject);
+                }
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

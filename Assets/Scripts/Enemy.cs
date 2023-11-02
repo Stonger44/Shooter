@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     private Player _player;
     private SpawnManager _spawnManager;
     private AudioManager _audioManager;
+    private AudioSource _audioSource;
     private Animator _animator;
     private CircleCollider2D _collider;
 
@@ -29,6 +30,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _health = 3;
     private bool _isExploding;
     [SerializeField] private float _powerUpDropChance = 0.25f;
+
+    [SerializeField] private GameObject _laserShot;
+    [SerializeField] private AudioClip _laserSound;
+    [SerializeField] private float _xLaserShotOffset = -1.2f;
+    [SerializeField] private float _fireRate = 1f;
+    [SerializeField] private float _xWEZ = 6f;
+    [SerializeField] private float _yWEZ = 0.5f;
+    private bool _canFire = true;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +57,11 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("AudioManager is null!");
         }
+        _audioSource =GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            Debug.LogError("AudioSource is null!");
+        }
         _animator = GetComponent<Animator>();
         if (_animator == null)
         {
@@ -65,6 +79,67 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Move();
+
+        SearchForTarget();
+    }
+
+    private void SearchForTarget()
+    {
+        if (TargetFound() && _canFire)
+        {
+            Fire();
+        }
+    }
+
+    private bool TargetFound()
+    {
+        if (transform.position.x < 10)
+        {
+            if (_player != null)
+            {
+                if ((_player.transform.position.y < transform.position.y + _yWEZ) && (_player.transform.position.y > transform.position.y - _yWEZ))
+                {
+                    if (_player.transform.position.x < transform.position.x - _xWEZ)
+                    {
+                        return true;
+                    }
+                }
+            } 
+        }
+
+        return false;
+    }
+
+    private void Fire()
+    {
+        Vector2 laserPosition = transform.position;
+        laserPosition.x += _xLaserShotOffset;
+        Instantiate(_laserShot, laserPosition, Quaternion.identity);
+
+        SetLaserSound();
+        _audioSource.Play();
+
+        _canFire = false;
+        StartCoroutine(ReadyFire());
+    }
+
+    private void SetLaserSound()
+    {
+        _audioSource.clip = _laserSound;
+        if (Time.time == 1)
+        {
+            _audioSource.pitch = 0.5f;
+        }
+        else
+        {
+            _audioSource.pitch = 0.3f;
+        }
+    }
+
+    private IEnumerator ReadyFire()
+    {
+        yield return new WaitForSeconds(_fireRate);
+        _canFire = true;
     }
 
     private void Move()
@@ -92,27 +167,27 @@ public class Enemy : MonoBehaviour
         if (_otherTag == _playerTag)
         {
             _player.Damage();
-            Damage(_otherTag);
+            DamageSelf(_otherTag);
         }
         else if (_otherTag == _laserTag || _otherTag == _tripleShotTag)
         {
             Destroy(other.gameObject);
-            Damage(_otherTag);
+            DamageSelf(_otherTag);
         }
     }
 
-    private void Damage(string otherTag)
+    private void DamageSelf(string otherTag)
     {
         _health--;
 
         if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag)
         {
             _player.AddScore(10);
-            DestroyEnemy();
+            DestroySelf();
         }
     }
 
-    private void DestroyEnemy()
+    private void DestroySelf()
     {
         _isExploding = true;
         _collider.enabled = false;
