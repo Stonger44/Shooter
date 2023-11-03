@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3368753958657129261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -135,19 +135,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af53b3e3c2898f74ead640d61917435f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyLeftBoundary: -11.2
-  _enemyRightBoundary: 11.2
-  _enemyUpperBoundary: 3.7
-  _enemyLowerBoundary: -4.9
+  _enemyLeftBoundary: -11
+  _enemyRightBoundary: 11
+  _enemyUpperBoundary: 4.1
+  _enemyLowerBoundary: -5.1
   _speed: 4
   _health: 3
   _powerUpDropChance: 0.25
   _laserShot: {fileID: 1635626956414016838, guid: 3663298b9822d5648b551e8fec538563,
     type: 3}
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
-  _xLaserShotOffset: -1.2
+  _laserShotOffset: -0.955
   _fireRate: 2
-  _xWEZ: 6
+  _xWEZ: 5
   _yWEZ: 0.5
 --- !u!95 &1714212125148499326
 Animator:

@@ -17,10 +17,10 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private GameObject _asteroidSprite;
     [SerializeField] private GameObject _explosion;
 
-    [SerializeField] private float _asteroidLeftBoundary = -11.2f;
-    [SerializeField] private float _asteroidRightBoundary = 11.2f;
-    [SerializeField] private float _asteroidUpperBoundary = 3.7f;
-    [SerializeField] private float _asteroidLowerBoundary = -4.9f;
+    [SerializeField] private float _asteroidLeftBoundary = -11.3f;
+    [SerializeField] private float _asteroidRightBoundary = 11.3f;
+    [SerializeField] private float _asteroidUpperBoundary = 3.5f;
+    [SerializeField] private float _asteroidLowerBoundary = -4.7f;
 
     [SerializeField] private float _speed = 2f;
     private Vector2 _position;

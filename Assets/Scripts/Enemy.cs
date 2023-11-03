@@ -18,10 +18,10 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     private CircleCollider2D _collider;
 
-    [SerializeField] private float _enemyLeftBoundary = -11.2f;
-    [SerializeField] private float _enemyRightBoundary = 11.2f;
-    [SerializeField] private float _enemyUpperBoundary = 3.7f;
-    [SerializeField] private float _enemyLowerBoundary = -4.9f;
+    [SerializeField] private float _enemyLeftBoundary = -11f;
+    [SerializeField] private float _enemyRightBoundary = 11f;
+    [SerializeField] private float _enemyUpperBoundary = 4.1f;
+    [SerializeField] private float _enemyLowerBoundary = -5.1f;
 
     [SerializeField] private float _speed = 4f;
     private Vector2 _position;
@@ -33,9 +33,9 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private GameObject _laserShot;
     [SerializeField] private AudioClip _laserSound;
-    [SerializeField] private float _xLaserShotOffset = -1.2f;
+    [SerializeField] private float _laserShotOffset = -0.955f;
     [SerializeField] private float _fireRate = 1f;
-    [SerializeField] private float _xWEZ = 6f;
+    [SerializeField] private float _xWEZ = 5f;
     [SerializeField] private float _yWEZ = 0.5f;
     private bool _canFire = true;
 
@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour
     private void Fire()
     {
         Vector2 laserPosition = transform.position;
-        laserPosition.x += _xLaserShotOffset;
+        laserPosition.x += _laserShotOffset;
         Instantiate(_laserShot, laserPosition, Quaternion.identity);
 
         SetLaserSound();
