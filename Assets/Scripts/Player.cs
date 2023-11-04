@@ -32,6 +32,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _speedStandard = 5f;
 
+    [SerializeField] private GameObject _thruster;
+    [SerializeField] private GameObject _afterBurner;
+    private float _afterBurnerSpeedMultiplier = 2f;
+    private float _afterBurnerMaxActiveTime = 2f;
+    private float _afterBurnerActivationTime;
+    private float _afterBurnerActiveTime;
+    
     [SerializeField] private GameObject _laser;
     [SerializeField] private GameObject _tripleShot;
     private Vector2 _laserPosition;
@@ -40,7 +47,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _laserFireRate = 0.15f;
     [SerializeField] private bool _canFire = true;
     [SerializeField] private AudioClip _laserSound;
-    
+
     #region Cooldown System using Time.time
     // private float _fireReadyTime;
     #endregion
@@ -54,6 +61,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _tripleShotAmmo;
     [SerializeField] private int _tripleShotMaxAmmo = 15;
 
+    private bool _isSpeedBoostActive = false;
     [SerializeField] private float _speedBoostActiveTime = 3f;
     private float _speedBoostDeactivationTime;
     [SerializeField] private float _speedBoostTimeScale = 0.5f;
@@ -137,6 +145,8 @@ public class Player : MonoBehaviour
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
         _speed = _speedBoostSpeed;
 
+        _isSpeedBoostActive = true;
+
         _speedBoostDeactivationTime = Time.time + _speedBoostActiveTime;
         _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
     }
@@ -191,9 +201,50 @@ public class Player : MonoBehaviour
 
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, _playerLeftBoundary, _playerRightBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary));
 
-        CheckSpeedBoost();
+        if (_isSpeedBoostActive)
+        {
+            CheckSpeedBoostTime(); 
+        }
+
+        if (!_isSpeedBoostActive)
+        {
+            _speed = _speedStandard;
+        }
+        else
+        {
+            _speed = _speedBoostSpeed;
+        }
+
+        CheckAfterBurner();
 
         transform.Translate(_direction * _speed * Time.deltaTime);
+    }
+
+    private void CheckSpeedBoostTime()
+    {
+        if (Time.time > _speedBoostDeactivationTime)
+        {
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            _isSpeedBoostActive = false;
+        }
+        _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
+    }
+
+    private void CheckAfterBurner()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            _thruster.SetActive(false);
+            _afterBurner.SetActive(true);
+
+            _speed *= _afterBurnerSpeedMultiplier;
+        }
+        else
+        {
+            _thruster.SetActive(true);
+            _afterBurner.SetActive(false);
+        }
     }
 
     private void Fire()
@@ -311,14 +362,4 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CheckSpeedBoost()
-    {
-        if (Time.time > _speedBoostDeactivationTime)
-        {
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            _speed = _speedStandard;
-        }
-        _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
-    }
 }

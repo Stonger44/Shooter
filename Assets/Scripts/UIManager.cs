@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _tripleShotAmmo;
     private string _tripleShotAmmoCount;
     [SerializeField] private Image _speedBoostBar;
+    [SerializeField] private Image _afterBurnerBar;
 
     // Start is called before the first frame update
     void Start()
@@ -93,6 +94,11 @@ public class UIManager : MonoBehaviour
 
         float speedBoostActivePercent = speedBoostTimeRemaining / speedBoostActiveTime;
         _speedBoostBar.fillAmount = speedBoostActivePercent;
+    }
+
+    public void UpdateAfterBurnerBar()
+    {
+
     }
 
     private void InitiateGameOverUI()
