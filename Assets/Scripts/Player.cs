@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _afterBurnerTimeRemaining;
     [SerializeField] private float _afterBurnerDepletionRate = 1.25f;
     [SerializeField] private float _afterBurnerRechargeRate = 1f;
+    [SerializeField] private float _afterBurnerCoolDownTime = 2f;
 
     [Header("Laser")]
     [SerializeField] private GameObject _laser;
@@ -155,7 +156,10 @@ public class Player : MonoBehaviour
     {
         Time.timeScale = _speedBoostTimeScale;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        _speed = _speedBoostSpeed;
+        
+        _afterBurnerDepletionRate /= 2;
+        _afterBurnerRechargeRate /= 2;
+        _afterBurnerCoolDownTime *= 2;
 
         _isSpeedBoostActive = true;
 
@@ -238,6 +242,11 @@ public class Player : MonoBehaviour
         {
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+            _afterBurnerDepletionRate *= 2;
+            _afterBurnerRechargeRate *= 2;
+            _afterBurnerCoolDownTime /= 2;
+            
             _isSpeedBoostActive = false;
         }
         _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
@@ -289,7 +298,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator AfterBurnerCoolDown()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(_afterBurnerCoolDownTime);
         _afterBurnerIsInCoolDown = false;
     }
     private void Fire()

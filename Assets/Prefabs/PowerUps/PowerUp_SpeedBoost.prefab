@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2651435538051320910}
   - component: {fileID: 1533537125}
   m_Layer: 0
-  m_Name: PowerUp_Speed
+  m_Name: PowerUp_SpeedBoost
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,5 +155,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _powerUpId: 1
   _powerUpLeftBoundary: -11
-  _speed: 0.5
   _powerUpAvailableTime: 3
+  _speed: 0.5

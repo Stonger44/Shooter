@@ -1086,8 +1086,9 @@ MonoBehaviour:
   _afterBurnerMaxActiveTime: 2
   _afterBurnerIsInCoolDown: 0
   _afterBurnerTimeRemaining: 0
-  _afterBurnerDepletionRate: 1.25
+  _afterBurnerDepletionRate: 1.5
   _afterBurnerRechargeRate: 1
+  _afterBurnerCoolDownTime: 2
   _laser: {fileID: 3264114618247424463, guid: d7cbe1258bbbafc4caf874d9da0f87b7, type: 3}
   _laserOffset: 0.57
   _laserFireRate: 0.15
