@@ -18,19 +18,23 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     private CircleCollider2D _collider;
 
+    [Header("Boundaries")]
     [SerializeField] private float _enemyLeftBoundary = -11f;
     [SerializeField] private float _enemyRightBoundary = 11f;
     [SerializeField] private float _enemyUpperBoundary = 4.1f;
     [SerializeField] private float _enemyLowerBoundary = -5.1f;
 
+    [Header("Speed")]
     [SerializeField] private float _speed = 4f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
 
+    [Header("Health/Damage")]
     [SerializeField] private int _health = 3;
     private bool _isExploding;
     [SerializeField] private float _powerUpDropChance = 0.25f;
 
+    [Header("Laser")]
     [SerializeField] private GameObject _laserShot;
     [SerializeField] private AudioClip _laserSound;
     [SerializeField] private float _laserShotOffset = -0.955f;

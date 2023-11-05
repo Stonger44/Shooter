@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private AudioManager _audioManager;
     private AudioSource _audioSource;
 
+    [Header("Boundaries")]
     [SerializeField] private float _playerLeftBoundary = -9.5f;
     [SerializeField] private float _playerRightBoundary = 9.5f;
     [SerializeField] private float _playerUpperBoundary = 4.2f;
@@ -29,44 +30,54 @@ public class Player : MonoBehaviour
     private float _horizontalAxis;
     private float _verticalAxis;
     private Vector2 _direction;
+
+    [Header("Speed")]
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _speedStandard = 5f;
 
+    [Header("AfterBurner")]
     [SerializeField] private GameObject _thruster;
     [SerializeField] private GameObject _afterBurner;
-    private float _afterBurnerSpeedMultiplier = 2f;
-    private float _afterBurnerMaxActiveTime = 2f;
-    private float _afterBurnerActivationTime;
-    private float _afterBurnerActiveTime;
-    
+    [SerializeField] private float _afterBurnerSpeedMultiplier = 2f;
+    [SerializeField] private float _afterBurnerMaxActiveTime = 2f;
+    [SerializeField] private bool _afterBurnerIsInCoolDown = false;
+    [SerializeField] private float _afterBurnerTimeRemaining;
+    [SerializeField] private float _afterBurnerDepletionRate = 1.25f;
+    [SerializeField] private float _afterBurnerRechargeRate = 1f;
+
+    [Header("Laser")]
     [SerializeField] private GameObject _laser;
-    [SerializeField] private GameObject _tripleShot;
-    private Vector2 _laserPosition;
     [SerializeField] private float _laserOffset = 0.57f;
-    private float _fireRate;
     [SerializeField] private float _laserFireRate = 0.15f;
     [SerializeField] private bool _canFire = true;
     [SerializeField] private AudioClip _laserSound;
+    private Vector2 _laserPosition;
+    private float _fireRate;
 
     #region Cooldown System using Time.time
     // private float _fireReadyTime;
     #endregion
 
-    private int _lives = 3;
+    [Header("Damage")]
     [SerializeField] private List<GameObject> _damageEffectList;
     [SerializeField] private GameObject _deathExplosion;
+    private int _lives = 3;
 
-    private bool _isTripleShotActive = false;
+    [Header("Triple Shot")]
+    [SerializeField] private GameObject _tripleShot;
     [SerializeField] private float _tripleShotFireRate = 0.18f;
     [SerializeField] private int _tripleShotAmmo;
     [SerializeField] private int _tripleShotMaxAmmo = 15;
+    private bool _isTripleShotActive = false;
 
-    private bool _isSpeedBoostActive = false;
+    [Header("Speed Boost")]
     [SerializeField] private float _speedBoostActiveTime = 3f;
-    private float _speedBoostDeactivationTime;
     [SerializeField] private float _speedBoostTimeScale = 0.5f;
     [SerializeField] private float _speedBoostSpeed = 10f;
+    private bool _isSpeedBoostActive = false;
+    private float _speedBoostDeactivationTime;
 
+    [Header("Shields")]
     [SerializeField] private GameObject _shield;
     private int _shields = 0;
 
@@ -96,6 +107,7 @@ public class Player : MonoBehaviour
             Debug.LogError("Player AudioSource is null!");
         }
         _fireRate = _laserFireRate;
+        _afterBurnerTimeRemaining = _afterBurnerMaxActiveTime;
     }
 
     // Update is called once per frame
@@ -233,20 +245,53 @@ public class Player : MonoBehaviour
 
     private void CheckAfterBurner()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (!_afterBurnerIsInCoolDown)
         {
-            _thruster.SetActive(false);
-            _afterBurner.SetActive(true);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                _afterBurnerTimeRemaining -= _afterBurnerDepletionRate * Time.deltaTime;
 
-            _speed *= _afterBurnerSpeedMultiplier;
+                if (_afterBurnerTimeRemaining < 0)
+                {
+                    _afterBurnerTimeRemaining = 0;
+                    _afterBurnerIsInCoolDown = true;
+                    StartCoroutine(AfterBurnerCoolDown());
+                }
+
+                if (_afterBurnerTimeRemaining > 0)
+                {
+                    _thruster.SetActive(false);
+                    _afterBurner.SetActive(true);
+
+                    _speed *= _afterBurnerSpeedMultiplier;
+                }
+                else
+                {
+                    _thruster.SetActive(true);
+                    _afterBurner.SetActive(false);
+                }
+            }
+            else
+            {
+                _afterBurnerTimeRemaining += _afterBurnerRechargeRate * Time.deltaTime;
+
+                if (_afterBurnerTimeRemaining >= _afterBurnerMaxActiveTime)
+                {
+                    _afterBurnerTimeRemaining = _afterBurnerMaxActiveTime;
+                }
+
+                _thruster.SetActive(true);
+                _afterBurner.SetActive(false);
+            } 
         }
-        else
-        {
-            _thruster.SetActive(true);
-            _afterBurner.SetActive(false);
-        }
+        _uiManager.UpdateAfterBurnerBar(_afterBurnerTimeRemaining, _afterBurnerMaxActiveTime);
     }
 
+    private IEnumerator AfterBurnerCoolDown()
+    {
+        yield return new WaitForSeconds(2);
+        _afterBurnerIsInCoolDown = false;
+    }
     private void Fire()
     {
         #region Cooldown System using Time.time

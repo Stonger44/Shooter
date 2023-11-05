@@ -14,13 +14,10 @@ public class PowerUp : MonoBehaviour
     // 1: SpeedBoost
     // 2: Shield
     [SerializeField] private int _powerUpId;
-
     [SerializeField] private float _powerUpLeftBoundary = -11.1f;
-
+    [SerializeField] private float _powerUpAvailableTime = 3f;
     [SerializeField] private float _speed = 0.5f;
     private Vector2 _direction = Vector2.left;
-
-    [SerializeField] private float _powerUpAvailableTime = 3f;
 
     // Start is called before the first frame update
     void Start()

@@ -5,17 +5,26 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    private GameManager _gameManager;
+
+    [Header("Score")]
     [SerializeField] private Text _score;
+
+    [Header("Lives")]
     [SerializeField] private Image _lives;
     [SerializeField] private Sprite[] _livesSpriteArray;
+
+    [Header("Shields")]
     [SerializeField] private GameObject[] _shieldsArray;
+
+    [Header("Game Management")]
     [SerializeField] private GameObject _gameOverUI;
     [SerializeField] private GameObject _restartUI;
     [SerializeField] private GameObject _returnToMainMenuUI;
     [SerializeField] private float _gameOverBlinkTime = 0.5f;
     private bool _displayGameOver = false;
-    private GameManager _gameManager;
-    
+
+    [Header("PowerUps")]
     [SerializeField] private Text _tripleShotAmmo;
     private string _tripleShotAmmoCount;
     [SerializeField] private Image _speedBoostBar;
@@ -96,9 +105,10 @@ public class UIManager : MonoBehaviour
         _speedBoostBar.fillAmount = speedBoostActivePercent;
     }
 
-    public void UpdateAfterBurnerBar()
+    public void UpdateAfterBurnerBar(float afterBurnerTimeRemaining, float afterBurnerMaxActiveTime)
     {
-
+        float afterBurnerPercent = afterBurnerTimeRemaining / afterBurnerMaxActiveTime;
+        _afterBurnerBar.fillAmount = afterBurnerPercent;
     }
 
     private void InitiateGameOverUI()

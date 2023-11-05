@@ -8,9 +8,7 @@ public class Laser : MonoBehaviour
     // 0: Player Laser 
     // 1: Enemy Laser
     [SerializeField] private int _laserId;
-
     [SerializeField] private float _boundary;
-
     [SerializeField] private float _speed;
     [SerializeField] private Vector2 _laserDirection;
 

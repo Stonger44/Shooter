@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [Header("Boundaries")]
     [SerializeField] private float _enemySpawnRightBoundary = 11.2f;
     [SerializeField] private float _enemySpawnUpperBoundary = 3.7f;
     [SerializeField] private float _enemySpawnLowerBoundary = -4.9f;
 
+    [Header("Enemy")]
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private float _enemySpawnTime = 2;
     private GameObject _spawnedEnemy;
     private Vector2 _enemySpawnPosition;
+
+    [Header("Asteroid")]
     [SerializeField] private GameObject _asteroidPrefab;
     [SerializeField] private float _asteroidSpawnTime = 4;
     private GameObject _spawnedAsteroid;
     private Vector2 _asteroidSpawnPosition;
 
+    [Header("PowerUps")]
     [SerializeField] private GameObject[] _powerUps;
 
+    [Header("Game Management")]
     [SerializeField] private bool _stopSpawning = false;
 
     // Start is called before the first frame update
