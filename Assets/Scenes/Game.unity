@@ -1110,6 +1110,7 @@ MonoBehaviour:
   _speedBoostTimeScale: 0.5
   _speedBoostSpeed: 10
   _shield: {fileID: 1268655119}
+  _shieldLevel: 0
 --- !u!61 &487352433
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1636,7 +1637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &777495150
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2445,7 +2446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1267732932
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2533,7 +2534,7 @@ GameObject:
   - component: {fileID: 1268655121}
   - component: {fileID: 1268655122}
   m_Layer: 0
-  m_Name: Shields
+  m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3103,7 +3104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1912304498
 RectTransform:
   m_ObjectHideFlags: 0

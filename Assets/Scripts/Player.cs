@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
 
     [Header("Shields")]
     [SerializeField] private GameObject _shield;
-    private int _shields = 0;
+    [SerializeField] private int _shieldLevel = 0;
 
     private int _score = 0;
 
@@ -121,14 +121,15 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if (_shields > 0)
+        if (_shieldLevel > 0)
         {
-            _shields--;
-            _uiManager.UpdateShields(_shields);
-            if (_shields < 1)
+            _shieldLevel--;
+            if (_shieldLevel < 1)
             {
                 _shield.SetActive(false);
             }
+            _uiManager.UpdateShields(_shieldLevel);
+
             return;
         }
 
@@ -169,11 +170,11 @@ public class Player : MonoBehaviour
 
     public void ActivateShields()
     {
-        if (_shields < 3)
+        if (_shieldLevel < 3)
         {
-            _shields++;
+            _shieldLevel++;
             _shield.SetActive(true);
-            _uiManager.UpdateShields(_shields);
+            _uiManager.UpdateShields(_shieldLevel);
         }
     }
 
