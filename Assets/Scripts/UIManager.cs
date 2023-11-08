@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     private GameManager _gameManager;
+    private Player _player;
 
     [Header("Score")]
     [SerializeField] private Text _score;
@@ -16,6 +17,10 @@ public class UIManager : MonoBehaviour
 
     [Header("Shields")]
     [SerializeField] private GameObject[] _shieldsArray;
+
+    [Header("AfterBurner")]
+    [SerializeField] private Image _afterBurnerBar;
+    [SerializeField] private GameObject _afterBurnerCoolDown;
 
     [Header("Game Management")]
     [SerializeField] private GameObject _gameOverUI;
@@ -28,7 +33,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _tripleShotAmmo;
     private string _tripleShotAmmoCount;
     [SerializeField] private Image _speedBoostBar;
-    [SerializeField] private Image _afterBurnerBar;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +41,11 @@ public class UIManager : MonoBehaviour
         if (_gameManager == null)
         {
             Debug.LogError("GameManager is null!");
+        }
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is null!");
         }
 
         _tripleShotAmmo.text = string.Empty;
@@ -109,6 +118,24 @@ public class UIManager : MonoBehaviour
     {
         float afterBurnerPercent = afterBurnerTimeRemaining / afterBurnerMaxActiveTime;
         _afterBurnerBar.fillAmount = afterBurnerPercent;
+    }
+
+    public IEnumerator AfterBurnerCoolDown()
+    {
+        if (_player != null)
+        {
+            bool isAfterBurnerInCoolDown = true;
+            bool displayAfterBurnerCoolDown = false;
+
+            while (isAfterBurnerInCoolDown)
+            {
+                displayAfterBurnerCoolDown = !displayAfterBurnerCoolDown;
+                _afterBurnerCoolDown.SetActive(displayAfterBurnerCoolDown);
+                yield return new WaitForSeconds(0.5f);
+                isAfterBurnerInCoolDown = _player.GetAfterBurnerCoolDown();
+            }
+        }
+        _afterBurnerCoolDown.SetActive(false);
     }
 
     private void InitiateGameOverUI()

@@ -39,12 +39,12 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _thruster;
     [SerializeField] private GameObject _afterBurner;
     [SerializeField] private float _afterBurnerSpeedMultiplier = 2f;
-    [SerializeField] private float _afterBurnerMaxActiveTime = 2f;
+    [SerializeField] private float _afterBurnerMaxActiveTime = 3f;
     [SerializeField] private bool _afterBurnerIsInCoolDown = false;
     [SerializeField] private float _afterBurnerTimeRemaining;
     [SerializeField] private float _afterBurnerDepletionRate = 1.25f;
     [SerializeField] private float _afterBurnerRechargeRate = 1f;
-    [SerializeField] private float _afterBurnerCoolDownTime = 2f;
+    [SerializeField] private float _afterBurnerCoolDownTime = 3f;
 
     [Header("Laser")]
     [SerializeField] private GameObject _laser;
@@ -184,6 +184,11 @@ public class Player : MonoBehaviour
         _uiManager.UpdateScore(_score);
     }
 
+    public bool GetAfterBurnerCoolDown()
+    {
+        return _afterBurnerIsInCoolDown;
+    }
+
     private void Move()
     {
         _horizontalAxis = Input.GetAxis("Horizontal");
@@ -265,6 +270,7 @@ public class Player : MonoBehaviour
                 {
                     _afterBurnerTimeRemaining = 0;
                     _afterBurnerIsInCoolDown = true;
+                    StartCoroutine(_uiManager.AfterBurnerCoolDown());
                     StartCoroutine(AfterBurnerCoolDown());
                 }
 
