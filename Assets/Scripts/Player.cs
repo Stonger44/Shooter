@@ -271,8 +271,8 @@ public class Player : MonoBehaviour
                 {
                     _afterBurnerTimeRemaining = 0;
                     _afterBurnerIsInCoolDown = true;
-                    StartCoroutine(_uiManager.AfterBurnerCoolDown());
                     StartCoroutine(AfterBurnerCoolDown());
+                    StartCoroutine(_uiManager.AfterBurnerCoolDown());
                 }
 
                 if (_afterBurnerTimeRemaining > 0)
