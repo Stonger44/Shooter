@@ -40,11 +40,11 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _afterBurner;
     [SerializeField] private float _afterBurnerSpeedMultiplier = 2f;
     [SerializeField] private float _afterBurnerMaxActiveTime = 3f;
-    [SerializeField] private bool _afterBurnerIsInCoolDown = false;
     [SerializeField] private float _afterBurnerTimeRemaining;
     [SerializeField] private float _afterBurnerDepletionRate = 1.25f;
     [SerializeField] private float _afterBurnerRechargeRate = 1f;
     [SerializeField] private float _afterBurnerCoolDownTime = 3f;
+    [SerializeField] private bool _afterBurnerIsInCoolDown = false;
 
     [Header("Laser")]
     [SerializeField] private GameObject _laser;
@@ -107,6 +107,7 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Player AudioSource is null!");
         }
+
         _fireRate = _laserFireRate;
         _afterBurnerTimeRemaining = _afterBurnerMaxActiveTime;
     }
@@ -266,7 +267,7 @@ public class Player : MonoBehaviour
             {
                 _afterBurnerTimeRemaining -= _afterBurnerDepletionRate * Time.deltaTime;
 
-                if (_afterBurnerTimeRemaining < 0)
+                if (_afterBurnerTimeRemaining <= 0)
                 {
                     _afterBurnerTimeRemaining = 0;
                     _afterBurnerIsInCoolDown = true;
@@ -308,6 +309,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_afterBurnerCoolDownTime);
         _afterBurnerIsInCoolDown = false;
     }
+
     private void Fire()
     {
         #region Cooldown System using Time.time

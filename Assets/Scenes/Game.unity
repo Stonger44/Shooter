@@ -937,7 +937,7 @@ MonoBehaviour:
   - {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
   - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
   - {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a, type: 3}
-  _stopSpawning: 0
+  _stopSpawning: 1
 --- !u!4 &455001553
 Transform:
   m_ObjectHideFlags: 0
@@ -1085,11 +1085,11 @@ MonoBehaviour:
   _afterBurner: {fileID: 915422022}
   _afterBurnerSpeedMultiplier: 2
   _afterBurnerMaxActiveTime: 3
-  _afterBurnerIsInCoolDown: 0
   _afterBurnerTimeRemaining: 0
   _afterBurnerDepletionRate: 1.5
   _afterBurnerRechargeRate: 1
   _afterBurnerCoolDownTime: 3
+  _afterBurnerIsInCoolDown: 0
   _laser: {fileID: 3264114618247424463, guid: d7cbe1258bbbafc4caf874d9da0f87b7, type: 3}
   _laserOffset: 0.57
   _laserFireRate: 0.15
