@@ -384,17 +384,20 @@ public class Player : MonoBehaviour
 
     private void FireSpaceBomb()
     {
-        if (DidPlayerFireSpaceBomb() && _canFireSpaceBomb)
+        if (_spaceBombAmmo > 0)
         {
-            _spaceBombAmmo--;
-            _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
+            if (DidPlayerFireSpaceBomb() && _canFireSpaceBomb)
+            {
+                _spaceBombAmmo--;
+                _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
 
-            _spaceBombPosition = transform.position;
-            _spaceBombPosition.x += _spaceBombOffset;
-            Instantiate(_spaceBomb, _spaceBombPosition, Quaternion.identity);
-            
-            _canFireSpaceBomb = false;
-            StartCoroutine(ReadyFireSpaceBomb());
+                _spaceBombPosition = transform.position;
+                _spaceBombPosition.x += _spaceBombOffset;
+                Instantiate(_spaceBomb, _spaceBombPosition, Quaternion.identity);
+
+                _canFireSpaceBomb = false;
+                StartCoroutine(ReadyFireSpaceBomb());
+            } 
         }
     }
 

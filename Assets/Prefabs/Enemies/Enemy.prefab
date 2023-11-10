@@ -33,8 +33,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
-  - {fileID: 4908962530142320827}
-  - {fileID: 3711409488960280645}
+  - {fileID: 9134944645187436501}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -151,6 +150,7 @@ MonoBehaviour:
   _fireRate: 2
   _xWEZ: 5
   _yWEZ: 0.5
+  _thrusters: {fileID: 6786483613924043021}
 --- !u!95 &1714212125148499326
 Animator:
   serializedVersion: 3
@@ -295,7 +295,7 @@ Transform:
   m_LocalPosition: {x: 1.73, y: 0.38, z: 0}
   m_LocalScale: {x: 0.2, y: 0.08, z: 0}
   m_Children: []
-  m_Father: {fileID: 8414548695436521026}
+  m_Father: {fileID: 9134944645187436501}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &8364193212589256522
@@ -367,6 +367,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &6786483613924043021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9134944645187436501}
+  m_Layer: 0
+  m_Name: Thrusters
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9134944645187436501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6786483613924043021}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4908962530142320827}
+  - {fileID: 3711409488960280645}
+  m_Father: {fileID: 8414548695436521026}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7869142697053830401
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +428,7 @@ Transform:
   m_LocalPosition: {x: 1.73, y: -0.38, z: 0}
   m_LocalScale: {x: 0.2, y: 0.08, z: 0}
   m_Children: []
-  m_Father: {fileID: 8414548695436521026}
+  m_Father: {fileID: 9134944645187436501}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &6617711181758157711

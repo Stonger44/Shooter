@@ -42,6 +42,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _yWEZ = 0.5f;
     private bool _canFire = true;
 
+    [Header("Thrusters")]
+    [SerializeField] private GameObject _thrusters;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -198,14 +201,16 @@ public class Enemy : MonoBehaviour
         _isExploding = true;
         _collider.enabled = false;
         _animator.SetTrigger("OnEnemyDeath");
-        StartCoroutine(RollPowerUpDrop());
+        StartCoroutine(DisableThrustersAndRollPowerUp());
         _audioManager.PlayExplosionSound();
         Destroy(this.gameObject, 2.7f);
     }
 
-    private IEnumerator RollPowerUpDrop()
+    private IEnumerator DisableThrustersAndRollPowerUp()
     {
         yield return new WaitForSeconds(0.25f);
+
+        _thrusters.SetActive(false);
 
         float randomFloat = Random.Range(0f, 1.0f);
         if (randomFloat <= _powerUpDropChance)

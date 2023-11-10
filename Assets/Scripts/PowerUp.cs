@@ -105,7 +105,7 @@ public class PowerUp : MonoBehaviour
                 foreach (Color color in _colorList)
                 {
                     _renderer.color = color;
-                    yield return new WaitForSeconds(0.05f);
+                    yield return new WaitForSeconds(0.1f);
                 }
                 
             } 
@@ -124,8 +124,8 @@ public class PowerUp : MonoBehaviour
         _colorList.Add(new Color(0, 150, 255)); // Light Blue
         _colorList.Add(new Color(0, 0, 255)); // Blue
         _colorList.Add(new Color(120, 0, 255)); // Blue Purple
-        _colorList.Add(new Color(150, 0, 255)); // Purple
-        _colorList.Add(new Color(255, 0, 255)); // Pink
-        _colorList.Add(new Color(0, 255, 120)); // Purple Pink
+        _colorList.Add(new Color(255, 0, 255)); // Purple
+        _colorList.Add(new Color(255, 0, 120)); // Pink
+        _colorList.Add(new Color(255, 0, 0)); // Red
     }
 }
