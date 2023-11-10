@@ -84,6 +84,8 @@ public class Player : MonoBehaviour
 
     [Header("SpaceBomb")]
     [SerializeField] private GameObject _spaceBomb;
+    private Vector2 _spaceBombPosition;
+    [SerializeField] private float _spaceBombOffset = 0.665f;
     [SerializeField] private float _spaceBombFireRate = 1f;
     [SerializeField] private int _spaceBombAmmo;
     [SerializeField] private int _spaceBombMaxAmmo = 3;
@@ -387,6 +389,10 @@ public class Player : MonoBehaviour
             _spaceBombAmmo--;
             _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
 
+            _spaceBombPosition = transform.position;
+            _spaceBombPosition.x += _spaceBombOffset;
+            Instantiate(_spaceBomb, _spaceBombPosition, Quaternion.identity);
+            
             _canFireSpaceBomb = false;
             StartCoroutine(ReadyFireSpaceBomb());
         }
