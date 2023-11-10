@@ -43,7 +43,7 @@ public class Laser : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-        else // _laserId == 1
+        else // _laserId == 1 (Enemy Laser)
         {
             if (transform.position.x < _boundary)
             {

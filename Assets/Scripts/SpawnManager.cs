@@ -50,6 +50,8 @@ public class SpawnManager : MonoBehaviour
     {
         if (!_stopSpawning)
         {
+            //Create Rare Spawn Drop Functionality
+
             int randomPowerUpIndex = Random.Range(0, _powerUps.Length);
             Instantiate(_powerUps[randomPowerUpIndex], spawnPosition, Quaternion.identity);
         }
