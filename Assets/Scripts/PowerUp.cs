@@ -13,8 +13,9 @@ public class PowerUp : MonoBehaviour
     // 0: TripleShot
     // 1: SpeedBoost
     // 2: Shield
+    // 3: SpaceBomb
     [SerializeField] private int _powerUpId;
-    [SerializeField] private float _powerUpLeftBoundary = -11.1f;
+    [SerializeField] private float _powerUpLeftBoundary = -11f;
     [SerializeField] private float _powerUpAvailableTime = 3f;
     [SerializeField] private float _speed = 0.5f;
     private Vector2 _direction = Vector2.left;

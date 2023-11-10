@@ -8,8 +8,26 @@ public class UIManager : MonoBehaviour
     private GameManager _gameManager;
     private Player _player;
 
-    [Header("Score")]
-    [SerializeField] private Text _score;
+    [Header("Game Management")]
+    [SerializeField] private GameObject _gameOverUI;
+    [SerializeField] private GameObject _restartUI;
+    [SerializeField] private GameObject _returnToMainMenuUI;
+    [SerializeField] private float _gameOverBlinkTime = 0.5f;
+    private bool _displayGameOver = false;
+
+    [Header("SpeedBoost")]
+    [SerializeField] private Image _speedBoostBar;
+
+    [Header("AfterBurner")]
+    [SerializeField] private Image _afterBurnerBar;
+    [SerializeField] private GameObject _afterBurnerCoolDown;
+
+    [Header("SpaceBomb")]
+    [SerializeField] private GameObject[] _spaceBombArray;
+
+    [Header("TripleShot")]
+    [SerializeField] private Text _tripleShotAmmo;
+    private string _tripleShotAmmoCount;
 
     [Header("Lives")]
     [SerializeField] private Image _lives;
@@ -18,21 +36,8 @@ public class UIManager : MonoBehaviour
     [Header("Shields")]
     [SerializeField] private GameObject[] _shieldsArray;
 
-    [Header("AfterBurner")]
-    [SerializeField] private Image _afterBurnerBar;
-    [SerializeField] private GameObject _afterBurnerCoolDown;
-
-    [Header("Game Management")]
-    [SerializeField] private GameObject _gameOverUI;
-    [SerializeField] private GameObject _restartUI;
-    [SerializeField] private GameObject _returnToMainMenuUI;
-    [SerializeField] private float _gameOverBlinkTime = 0.5f;
-    private bool _displayGameOver = false;
-
-    [Header("PowerUps")]
-    [SerializeField] private Text _tripleShotAmmo;
-    private string _tripleShotAmmoCount;
-    [SerializeField] private Image _speedBoostBar;
+    [Header("Score")]
+    [SerializeField] private Text _score;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +55,14 @@ public class UIManager : MonoBehaviour
 
         _tripleShotAmmo.text = string.Empty;
         _speedBoostBar.fillAmount = 0f;
+        foreach (GameObject shield in _shieldsArray)
+        {
+            shield.SetActive(false);
+        }
+        foreach (GameObject spaceBomb in _spaceBombArray)
+        {
+            spaceBomb.SetActive(false);
+        }
     }
 
     // Update is called once per frame
