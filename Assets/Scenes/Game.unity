@@ -1149,6 +1149,10 @@ MonoBehaviour:
   _speedBoostSpeed: 10
   _shield: {fileID: 1268655119}
   _shieldLevel: 0
+  _spaceBomb: {fileID: 707818929788045585, guid: 41d2950208588ac4d8354a9942803b59,
+    type: 3}
+  _spaceBombAmmo: 0
+  _spaceBombMaxAmmo: 15
 --- !u!61 &487352433
 BoxCollider2D:
   m_ObjectHideFlags: 0

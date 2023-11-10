@@ -82,6 +82,11 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _shield;
     [SerializeField] private int _shieldLevel = 0;
 
+    [Header("SpaceBomb")]
+    [SerializeField] private GameObject _spaceBomb;
+    [SerializeField] private int _spaceBombAmmo;
+    [SerializeField] private int _spaceBombMaxAmmo = 3;
+
     private int _score = 0;
 
     // Start is called before the first frame update
@@ -179,15 +184,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool GetAfterBurnerCoolDown()
+    {
+        return _afterBurnerIsInCoolDown;
+    }
+
     public void AddScore(int points)
     {
         _score += points;
         _uiManager.UpdateScore(_score);
-    }
-
-    public bool GetAfterBurnerCoolDown()
-    {
-        return _afterBurnerIsInCoolDown;
     }
 
     private void Move()
@@ -346,6 +351,34 @@ public class Player : MonoBehaviour
         }
     }
 
+    private bool DidPlayerFire()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private IEnumerator ReadyFire()
+    {
+        yield return new WaitForSeconds(_fireRate);
+        _canFire = true;
+    }
+
+    private void CheckTripleShotAmmo()
+    {
+        _tripleShotAmmo--;
+        _uiManager.UpdateTripleShotAmmo(_tripleShotAmmo);
+
+        if (_tripleShotAmmo < 1)
+        {
+            _isTripleShotActive = false;
+            _fireRate = _laserFireRate;
+        }
+    }
+
     private void SetLaserSound(bool isTripleShotActive, float speed)
     {
         _audioSource.clip = _laserSound;
@@ -373,22 +406,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool DidPlayerFire()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    private IEnumerator ReadyFire()
-    {
-        yield return new WaitForSeconds(_fireRate);
-        _canFire = true;
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == _laserEnemyTag)
@@ -396,13 +413,6 @@ public class Player : MonoBehaviour
             Damage();
             Destroy(other.gameObject);
         }
-    }
-
-    private void DestroyPlayer()
-    {
-        Instantiate(_deathExplosion, this.transform.position, Quaternion.Euler(0, 0, 90));
-        _audioManager.PlayExplosionSound();
-        Destroy(this.gameObject);
     }
 
     private IEnumerator ShowPlayerDamage()
@@ -413,16 +423,11 @@ public class Player : MonoBehaviour
         _damageEffectList.RemoveAt(randomIndex);
     }
 
-    private void CheckTripleShotAmmo()
+    private void DestroyPlayer()
     {
-        _tripleShotAmmo--;
-        _uiManager.UpdateTripleShotAmmo(_tripleShotAmmo);
-
-        if (_tripleShotAmmo < 1)
-        {
-            _isTripleShotActive = false;
-            _fireRate = _laserFireRate;
-        }
+        Instantiate(_deathExplosion, this.transform.position, Quaternion.Euler(0, 0, 90));
+        _audioManager.PlayExplosionSound();
+        Destroy(this.gameObject);
     }
 
 }
