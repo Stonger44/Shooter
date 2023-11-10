@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 707818929788045591}
   - component: {fileID: 707818929788045584}
   - component: {fileID: 707818929788045590}
+  - component: {fileID: 5522482035533006027}
   m_Layer: 0
   m_Name: SpaceBomb
   m_TagString: Untagged
@@ -108,3 +109,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.122382, y: 2.3224182}
   m_EdgeRadius: 0
+--- !u!114 &5522482035533006027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707818929788045585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea2f6e7f007d614b823293344981d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

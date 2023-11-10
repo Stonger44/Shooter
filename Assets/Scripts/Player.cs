@@ -84,8 +84,10 @@ public class Player : MonoBehaviour
 
     [Header("SpaceBomb")]
     [SerializeField] private GameObject _spaceBomb;
+    [SerializeField] private float _spaceBombFireRate = 1f;
     [SerializeField] private int _spaceBombAmmo;
     [SerializeField] private int _spaceBombMaxAmmo = 3;
+    private bool _canFireSpaceBomb = true;
 
     private int _score = 0;
 
@@ -123,6 +125,8 @@ public class Player : MonoBehaviour
         Move();
 
         Fire();
+
+        FireSpaceBomb();
     }
 
     public void Damage()
@@ -187,6 +191,15 @@ public class Player : MonoBehaviour
     public bool GetAfterBurnerCoolDown()
     {
         return _afterBurnerIsInCoolDown;
+    }
+
+    public void CollectSpaceBomb()
+    {
+        if (_spaceBombAmmo < 3)
+        {
+            _spaceBombAmmo++;
+        }
+        _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
     }
 
     public void AddScore(int points)
@@ -365,6 +378,34 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(_fireRate);
         _canFire = true;
+    }
+
+    private void FireSpaceBomb()
+    {
+        if (DidPlayerFireSpaceBomb() && _canFireSpaceBomb)
+        {
+            _spaceBombAmmo--;
+            _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
+
+            _canFireSpaceBomb = false;
+            StartCoroutine(ReadyFireSpaceBomb());
+        }
+    }
+
+    private bool DidPlayerFireSpaceBomb()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private IEnumerator ReadyFireSpaceBomb()
+    {
+        yield return new WaitForSeconds(_spaceBombFireRate);
+        _canFireSpaceBomb = true;
     }
 
     private void CheckTripleShotAmmo()

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 
 public class PowerUp : MonoBehaviour
 {
@@ -20,6 +19,9 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private float _speed = 0.5f;
     private Vector2 _direction = Vector2.left;
 
+    private SpriteRenderer _renderer;
+    private List<Color> _colorList = new List<Color>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,17 @@ public class PowerUp : MonoBehaviour
         {
             Debug.LogError("Audio Manager is null!");
         }
-
+        _renderer = GetComponent<SpriteRenderer>();
+        if (_renderer == null)
+        {
+            Debug.LogError("Renderer is null!");
+        }
+        if (_powerUpId == 3 || _powerUpId == 4)
+        {
+            LoadColorList();
+            StartCoroutine(MakePowerUpColorful());
+        }
+        
         StartCoroutine(DestroyPowerUp());
     }
 
@@ -66,6 +78,9 @@ public class PowerUp : MonoBehaviour
                     case 2:
                         player.ActivateShields();
                         break;
+                    case 3:
+                        player.CollectSpaceBomb();
+                        break;
                     default:
                         break;
                 }
@@ -79,5 +94,38 @@ public class PowerUp : MonoBehaviour
     {
         yield return new WaitForSeconds(_powerUpAvailableTime);
         Destroy(this.gameObject);
+    }
+
+    private IEnumerator MakePowerUpColorful()
+    {
+        if (_renderer != null)
+        {
+            while (true)
+            {
+                foreach (Color color in _colorList)
+                {
+                    _renderer.color = color;
+                    yield return new WaitForSeconds(0.05f);
+                }
+                
+            } 
+        }
+    }
+
+    private void LoadColorList()
+    {
+        _colorList.Add(new Color(255, 0, 0)); // Red
+        _colorList.Add(new Color(255, 150, 0)); // Orange
+        _colorList.Add(new Color(255, 255, 0)); // Yellow
+        _colorList.Add(new Color(255, 120, 0)); // Yellow Green
+        _colorList.Add(new Color(0, 255, 0)); // Green
+        _colorList.Add(new Color(0, 255, 150)); // Light Green
+        _colorList.Add(new Color(0, 255, 255)); // Blue Green
+        _colorList.Add(new Color(0, 150, 255)); // Light Blue
+        _colorList.Add(new Color(0, 0, 255)); // Blue
+        _colorList.Add(new Color(120, 0, 255)); // Blue Purple
+        _colorList.Add(new Color(150, 0, 255)); // Purple
+        _colorList.Add(new Color(255, 0, 255)); // Pink
+        _colorList.Add(new Color(0, 255, 120)); // Purple Pink
     }
 }

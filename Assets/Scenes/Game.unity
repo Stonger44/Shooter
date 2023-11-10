@@ -974,7 +974,7 @@ MonoBehaviour:
   - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
   - {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a, type: 3}
   - {fileID: 3496811457575112303, guid: ff87ce208317d5147a6ddfa3bfe13c10, type: 3}
-  _stopSpawning: 0
+  _stopSpawning: 1
 --- !u!4 &455001553
 Transform:
   m_ObjectHideFlags: 0
@@ -1151,6 +1151,7 @@ MonoBehaviour:
   _shieldLevel: 0
   _spaceBomb: {fileID: 707818929788045585, guid: 41d2950208588ac4d8354a9942803b59,
     type: 3}
+  _spaceBombFireRate: 1
   _spaceBombAmmo: 0
   _spaceBombMaxAmmo: 15
 --- !u!61 &487352433
@@ -2693,6 +2694,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169881340}
   m_CullTransparentMesh: 0
+--- !u!1001 &1227606488
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112301, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112303, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerUp_SpaceBomb
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ff87ce208317d5147a6ddfa3bfe13c10, type: 3}
 --- !u!1001 &1250381991
 PrefabInstance:
   m_ObjectHideFlags: 0

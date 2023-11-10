@@ -101,6 +101,21 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateSpaceBombAmmo(int spaceBombAmmo)
+    {
+        for (int i = 0; i < _spaceBombArray.Length; i++)
+        {
+            if (i < spaceBombAmmo)
+            {
+                _spaceBombArray[i].SetActive(true);
+            }
+            else
+            {
+                _spaceBombArray[i].SetActive(false);
+            }
+        }
+    }
+
     public void UpdateTripleShotAmmo(int tripleShotAmmo)
     {
         _tripleShotAmmoCount = string.Empty;
