@@ -1202,7 +1202,7 @@ MonoBehaviour:
   _afterBurnerRechargeRate: 1
   _afterBurnerCoolDownTime: 3
   _afterBurnerIsInCoolDown: 0
-  _laser: {fileID: 3264114618247424463, guid: d7cbe1258bbbafc4caf874d9da0f87b7, type: 3}
+  _laser: {fileID: 3264114618247424463, guid: 4027399934183d24d9fa123615b53eb8, type: 3}
   _laserOffset: 0.57
   _laserFireRate: 0.15
   _canFire: 1
@@ -1214,7 +1214,7 @@ MonoBehaviour:
   - {fileID: 601607743}
   _deathExplosion: {fileID: 7482745557342030904, guid: 1a8beddab19b9504f951f9566e7914af,
     type: 3}
-  _tripleShot: {fileID: 4511263273684437505, guid: 6f85859e3f6c63147b4fcc1cfe1de2fd,
+  _tripleShot: {fileID: 4511263273684437505, guid: 9722d12d1719a36408099a6f3c740d85,
     type: 3}
   _tripleShotFireRate: 0.18
   _tripleShotAmmo: 0
