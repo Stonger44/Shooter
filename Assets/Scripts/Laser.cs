@@ -9,12 +9,19 @@ public class Laser : MonoBehaviour
     [SerializeField] private int _laserId;
     [SerializeField] private float _boundary;
     [SerializeField] private float _speed;
-    [SerializeField] private Vector2 _laserDirection;
+    private Vector2 _laserDirection;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (_laserId == 0)
+        {
+            _laserDirection = Vector2.right;
+        }
+        else if (_laserId == 1)
+        {
+            _laserDirection = Vector2.left;
+        }
     }
 
     // Update is called once per frame

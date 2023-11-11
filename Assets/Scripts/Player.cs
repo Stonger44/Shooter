@@ -84,12 +84,14 @@ public class Player : MonoBehaviour
 
     [Header("SpaceBomb")]
     [SerializeField] private GameObject _spaceBomb;
+    private SpaceBomb _spaceBombScript;
     private Vector2 _spaceBombPosition;
     [SerializeField] private float _spaceBombOffset = 0.665f;
-    [SerializeField] private float _spaceBombFireRate = 1f;
+    [SerializeField] private float _spaceBombFireRate = 3f;
     [SerializeField] private int _spaceBombAmmo;
     [SerializeField] private int _spaceBombMaxAmmo = 3;
     private bool _canFireSpaceBomb = true;
+    private bool _spaceBombArmed = false;
 
     private int _score = 0;
 
@@ -116,7 +118,11 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Player AudioSource is null!");
         }
-
+        _spaceBombScript = _spaceBomb.GetComponent<SpaceBomb>();
+        if (_spaceBomb == null)
+        {
+            Debug.LogError("SpaceBombScript is null!");
+        }
         _fireRate = _laserFireRate;
         _afterBurnerTimeRemaining = _afterBurnerMaxActiveTime;
     }
@@ -343,7 +349,7 @@ public class Player : MonoBehaviour
         //} 
         #endregion
 
-        if (DidPlayerFire() && _canFire)
+        if (Input.GetKeyDown(KeyCode.Return) && _canFire)
         {
             _laserPosition = transform.position;
             _laserPosition.x += _laserOffset;
@@ -366,55 +372,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool DidPlayerFire()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
     private IEnumerator ReadyFire()
     {
         yield return new WaitForSeconds(_fireRate);
         _canFire = true;
-    }
-
-    private void FireSpaceBomb()
-    {
-        if (_spaceBombAmmo > 0)
-        {
-            if (DidPlayerFireSpaceBomb() && _canFireSpaceBomb)
-            {
-                _spaceBombAmmo--;
-                _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
-
-                _spaceBombPosition = transform.position;
-                _spaceBombPosition.x += _spaceBombOffset;
-                Instantiate(_spaceBomb, _spaceBombPosition, Quaternion.identity);
-
-                _canFireSpaceBomb = false;
-                StartCoroutine(ReadyFireSpaceBomb());
-            } 
-        }
-    }
-
-    private bool DidPlayerFireSpaceBomb()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    private IEnumerator ReadyFireSpaceBomb()
-    {
-        yield return new WaitForSeconds(_spaceBombFireRate);
-        _canFireSpaceBomb = true;
     }
 
     private void CheckTripleShotAmmo()
@@ -454,6 +415,41 @@ public class Player : MonoBehaviour
                 _audioSource.pitch = 0.8f;
             }
         }
+    }
+
+    private void FireSpaceBomb()
+    {
+        if (_spaceBombAmmo > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (_spaceBombArmed)
+                {
+                    // Detonate SpaceBomb
+                    _spaceBombScript.Detonate();
+                    _spaceBombArmed = false;
+                    StartCoroutine(ReadyFireSpaceBomb());
+                }
+                else if (_canFireSpaceBomb)
+                {
+                    _spaceBombAmmo--;
+                    _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
+
+                    _spaceBombPosition = transform.position;
+                    _spaceBombPosition.x += _spaceBombOffset;
+                    Instantiate(_spaceBomb, _spaceBombPosition, Quaternion.identity);
+
+                    _spaceBombArmed = true;
+                    _canFireSpaceBomb = false;
+                }
+            }
+        }
+    }
+
+    private IEnumerator ReadyFireSpaceBomb()
+    {
+        yield return new WaitForSeconds(_spaceBombFireRate);
+        _canFireSpaceBomb = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
