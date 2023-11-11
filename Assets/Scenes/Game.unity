@@ -1152,7 +1152,7 @@ MonoBehaviour:
   _spaceBomb: {fileID: 1657648685121873620, guid: 41d2950208588ac4d8354a9942803b59,
     type: 3}
   _spaceBombOffset: 0.665
-  _spaceBombFireRate: 3
+  _spaceBombFireRate: 0.75
   _spaceBombAmmo: 0
   _spaceBombMaxAmmo: 3
 --- !u!61 &487352433
