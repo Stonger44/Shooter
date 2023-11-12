@@ -221,7 +221,7 @@ public class Enemy : MonoBehaviour
         _thrusters.SetActive(false);
 
         float randomFloat = Random.Range(0f, 1.0f);
-        if (randomFloat <= _powerUpDropChance)
+        if (randomFloat < _powerUpDropChance)
         {
             _spawnManager.SpawnPowerUp(this.transform.position);
         }

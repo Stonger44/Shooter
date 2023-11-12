@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae289076ae58d5142b6bb39f7c220160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerUpId: 1
+  _powerUpId: 2
   _powerUpLeftBoundary: -11
   _powerUpAvailableTime: 3
   _speed: 0.5

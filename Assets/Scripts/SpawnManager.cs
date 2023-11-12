@@ -22,8 +22,15 @@ public class SpawnManager : MonoBehaviour
     private GameObject _spawnedAsteroid;
     private Vector2 _asteroidSpawnPosition;
 
+    /*-----Power Up Array Indices-----*\
+    0: SpaceBomb
+    1: TripleShot
+    2: SpeedBoost
+    3: Shield
+    \*-----Power Up Array Indices-----*/
     [Header("PowerUps")]
     [SerializeField] private GameObject[] _powerUps;
+    [SerializeField] private float _spaceBombSpawnChance = 0.10f;
 
     [Header("Game Management")]
     [SerializeField] private bool _stopSpawning = false;
@@ -48,13 +55,24 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnPowerUp(Vector2 spawnPosition)
     {
-        if (!_stopSpawning)
+        /*-----Power Up Array Indices-----*\
+        0: SpaceBomb
+        1: TripleShot
+        2: SpeedBoost
+        3: Shield
+        \*-----Power Up Array Indices-----*/
+        int randomIndex = 0;
+        float randomFloat = Random.Range(0f, 1.0f);
+        if (randomFloat < _spaceBombSpawnChance)
         {
-            //Create Rare Spawn Drop Functionality
-
-            int randomPowerUpIndex = Random.Range(0, _powerUps.Length);
-            Instantiate(_powerUps[randomPowerUpIndex], spawnPosition, Quaternion.identity);
+            randomIndex = 0;
         }
+        else
+        {
+            randomIndex = Random.Range(1, _powerUps.Length);
+        }
+
+        Instantiate(_powerUps[randomIndex], spawnPosition, Quaternion.identity);
     }
 
     private IEnumerator SpawnEnemy()
