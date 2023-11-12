@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1657648683853891457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children: []
   m_Father: {fileID: 1657648684815017433}
   m_RootOrder: 0
@@ -107,7 +107,7 @@ Transform:
   m_GameObject: {fileID: 1657648683854603282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 16, y: 16, z: 16}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children: []
   m_Father: {fileID: 1657648684815017433}
   m_RootOrder: 4
@@ -188,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 1657648683896243718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 1657648684815017433}
   m_RootOrder: 3
@@ -269,7 +269,7 @@ Transform:
   m_GameObject: {fileID: 1657648684693299152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children: []
   m_Father: {fileID: 1657648684815017433}
   m_RootOrder: 1
@@ -437,6 +437,7 @@ Transform:
   - {fileID: 1657648685737879348}
   - {fileID: 1657648683896243719}
   - {fileID: 1657648683854603283}
+  - {fileID: 5196020830935674845}
   m_Father: {fileID: 1657648685121873621}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -504,12 +505,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boundary: 10
   _speed: 15
+  _spaceBombSprite: {fileID: 1657648684737413688}
   _blastRadii:
   - {fileID: 1657648683853891457}
   - {fileID: 1657648684693299152}
   - {fileID: 1657648685737879351}
   - {fileID: 1657648683896243718}
   - {fileID: 1657648683854603282}
+  _blastZone: {fileID: 1937772444945072216}
 --- !u!1 &1657648685737879351
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +539,7 @@ Transform:
   m_GameObject: {fileID: 1657648685737879351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 1657648684815017433}
   m_RootOrder: 2
@@ -591,3 +594,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1937772444945072216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5196020830935674845}
+  - component: {fileID: 4170654618556849187}
+  m_Layer: 0
+  m_Name: BlastZone
+  m_TagString: BlastZone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5196020830935674845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937772444945072216}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1657648684815017433}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &4170654618556849187
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937772444945072216}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.6799984, y: -0.7580662}
+  serializedVersion: 2
+  m_Radius: 68.0252
