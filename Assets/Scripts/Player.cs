@@ -200,8 +200,8 @@ public class Player : MonoBehaviour
         if (_spaceBombAmmo < 3)
         {
             _spaceBombAmmo++;
+            _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
         }
-        _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
     }
 
     public void AddScore(int points)

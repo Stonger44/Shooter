@@ -133,6 +133,12 @@ public class Enemy : MonoBehaviour
         StartCoroutine(ReadyFire());
     }
 
+    private IEnumerator ReadyFire()
+    {
+        yield return new WaitForSeconds(_fireRate);
+        _canFire = true;
+    }
+
     private void SetLaserSound()
     {
         _audioSource.clip = _laserSound;
@@ -144,12 +150,6 @@ public class Enemy : MonoBehaviour
         {
             _audioSource.pitch = 0.3f;
         }
-    }
-
-    private IEnumerator ReadyFire()
-    {
-        yield return new WaitForSeconds(_fireRate);
-        _canFire = true;
     }
 
     private void Move()
