@@ -94,7 +94,8 @@ public class Enemy : MonoBehaviour
     {
         if (TargetFound() && _canFire)
         {
-            Fire();
+            _canFire = false;
+            StartCoroutine(Fire());
         }
     }
 
@@ -120,8 +121,10 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
-    private void Fire()
+    private IEnumerator Fire()
     {
+        yield return new WaitForSeconds(0.5f);
+
         Vector2 laserPosition = transform.position;
         laserPosition.x += _laserShotOffset;
         Instantiate(_laserShot, laserPosition, Quaternion.identity);
@@ -129,7 +132,6 @@ public class Enemy : MonoBehaviour
         SetLaserSound();
         _audioSource.Play();
 
-        _canFire = false;
         StartCoroutine(ReadyFire());
     }
 
