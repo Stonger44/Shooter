@@ -61,6 +61,8 @@ public class Player : MonoBehaviour
 
     [Header("Damage")]
     [SerializeField] private List<GameObject> _damageEffectList;
+    private List<GameObject> _inactiveDamageEffectList = new List<GameObject>();
+    private GameObject _activeDamageEffect;
     [SerializeField] private GameObject _deathExplosion;
     private int _lives = 3;
 
@@ -211,10 +213,10 @@ public class Player : MonoBehaviour
             _lives++;
             _uiManager.UpdateLives(_lives);
 
-            GameObject damageEffect = _damageEffectList.FirstOrDefault(dmgEfct => dmgEfct.activeInHierarchy == true);
-            if (damageEffect != null)
+            _activeDamageEffect = _damageEffectList.FirstOrDefault(dmgEfct => dmgEfct.activeInHierarchy == true);
+            if (_activeDamageEffect != null)
             {
-                damageEffect.SetActive(false);
+                _activeDamageEffect.SetActive(false);
             }
         }
     }
@@ -461,7 +463,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(.1f);
 
-        List<GameObject> _inactiveDamageEffectList = _damageEffectList.Where(dmgEfct => dmgEfct.activeInHierarchy == false).ToList();
+        _inactiveDamageEffectList = _damageEffectList.Where(dmgEfct => dmgEfct.activeInHierarchy == false).ToList();
         int randomIndex = Random.Range(0, _inactiveDamageEffectList.Count);
         _inactiveDamageEffectList[randomIndex].SetActive(true);
     }
