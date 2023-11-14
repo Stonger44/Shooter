@@ -204,6 +204,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void CollectPlayerLife()
+    {
+        if (_lives < 3)
+        {
+            _lives++;
+            _uiManager.UpdateLives(_lives);
+
+            // Turn off damage effect
+        }
+    }
+
     public void AddScore(int points)
     {
         _score += points;

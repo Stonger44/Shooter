@@ -14,6 +14,7 @@ public class PowerUp : MonoBehaviour
     1: TripleShot
     2: SpeedBoost
     3: Shield
+    4: PlayerLife
     \*-----Power Up Ids-----*/
     [SerializeField] private int _powerUpId;
     [SerializeField] private float _powerUpLeftBoundary = -11f;
@@ -38,7 +39,7 @@ public class PowerUp : MonoBehaviour
             Debug.LogError("Renderer is null!");
         }
 
-        if (_powerUpId == 0)
+        if (_powerUpId == 0 || _powerUpId == 4)
         {
             LoadColorList();
             StartCoroutine(MakePowerUpColorful());
@@ -83,6 +84,9 @@ public class PowerUp : MonoBehaviour
                         break;
                     case 3:
                         player.ActivateShields();
+                        break;
+                    case 4:
+                        player.CollectPlayerLife();
                         break;
                     default:
                         break;
