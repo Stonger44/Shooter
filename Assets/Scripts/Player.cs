@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -211,7 +211,11 @@ public class Player : MonoBehaviour
             _lives++;
             _uiManager.UpdateLives(_lives);
 
-            // Turn off damage effect
+            GameObject damageEffect = _damageEffectList.FirstOrDefault(dmgEfct => dmgEfct.activeInHierarchy == true);
+            if (damageEffect != null)
+            {
+                damageEffect.SetActive(false);
+            }
         }
     }
 
@@ -456,9 +460,10 @@ public class Player : MonoBehaviour
     private IEnumerator ShowPlayerDamage()
     {
         yield return new WaitForSeconds(.1f);
-        int randomIndex = UnityEngine.Random.Range(0, _damageEffectList.Count);
-        _damageEffectList[randomIndex].SetActive(true);
-        _damageEffectList.RemoveAt(randomIndex);
+
+        List<GameObject> _inactiveDamageEffectList = _damageEffectList.Where(dmgEfct => dmgEfct.activeInHierarchy == false).ToList();
+        int randomIndex = Random.Range(0, _inactiveDamageEffectList.Count);
+        _inactiveDamageEffectList[randomIndex].SetActive(true);
     }
 
     private void DestroyPlayer()
