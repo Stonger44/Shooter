@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private UIManager _uiManager;
     private AudioManager _audioManager;
     private AudioSource _audioSource;
+    private Camera _camera;
 
     [Header("Boundaries")]
     [SerializeField] private float _playerLeftBoundary = -9.5f;
@@ -118,6 +119,11 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Player AudioSource is null!");
         }
+        _camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        if (_camera == null)
+        {
+            Debug.LogError("Camera is null!");
+        }
 
         _fireRate = _laserFireRate;
         _afterBurnerTimeRemaining = _afterBurnerMaxActiveTime;
@@ -148,8 +154,8 @@ public class Player : MonoBehaviour
         }
 
         _lives--;
-        _uiManager.UpdateLives(_lives);
         _audioManager.PlayExplosionSound();
+        _uiManager.UpdateLives(_lives);
         StartCoroutine(ShowPlayerDamage());
 
         if (_lives < 1)
@@ -461,11 +467,13 @@ public class Player : MonoBehaviour
 
     private IEnumerator ShowPlayerDamage()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(0.12f);
 
         _inactiveDamageEffectList = _damageEffectList.Where(dmgEfct => dmgEfct.activeInHierarchy == false).ToList();
         int randomIndex = Random.Range(0, _inactiveDamageEffectList.Count);
         _inactiveDamageEffectList[randomIndex].SetActive(true);
+
+        StartCoroutine(_camera.CameraShake());
     }
 
     private void DestroyPlayer()

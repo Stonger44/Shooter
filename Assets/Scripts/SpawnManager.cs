@@ -31,7 +31,6 @@ public class SpawnManager : MonoBehaviour
     \*-----Power Up Array Indices-----*/
     [Header("PowerUps")]
     [SerializeField] private GameObject[] _powerUps;
-    [SerializeField] private float _spaceBombSpawnChance = 0.10f;
 
     [Header("Game Management")]
     [SerializeField] private bool _stopSpawning = false;

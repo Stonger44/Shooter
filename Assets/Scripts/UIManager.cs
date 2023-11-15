@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     private GameManager _gameManager;
     private Player _player;
+    private Camera _camera;
 
     [Header("Game Management")]
     [SerializeField] private GameObject _gameOverUI;
@@ -51,6 +52,11 @@ public class UIManager : MonoBehaviour
         if (_player == null)
         {
             Debug.LogError("Player is null!");
+        }
+        _camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        if (_camera == null)
+        {
+            Debug.LogError("Camera is null!");
         }
 
         _tripleShotAmmo.text = string.Empty;
@@ -172,18 +178,21 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
+        StartCoroutine(_camera.CameraShake());
         StartCoroutine(GameOverBlink());
         StartCoroutine(DisplayMenuOptions());
     }
 
     private IEnumerator GameOverBlink()
     {
+        yield return new WaitForSeconds(_gameOverBlinkTime);
+
         while (true)
         {
+            yield return new WaitForSeconds(_gameOverBlinkTime);
+            
             _displayGameOver = !_displayGameOver;
             _gameOverUI.SetActive(_displayGameOver);
-
-            yield return new WaitForSeconds(_gameOverBlinkTime);
         }
     }
 

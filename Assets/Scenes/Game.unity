@@ -975,7 +975,6 @@ MonoBehaviour:
   - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
   - {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a, type: 3}
   - {fileID: 5353324495217767819, guid: 74d15f6a5410be64fba0cd9133f0333b, type: 3}
-  _spaceBombSpawnChance: 0.1
   _stopSpawning: 0
 --- !u!4 &455001553
 Transform:
@@ -2076,6 +2075,7 @@ GameObject:
   - component: {fileID: 1004651054}
   - component: {fileID: 1004651053}
   - component: {fileID: 1004651056}
+  - component: {fileID: 1004651057}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2208,6 +2208,19 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1004651057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004651052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e0494fad6c79f4181fe246bfbb0d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraShakeSeconds: 0.075
 --- !u!1 &1016917269
 GameObject:
   m_ObjectHideFlags: 0
