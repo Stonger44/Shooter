@@ -5,12 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private Player _player;
+    private AudioSource _bgmAudio;
+    private UIManager _uiManager;
+
     [SerializeField] private bool _gameOver = false;
+    [SerializeField] private bool _gamePaused = false;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is null!");
+        }
+        _bgmAudio = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
+        if (_bgmAudio == null)
+        {
+            Debug.LogError("BGM Audio is null!");
+        }
+        _uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        if (_uiManager == null)
+        {
+            Debug.LogError("UIManager is null!");
+        }
     }
 
     // Update is called once per frame
@@ -33,11 +53,42 @@ public class GameManager : MonoBehaviour
                 ReturnToMainMenu(); 
             }
         }
+
+        if (!_gameOver && Input.GetKeyDown(KeyCode.P))
+        {
+            if (_gamePaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+            
+        }
     }
 
     public void GameOver()
     {
         _gameOver = true;
+    }
+
+    private void PauseGame()
+    {
+        _gamePaused = true;
+        Time.timeScale = 0;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        _bgmAudio.Pause();
+        _uiManager.TogglePausedUI();
+    }
+
+    private void ResumeGame()
+    {
+        _gamePaused = false;
+        Time.timeScale = _player.GetSpeedBoostTimeScale();
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        _bgmAudio.UnPause();
+        _uiManager.TogglePausedUI();
     }
 
     private void RestartGame()

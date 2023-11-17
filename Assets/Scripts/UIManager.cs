@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _gameOverUI;
     [SerializeField] private GameObject _restartUI;
     [SerializeField] private GameObject _returnToMainMenuUI;
+    [SerializeField] private GameObject _paused;
     [SerializeField] private float _gameOverBlinkTime = 0.5f;
     private bool _displayGameOver = false;
 
@@ -75,6 +76,12 @@ public class UIManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void TogglePausedUI()
+    {
+        bool showPausedUI = !_paused.activeInHierarchy;
+        _paused.SetActive(showPausedUI);
     }
 
     public void UpdateScore(int score)

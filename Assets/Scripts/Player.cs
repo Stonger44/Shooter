@@ -188,6 +188,16 @@ public class Player : MonoBehaviour
         _uiManager.UpdateSpeedBoostBar(_speedBoostActiveTime, _speedBoostDeactivationTime);
     }
 
+    public bool IsSpeedBoostActive()
+    {
+        return _isSpeedBoostActive;
+    }
+
+    public float GetSpeedBoostTimeScale()
+    {
+        return _speedBoostTimeScale;
+    }
+
     public void ActivateShields()
     {
         if (_shieldLevel < 3)
