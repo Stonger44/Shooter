@@ -24,12 +24,6 @@ public class AudioManager : MonoBehaviour
         AudioListener.volume = 0.5f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void PlayExplosionSound()
     {
         if (Time.timeScale == 1f)

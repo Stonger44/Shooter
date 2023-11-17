@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("UIManager is null!");
         }
+
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
     }
 
     // Update is called once per frame
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
             QuitApplication();
         }
 
-        if (_gameOver)
+        if (_gamePaused || _gameOver)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -85,7 +88,7 @@ public class GameManager : MonoBehaviour
     private void ResumeGame()
     {
         _gamePaused = false;
-        Time.timeScale = _player.GetSpeedBoostTimeScale();
+        Time.timeScale = _player.IsSpeedBoostActive() ? _player.GetSpeedBoostTimeScale() : 1f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
         _bgmAudio.UnPause();
         _uiManager.TogglePausedUI();

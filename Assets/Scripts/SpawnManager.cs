@@ -42,12 +42,6 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnAsteroid());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void StopSpawning()
     {
         _stopSpawning = true;

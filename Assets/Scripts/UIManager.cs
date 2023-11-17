@@ -72,16 +72,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void TogglePausedUI()
     {
         bool showPausedUI = !_paused.activeInHierarchy;
         _paused.SetActive(showPausedUI);
+        _restartUI.SetActive(showPausedUI);
+        _returnToMainMenuUI.SetActive(showPausedUI);
     }
 
     public void UpdateScore(int score)

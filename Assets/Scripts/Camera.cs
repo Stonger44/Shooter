@@ -13,12 +13,6 @@ public class Camera : MonoBehaviour
         transform.position = _defaultPosition;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public IEnumerator CameraShake()
     {
         float xPosition;
