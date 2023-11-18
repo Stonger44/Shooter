@@ -18,10 +18,10 @@ public class Enemy : MonoBehaviour
     private CircleCollider2D _collider;
 
     [Header("Boundaries")]
-    [SerializeField] private float _enemyLeftBoundary = -11f;
+    [SerializeField] private float _enemyLeftBoundary = -11.2f;
     [SerializeField] private float _enemyRightBoundary = 11f;
-    [SerializeField] private float _enemyUpperBoundary = 4.1f;
-    [SerializeField] private float _enemyLowerBoundary = -5.1f;
+    [SerializeField] private float _enemyUpperBoundary = 4.15f;
+    [SerializeField] private float _enemyLowerBoundary = -5.15f;
 
     [Header("Speed")]
     [SerializeField] private float _speed = 4f;
