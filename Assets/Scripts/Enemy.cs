@@ -1,5 +1,4 @@
-﻿// using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -128,7 +127,7 @@ public class Enemy : MonoBehaviour
         Vector2 laserPosition = transform.position;
         laserPosition.x += _laserShotOffset;
         Instantiate(_laserShot, laserPosition, Quaternion.identity);
-
+        
         SetLaserSound();
         _audioSource.Play();
 
