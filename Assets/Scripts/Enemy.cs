@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
     [Header("Health/Damage")]
     [SerializeField] private int _health = 3;
     private bool _isExploding;
-    [SerializeField] private float _powerUpDropChance = 0.25f;
+    [SerializeField] private float _powerUpDropChance = 0.2f;
 
     [Header("Targeting System")]
     [SerializeField] private float _rayCastOffset = -3.5f;
@@ -89,7 +89,10 @@ public class Enemy : MonoBehaviour
     {
         Move();
 
-        ScanForTarget();
+        if (!_isExploding)
+        {
+            ScanForTarget();
+        }
     }
 
     private void ScanForTarget()

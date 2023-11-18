@@ -31,6 +31,7 @@ public class SpawnManager : MonoBehaviour
     \*-----Power Up Array Indices-----*/
     [Header("PowerUps")]
     [SerializeField] private GameObject[] _powerUps;
+    [SerializeField] private float _rareSpawnChance = 0.25f;
 
     [Header("Game Management")]
     [SerializeField] private bool _stopSpawning = false;
@@ -56,12 +57,18 @@ public class SpawnManager : MonoBehaviour
         3: Shield
         4: PlayerLife
         \*-----Power Up Array Indices-----*/
-        int randomIndex = Random.Range(1, _powerUps.Length);
+        int randomIndex = Random.Range(0, _powerUps.Length);
 
-        // This if statement is to make these PowerUps more rare; if the index is one of the rare powerUps, roll one more time
+        // This if statement is to make these PowerUps more rare:
+        // if the index is one of the rare powerUps, _rareSpawnChance to spawn, else roll one more time
         if (randomIndex == 0 || randomIndex == 4)
         {
-            randomIndex = Random.Range(1, _powerUps.Length);
+            float randomFloat = Random.Range(0f, 1.0f);
+            if (randomFloat > _rareSpawnChance)
+            {
+                // Roll again
+                randomIndex = Random.Range(0, _powerUps.Length);
+            }
         }
 
         Instantiate(_powerUps[randomIndex], spawnPosition, Quaternion.identity);
