@@ -74,9 +74,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _laserId: 0
-  _boundary: 10.5
+  _boundary: 10.6
   _speed: 20
-  _laserDirection: {x: 1, y: 0}
 --- !u!1001 &1176749361129483089
 PrefabInstance:
   m_ObjectHideFlags: 0
