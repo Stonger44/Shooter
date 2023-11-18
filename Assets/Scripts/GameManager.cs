@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (!_gameOver && Input.GetKeyDown(KeyCode.P))
+        if (!_gameOver && Input.GetKeyDown(KeyCode.P) && _player.GetPlayerLives() > 0)
         {
             if (_gamePaused)
             {

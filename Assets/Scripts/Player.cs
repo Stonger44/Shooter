@@ -139,6 +139,11 @@ public class Player : MonoBehaviour
         FireSpaceBomb();
     }
 
+    public int GetPlayerLives()
+    {
+        return _lives;
+    }
+
     public void Damage()
     {
         if (_shieldLevel > 0)

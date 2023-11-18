@@ -182,7 +182,6 @@ public class UIManager : MonoBehaviour
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         StartCoroutine(_camera.CameraShake());
-        _gameManager.GameOver();
         StartCoroutine(GameOverBlink());
         StartCoroutine(DisplayMenuOptions());
     }
@@ -205,5 +204,6 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         _restartUI.SetActive(true);
         _returnToMainMenuUI.SetActive(true);
+        _gameManager.GameOver();
     }
 }
