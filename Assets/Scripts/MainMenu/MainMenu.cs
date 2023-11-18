@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject _controlsPanel;
+
     // Update is called once per frame
     void Update()
     {
@@ -21,7 +23,12 @@ public class MainMenu : MonoBehaviour
 
     public void OpenControlsPanel()
     {
-        
+        _controlsPanel.SetActive(true);
+    }
+
+    public void CloseControlsPanel()
+    {
+        _controlsPanel.SetActive(false);
     }
 
     public void QuitApplication()
