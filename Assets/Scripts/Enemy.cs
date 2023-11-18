@@ -33,13 +33,16 @@ public class Enemy : MonoBehaviour
     private bool _isExploding;
     [SerializeField] private float _powerUpDropChance = 0.25f;
 
+    [Header("Targeting System")]
+    [SerializeField] private float _rayCastOffset = -3.5f;
+    [SerializeField] private float _rayCastDistance = 16f;
+    private Vector2 _rayCastOrigin;
+
     [Header("Laser")]
     [SerializeField] private GameObject _laserShot;
     [SerializeField] private AudioClip _laserSound;
     [SerializeField] private float _laserShotOffset = -0.955f;
     [SerializeField] private float _fireRate = 1f;
-    [SerializeField] private float _xWEZ = 5f;
-    [SerializeField] private float _yWEZ = 0.5f;
     private bool _canFire = true;
 
     [Header("Thrusters")]
@@ -86,38 +89,29 @@ public class Enemy : MonoBehaviour
     {
         Move();
 
-        SearchForTarget();
+        ScanForTarget();
     }
 
-    private void SearchForTarget()
+    private void ScanForTarget()
     {
-        if (TargetFound() && _canFire)
-        {
-            _canFire = false;
-            StartCoroutine(Fire());
-        }
-    }
+        _rayCastOrigin = transform.position;
+        _rayCastOrigin.x += _rayCastOffset;
 
-    private bool TargetFound()
-    {
-        if (!_isExploding)
+        RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance);
+        Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
+
+        if (hitObject.collider != null)
         {
-            if (transform.position.x < 10)
+            if (hitObject.collider.tag == _playerTag)
             {
-                if (_player != null)
+                if (_canFire)
                 {
-                    if ((_player.transform.position.y < transform.position.y + _yWEZ) && (_player.transform.position.y > transform.position.y - _yWEZ))
-                    {
-                        if (_player.transform.position.x < transform.position.x - _xWEZ)
-                        {
-                            return true;
-                        }
-                    }
+                    _canFire = false;
+                    StartCoroutine(Fire());
                 }
-            } 
-        }
+            }
 
-        return false;
+        }
     }
 
     private IEnumerator Fire()

@@ -143,6 +143,8 @@ MonoBehaviour:
   _speed: 3
   _health: 3
   _powerUpDropChance: 0.25
+  _rayCastOffset: -3
+  _rayCastDistance: 16
   _laserShot: {fileID: 1635626956414016838, guid: d97fa67cff977cf4ba2c4775e30381c3,
     type: 3}
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
