@@ -65,6 +65,18 @@ TextureImporter:
   - first:
       213: 21300040
     second: Enter_Bottom
+  - first:
+      213: -4251267030595577636
+    second: R
+  - first:
+      213: -7558835541258527699
+    second: Escape
+  - first:
+      213: -6475893775207849518
+    second: Shift
+  - first:
+      213: -1313536397990008039
+    second: HorizontalEmptyKey
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -622,6 +634,90 @@ TextureImporter:
       bones: []
       spriteID: cb45959fd1f4b67409be03875ac767c8
       internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 502
+        width: 55
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd8550ce8277005c0800000000000000
+      internalID: -4251267030595577636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Escape
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 636
+        width: 74
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2c10b7af1f991790800000000000000
+      internalID: -7558835541258527699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 372
+        width: 164
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d1a2951ce00126a0800000000000000
+      internalID: -6475893775207849518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorizontalEmptyKey
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 307
+        width: 87
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91b624efa9165cde0800000000000000
+      internalID: -1313536397990008039
       vertices: []
       indices: 
       edges: []
