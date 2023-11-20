@@ -63,8 +63,7 @@ public class SpawnManager : MonoBehaviour
         // if the index is one of the rare powerUps, _rareSpawnChance to spawn, else roll one more time
         if (randomIndex == 0 || randomIndex == 4)
         {
-            float randomFloat = Random.Range(0f, 1.0f);
-            if (randomFloat > _rareSpawnChance)
+            if (Random.value > _rareSpawnChance)
             {
                 // Roll again
                 randomIndex = Random.Range(0, _powerUps.Length);

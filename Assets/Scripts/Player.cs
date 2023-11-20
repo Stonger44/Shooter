@@ -14,10 +14,10 @@ public class Player : MonoBehaviour
     private Camera _camera;
 
     [Header("Boundaries")]
-    [SerializeField] private float _playerLeftBoundary = -9.5f;
-    [SerializeField] private float _playerRightBoundary = 9.5f;
-    [SerializeField] private float _playerUpperBoundary = 4.2f;
-    [SerializeField] private float _playerLowerBoundary = -5.2f;
+    [SerializeField] private float _playerLeftBoundary = -9.7f;
+    [SerializeField] private float _playerRightBoundary = 9.7f;
+    [SerializeField] private float _playerUpperBoundary = 4.25f;
+    [SerializeField] private float _playerLowerBoundary = -5.25f;
 
     #region PlayerWrap
     //private Vector3 _position;
@@ -280,8 +280,6 @@ public class Player : MonoBehaviour
         //this.transform.position = _position;
         #endregion
 
-        transform.position = new Vector2(Mathf.Clamp(transform.position.x, _playerLeftBoundary, _playerRightBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary));
-
         if (_isSpeedBoostActive)
         {
             CheckSpeedBoostTime(); 
@@ -299,6 +297,8 @@ public class Player : MonoBehaviour
         CheckAfterBurner();
 
         transform.Translate(_direction * _speed * Time.deltaTime);
+
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, _playerLeftBoundary, _playerRightBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary));
     }
 
     private void CheckSpeedBoostTime()

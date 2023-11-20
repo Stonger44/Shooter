@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _speed = 4f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
+    private bool _willJink;
+    private bool _isJinking;
 
     [Header("Health/Damage")]
     [SerializeField] private int _health = 3;
@@ -152,11 +154,45 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
+        if (!_isExploding && !_isJinking)
+        {
+            _willJink = Random.value < 0.002f;
+
+            if (_willJink)
+            {
+                Jink();
+            }
+        }
+
         transform.Translate(_direction * _speed * Time.deltaTime);
+
+        if (!_isExploding)
+        {
+            transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, _enemyLowerBoundary, _enemyUpperBoundary)); 
+        }
 
         if (!_isExploding && transform.position.x < _enemyLeftBoundary)
         {
             Warp();
+        }
+    }
+
+    private void Jink()
+    {
+        float randomY = Random.value < 0.5f ? -1 : 1;
+        Debug.Log($"randomY = {randomY}");
+        _direction = new Vector2(_direction.x, randomY);
+        _isJinking = true;
+        StartCoroutine(JinkDuration());
+    }
+
+    private IEnumerator JinkDuration()
+    {
+        yield return new WaitForSeconds(1f);
+        if (!_isExploding)
+        {
+            _direction = Vector2.left;
+            _isJinking = false; 
         }
     }
 
@@ -218,8 +254,7 @@ public class Enemy : MonoBehaviour
 
         _thrusters.SetActive(false);
 
-        float randomFloat = Random.Range(0f, 1.0f);
-        if (randomFloat < _powerUpDropChance)
+        if (Random.value < _powerUpDropChance)
         {
             _spawnManager.SpawnPowerUp(this.transform.position);
         }

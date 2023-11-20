@@ -1368,10 +1368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d22dc27c29bdec419237cb33784e034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerLeftBoundary: -9.5
-  _playerRightBoundary: 9.5
-  _playerUpperBoundary: 4.2
-  _playerLowerBoundary: -5.2
+  _playerLeftBoundary: -9.7
+  _playerRightBoundary: 9.7
+  _playerUpperBoundary: 4.25
+  _playerLowerBoundary: -5.25
   _speed: 5
   _speedStandard: 5
   _thruster: {fileID: 1734820462}

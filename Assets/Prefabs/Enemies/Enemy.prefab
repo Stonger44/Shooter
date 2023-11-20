@@ -136,10 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af53b3e3c2898f74ead640d61917435f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyLeftBoundary: -11
+  _enemyLeftBoundary: -11.2
   _enemyRightBoundary: 11
-  _enemyUpperBoundary: 4.1
-  _enemyLowerBoundary: -5.1
+  _enemyUpperBoundary: 4.15
+  _enemyLowerBoundary: -5.15
   _speed: 3
   _health: 3
   _powerUpDropChance: 0.2
