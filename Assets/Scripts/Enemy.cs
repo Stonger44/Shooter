@@ -156,7 +156,7 @@ public class Enemy : MonoBehaviour
     {
         if (!_isExploding && !_isJinking)
         {
-            _willJink = Random.value < 0.002f;
+            _willJink = Random.value < (0.2f * Time.deltaTime);
 
             if (_willJink)
             {
