@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _enemyUpperBoundary = 4.15f;
     [SerializeField] private float _enemyLowerBoundary = -5.15f;
 
-    [Header("Speed")]
+    [Header("Movement")]
     [SerializeField] private float _speed = 4f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
