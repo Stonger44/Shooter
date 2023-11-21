@@ -180,7 +180,6 @@ public class Enemy : MonoBehaviour
     private void Jink()
     {
         float randomY = Random.value < 0.5f ? -1 : 1;
-        Debug.Log($"randomY = {randomY}");
         _direction = new Vector2(_direction.x, randomY);
         _isJinking = true;
         StartCoroutine(JinkDuration());
