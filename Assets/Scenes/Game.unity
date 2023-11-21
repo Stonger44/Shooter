@@ -1217,19 +1217,17 @@ MonoBehaviour:
   _enemySpawnUpperBoundary: 3.7
   _enemySpawnLowerBoundary: -4.5
   _enemyContainer: {fileID: 793658857}
-  _enemyPrefab: {fileID: 3368753958657129261, guid: 07a25606273788949a87fa6d12c5e870,
-    type: 3}
+  _enemies:
+  - {fileID: 3368753958657129261, guid: 07a25606273788949a87fa6d12c5e870, type: 3}
+  - {fileID: 7461290498793702394, guid: 331c06e5bb01bf247a452854317fe9a1, type: 3}
   _enemySpawnTime: 2
-  _asteroidPrefab: {fileID: 7461290498793702394, guid: 331c06e5bb01bf247a452854317fe9a1,
-    type: 3}
-  _asteroidSpawnTime: 5
   _powerUps:
-  - {fileID: 3496811457575112303, guid: ff87ce208317d5147a6ddfa3bfe13c10, type: 3}
   - {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
   - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
   - {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a, type: 3}
+  - {fileID: 3496811457575112303, guid: ff87ce208317d5147a6ddfa3bfe13c10, type: 3}
   - {fileID: 5353324495217767819, guid: 74d15f6a5410be64fba0cd9133f0333b, type: 3}
-  _rareSpawnChance: 0.25
+  _rareSpawnChance: 0.2
   _stopSpawning: 0
 --- !u!4 &455001553
 Transform:

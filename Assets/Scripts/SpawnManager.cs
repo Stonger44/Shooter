@@ -9,29 +9,34 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float _enemySpawnUpperBoundary = 3.7f;
     [SerializeField] private float _enemySpawnLowerBoundary = -4.9f;
 
+
+    /*-----Enemy Array Indices-----*\
+    0: Enemy
+    1: Asteroid
+    \*-----Enemy Array Indices-----*/
     [Header("Enemy")]
     [SerializeField] private GameObject _enemyContainer;
-    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject[] _enemies;
     [SerializeField] private float _enemySpawnTime = 2;
     private GameObject _spawnedEnemy;
     private Vector2 _enemySpawnPosition;
 
-    [Header("Asteroid")]
-    [SerializeField] private GameObject _asteroidPrefab;
-    [SerializeField] private float _asteroidSpawnTime = 4;
-    private GameObject _spawnedAsteroid;
-    private Vector2 _asteroidSpawnPosition;
+    //[Header("Asteroid")]
+    //[SerializeField] private GameObject _asteroidPrefab;
+    //[SerializeField] private float _asteroidSpawnTime = 4;
+    //private GameObject _spawnedAsteroid;
+    //private Vector2 _asteroidSpawnPosition;
 
     /*-----Power Up Array Indices-----*\
-    0: SpaceBomb
-    1: TripleShot
-    2: SpeedBoost
-    3: Shield
+    0: TripleShot
+    1: SpeedBoost
+    2: Shield
+    3: SpaceBomb
     4: PlayerLife
     \*-----Power Up Array Indices-----*/
     [Header("PowerUps")]
     [SerializeField] private GameObject[] _powerUps;
-    [SerializeField] private float _rareSpawnChance = 0.25f;
+    [SerializeField] private float _rareSpawnChance = 0.2f;
 
     [Header("Game Management")]
     [SerializeField] private bool _stopSpawning = false;
@@ -40,7 +45,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnEnemy());
-        StartCoroutine(SpawnAsteroid());
+        //StartCoroutine(SpawnAsteroid());
     }
 
     public void StopSpawning()
@@ -50,26 +55,7 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnPowerUp(Vector2 spawnPosition)
     {
-        /*-----Power Up Array Indices-----*\
-        0: SpaceBomb
-        1: TripleShot
-        2: SpeedBoost
-        3: Shield
-        4: PlayerLife
-        \*-----Power Up Array Indices-----*/
-        int randomIndex = Random.Range(0, _powerUps.Length);
-
-        // This if statement is to make these PowerUps more rare:
-        // if the index is one of the rare powerUps, _rareSpawnChance to spawn, else roll one more time
-        if (randomIndex == 0 || randomIndex == 4)
-        {
-            if (Random.value > _rareSpawnChance)
-            {
-                // Roll again
-                randomIndex = Random.Range(0, _powerUps.Length);
-            }
-        }
-
+        int randomIndex = GetRandomIndex(_powerUps, 3);
         Instantiate(_powerUps[randomIndex], spawnPosition, Quaternion.identity);
     }
 
@@ -81,23 +67,43 @@ public class SpawnManager : MonoBehaviour
         {
             float yPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
             _enemySpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionEnemySpawn);
-            _spawnedEnemy = Instantiate(_enemyPrefab, _enemySpawnPosition, Quaternion.identity);
+
+            int randomIndex = GetRandomIndex(_enemies, 1);
+            _spawnedEnemy = Instantiate(_enemies[randomIndex], _enemySpawnPosition, Quaternion.identity);
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(_enemySpawnTime);
         }
     }
 
-    private IEnumerator SpawnAsteroid()
+    private int GetRandomIndex(GameObject[] spawnList, int rareSpawnIndexStart)
     {
-        yield return new WaitForSeconds(_asteroidSpawnTime);
+        int randomIndex = Random.Range(0, spawnList.Length);
 
-        while (!_stopSpawning)
+        // This is to make certain spawns more rare:
+        // if the index is one of the rare spawns, _rareSpawnChance to spawn, else roll one more time
+        if (randomIndex >= rareSpawnIndexStart)
         {
-            float yPositionAsteroidSpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
-            _asteroidSpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionAsteroidSpawn);
-            _spawnedAsteroid = Instantiate(_asteroidPrefab, _asteroidSpawnPosition, Quaternion.identity);
-            _spawnedAsteroid.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(_asteroidSpawnTime);
+            if (Random.value > _rareSpawnChance)
+            {
+                // Roll again
+                randomIndex = Random.Range(0, spawnList.Length);
+            }
         }
+
+        return randomIndex;
     }
+
+    //private IEnumerator SpawnAsteroid()
+    //{
+    //    yield return new WaitForSeconds(_asteroidSpawnTime);
+
+    //    while (!_stopSpawning)
+    //    {
+    //        float yPositionAsteroidSpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
+    //        _asteroidSpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionAsteroidSpawn);
+    //        _spawnedAsteroid = Instantiate(_asteroidPrefab, _asteroidSpawnPosition, Quaternion.identity);
+    //        _spawnedAsteroid.transform.parent = _enemyContainer.transform;
+    //        yield return new WaitForSeconds(_asteroidSpawnTime);
+    //    }
+    //}
 }

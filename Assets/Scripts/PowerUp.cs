@@ -10,10 +10,10 @@ public class PowerUp : MonoBehaviour
     private AudioManager _audioManager;
 
     /*-----Power Up Ids-----*\
-    0: SpaceBomb
-    1: TripleShot
-    2: SpeedBoost
-    3: Shield
+    0: TripleShot
+    1: SpeedBoost
+    2: Shield
+    3: SpaceBomb
     4: PlayerLife
     \*-----Power Up Ids-----*/
     [SerializeField] private int _powerUpId;
@@ -39,7 +39,7 @@ public class PowerUp : MonoBehaviour
             Debug.LogError("Renderer is null!");
         }
 
-        if (_powerUpId == 0 || _powerUpId == 4)
+        if (_powerUpId > 2)
         {
             LoadColorList();
             StartCoroutine(MakePowerUpColorful());
@@ -74,16 +74,16 @@ public class PowerUp : MonoBehaviour
                 switch (_powerUpId)
                 {
                     case 0:
-                        player.CollectSpaceBomb();
-                        break;
-                    case 1:
                         player.ActivateTripleShot();
                         break;
-                    case 2:
+                    case 1:
                         player.ActivateSpeedBoost();
                         break;
-                    case 3:
+                    case 2:
                         player.ActivateShields();
+                        break;
+                    case 3:
+                        player.CollectSpaceBomb();
                         break;
                     case 4:
                         player.CollectPlayerLife();
