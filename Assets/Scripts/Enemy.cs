@@ -27,8 +27,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _speed = 4f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
-    private bool _willJink;
-    private bool _isJinking;
+    private bool _willStrafe;
+    private bool _isStrafing;
 
     [Header("Health/Damage")]
     [SerializeField] private int _health = 3;
@@ -154,13 +154,13 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
-        if (!_isExploding && !_isJinking)
+        if (!_isExploding && !_isStrafing)
         {
-            _willJink = Random.value < (0.2f * Time.deltaTime);
+            _willStrafe = Random.value < (0.2f * Time.deltaTime);
 
-            if (_willJink)
+            if (_willStrafe)
             {
-                Jink();
+                Strafe();
             }
         }
 
@@ -177,21 +177,21 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Jink()
+    private void Strafe()
     {
         float randomY = Random.value < 0.5f ? -1 : 1;
         _direction = new Vector2(_direction.x, randomY);
-        _isJinking = true;
-        StartCoroutine(JinkDuration());
+        _isStrafing = true;
+        StartCoroutine(StrafeDuration());
     }
 
-    private IEnumerator JinkDuration()
+    private IEnumerator StrafeDuration()
     {
         yield return new WaitForSeconds(1f);
         if (!_isExploding)
         {
             _direction = Vector2.left;
-            _isJinking = false; 
+            _isStrafing = false; 
         }
     }
 
