@@ -17,6 +17,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float _gameOverBlinkTime = 0.5f;
     private bool _displayGameOver = false;
 
+    [Header("Game")]
+    [SerializeField] private Text _waveBanner;
+    [SerializeField] private Text _score;
+    [SerializeField] private Text _waveCount;
+    [SerializeField] private Text _enemyCount;
+
     [Header("SpeedBoost")]
     [SerializeField] private Image _speedBoostBar;
 
@@ -37,11 +43,6 @@ public class UIManager : MonoBehaviour
 
     [Header("Shields")]
     [SerializeField] private GameObject[] _shieldsArray;
-
-    [Header("Game")]
-    [SerializeField] private Text _score;
-    [SerializeField] private Text _wave;
-    [SerializeField] private Text _enemyCount;
 
     // Start is called before the first frame update
     void Start()

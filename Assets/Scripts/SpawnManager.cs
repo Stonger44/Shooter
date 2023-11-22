@@ -18,6 +18,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject[] _enemies;
     [SerializeField] private float _enemySpawnTime = 2;
+    [SerializeField] private float _minEnemySpawnTime = 1;
+    [SerializeField] private float _enemySpawnTimeDecrement = 0.2f;
     private GameObject _spawnedEnemy;
     private Vector2 _enemySpawnPosition;
 
@@ -51,6 +53,11 @@ public class SpawnManager : MonoBehaviour
     public void StopSpawning()
     {
         _stopSpawning = true;
+    }
+
+    public void StartSpawning()
+    {
+        _stopSpawning = false;
     }
 
     public void SpawnPowerUp(Vector2 spawnPosition)
