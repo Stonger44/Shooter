@@ -9,9 +9,14 @@ public class GameManager : MonoBehaviour
     private AudioSource _bgmAudio;
     private UIManager _uiManager;
 
+    [Header("Game State")]
     [SerializeField] private bool _gameOver = false;
     [SerializeField] private bool _gamePaused = false;
-    
+
+    [Header("Wave")]
+    [SerializeField] private int _currentWave = 1;
+    [SerializeField] private int _waveEnemyCount = 20;
+    [SerializeField] private int _waveEnemyCountIncrease = 10;
 
     // Start is called before the first frame update
     void Start()

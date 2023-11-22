@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     private Player _player;
     private Camera _camera;
 
-    [Header("Game Management")]
+    [Header("Game State")]
     [SerializeField] private GameObject _gameOverUI;
     [SerializeField] private GameObject _restartUI;
     [SerializeField] private GameObject _returnToMainMenuUI;
@@ -38,8 +38,10 @@ public class UIManager : MonoBehaviour
     [Header("Shields")]
     [SerializeField] private GameObject[] _shieldsArray;
 
-    [Header("Score")]
+    [Header("Game")]
     [SerializeField] private Text _score;
+    [SerializeField] private Text _wave;
+    [SerializeField] private Text _enemyCount;
 
     // Start is called before the first frame update
     void Start()
