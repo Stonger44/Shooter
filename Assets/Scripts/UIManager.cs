@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
         _returnToMainMenuUI.SetActive(showPausedUI);
     }
 
-    public void UpdateScore(int score)
+    public void UpdateScoreUI(int score)
     {
         _score.text = $"Score: {score}";
     }

@@ -11,6 +11,7 @@ public class Asteroid : MonoBehaviour
     private string _otherTag = string.Empty;
 
     private Player _player;
+    private GameManager _gameManager;
     private SpawnManager _spawnManager;
     private AudioManager _audioManager;
     private CircleCollider2D _collider;
@@ -18,17 +19,22 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private GameObject _asteroidSprite;
     [SerializeField] private GameObject _explosion;
 
+    [Header("Boundaries")]
     [SerializeField] private float _asteroidLeftBoundary = -11.3f;
     [SerializeField] private float _asteroidRightBoundary = 11.3f;
     [SerializeField] private float _asteroidUpperBoundary = 3.5f;
     [SerializeField] private float _asteroidLowerBoundary = -4.7f;
 
+    [Header("Movement")]
     [SerializeField] private float _speed = 2f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
 
+    [Header("Health/Damage")]
     [SerializeField] private int _health = 6;
     private bool _isExploding;
+    [SerializeField] private int _pointsOnDeath = 200;
+    [SerializeField] private int _pointsOnBoundary = -20;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +43,11 @@ public class Asteroid : MonoBehaviour
         if (_player == null)
         {
             Debug.LogError("Player is null!");
+        }
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (_gameManager == null)
+        {
+            Debug.LogError("GameManager is null!");
         }
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         if (_spawnManager == null)
@@ -69,6 +80,10 @@ public class Asteroid : MonoBehaviour
 
         if (!_isExploding && transform.position.x < _asteroidLeftBoundary)
         {
+            if (!_gameManager.IsGameOver())
+            {
+                _gameManager.UpdateScore(_pointsOnBoundary);
+            }
             Warp();
         }
     }
@@ -115,7 +130,7 @@ public class Asteroid : MonoBehaviour
 
         if (_health < 1 || otherTag == _playerTag || otherTag == _blastZoneTag)
         {
-            _player.AddScore(200);
+            _gameManager.UpdateScore(_pointsOnDeath);
             StartCoroutine(DestroyAsteroid());
         }
     }

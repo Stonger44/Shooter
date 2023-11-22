@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _gameOver = false;
     [SerializeField] private bool _gamePaused = false;
 
+    private int _score = 0;
+
     [Header("Wave")]
     [SerializeField] private int _currentWave = 1;
     [SerializeField] private int _waveEnemyCount = 20;
@@ -76,9 +78,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void UpdateScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScoreUI(_score);
+    }
+
     public void GameOver()
     {
         _gameOver = true;
+    }
+
+    public bool IsGameOver()
+    {
+        return _gameOver;
+    }
+
+    public void PauseBGM()
+    {
+        _bgmAudio.Pause();
     }
 
     private void PauseGame()
@@ -86,7 +104,7 @@ public class GameManager : MonoBehaviour
         _gamePaused = true;
         Time.timeScale = 0;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        _bgmAudio.Pause();
+        PauseBGM();
         _uiManager.TogglePausedUI();
     }
 
@@ -95,7 +113,7 @@ public class GameManager : MonoBehaviour
         _gamePaused = false;
         Time.timeScale = _player.IsSpeedBoostActive() ? _player.GetSpeedBoostTimeScale() : 1f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        _bgmAudio.UnPause();
+        PauseBGM();
         _uiManager.TogglePausedUI();
     }
 

@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private string _otherTag = string.Empty;
 
     private Player _player;
+    private GameManager _gameManager;
     private SpawnManager _spawnManager;
     private AudioManager _audioManager;
     private AudioSource _audioSource;
@@ -32,6 +33,8 @@ public class Enemy : MonoBehaviour
 
     [Header("Health/Damage")]
     [SerializeField] private int _health = 3;
+    [SerializeField] private int _pointsOnDeath = 100;
+    [SerializeField] private int _pointsOnBoundary = -10;
     private bool _isExploding;
     [SerializeField] private float _powerUpDropChance = 0.2f;
 
@@ -57,6 +60,11 @@ public class Enemy : MonoBehaviour
         if (_player == null)
         {
             Debug.LogError("Player is null!");
+        }
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (_gameManager == null)
+        {
+            Debug.LogError("GameManager is null!");
         }
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         if (_spawnManager == null)
@@ -173,6 +181,10 @@ public class Enemy : MonoBehaviour
 
         if (!_isExploding && transform.position.x < _enemyLeftBoundary)
         {
+            if (!_gameManager.IsGameOver())
+            {
+                _gameManager.UpdateScore(_pointsOnBoundary); 
+            }
             Warp();
         }
     }
@@ -232,7 +244,7 @@ public class Enemy : MonoBehaviour
 
         if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag || otherTag == _blastZoneTag)
         {
-            _player.AddScore(100);
+            _gameManager.UpdateScore(_pointsOnDeath);
             DestroySelf();
         }
     }

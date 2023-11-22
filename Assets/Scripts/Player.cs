@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     private const string _laserEnemyTag = "LaserEnemy";
 
+    private GameManager _gameManager;
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
     private AudioManager _audioManager;
@@ -94,11 +95,14 @@ public class Player : MonoBehaviour
     [SerializeField] private int _spaceBombMaxAmmo = 3;
     private bool _canFireSpaceBomb = true;
 
-    private int _score = 0;
-
     // Start is called before the first frame update
     void Start()
     {
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (_gameManager == null)
+        {
+            Debug.LogError("GameManager is null!");
+        }
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         if (_spawnManager == null)
         {
@@ -240,12 +244,6 @@ public class Player : MonoBehaviour
                 _activeDamageEffect.SetActive(false);
             }
         }
-    }
-
-    public void AddScore(int points)
-    {
-        _score += points;
-        _uiManager.UpdateScore(_score);
     }
 
     private void Move()
@@ -495,6 +493,7 @@ public class Player : MonoBehaviour
     {
         Instantiate(_deathExplosion, this.transform.position, Quaternion.Euler(0, 0, 90));
         _audioManager.PlayExplosionSound();
+        _gameManager.PauseBGM();
         Destroy(this.gameObject);
     }
 
