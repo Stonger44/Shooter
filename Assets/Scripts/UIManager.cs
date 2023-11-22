@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
         _score.text = $"Score: {score}";
     }
 
-    public void UpdateLives(int lives)
+    public void UpdateLivesUI(int lives)
     {
         _lives.sprite = _livesSpriteArray[lives];
 
@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateShields(int shieldLevel)
+    public void UpdateShieldsUI(int shieldLevel)
     {
         for (int i = 0; i < _shieldsArray.Length; i++)
         {

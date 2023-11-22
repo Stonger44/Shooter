@@ -157,14 +157,14 @@ public class Player : MonoBehaviour
             {
                 _shield.SetActive(false);
             }
-            _uiManager.UpdateShields(_shieldLevel);
+            _uiManager.UpdateShieldsUI(_shieldLevel);
 
             return;
         }
 
         _lives--;
         _audioManager.PlayExplosionSound();
-        _uiManager.UpdateLives(_lives);
+        _uiManager.UpdateLivesUI(_lives);
         StartCoroutine(ShowPlayerDamage());
 
         if (_lives < 1)
@@ -213,7 +213,7 @@ public class Player : MonoBehaviour
         {
             _shieldLevel++;
             _shield.SetActive(true);
-            _uiManager.UpdateShields(_shieldLevel);
+            _uiManager.UpdateShieldsUI(_shieldLevel);
         }
     }
 
@@ -236,7 +236,7 @@ public class Player : MonoBehaviour
         if (_lives < 3)
         {
             _lives++;
-            _uiManager.UpdateLives(_lives);
+            _uiManager.UpdateLivesUI(_lives);
 
             _activeDamageEffect = _damageEffectList.FirstOrDefault(dmgEfct => dmgEfct.activeInHierarchy == true);
             if (_activeDamageEffect != null)
