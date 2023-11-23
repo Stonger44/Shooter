@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _pointsOnDeath = 100;
     [SerializeField] private int _pointsOnBoundary = -10;
     private bool _isExploding;
-    [SerializeField] private float _powerUpDropChance = 0.2f;
+    [SerializeField] private float _powerUpDropChance = 0.15f;
 
     [Header("Targeting System")]
     [SerializeField] private float _rayCastOffset = -3.5f;
@@ -129,7 +129,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Fire()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         Vector2 laserPosition = transform.position;
         laserPosition.x += _laserShotOffset;

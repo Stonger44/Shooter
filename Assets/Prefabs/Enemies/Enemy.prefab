@@ -142,7 +142,9 @@ MonoBehaviour:
   _enemyLowerBoundary: -5.15
   _speed: 3
   _health: 3
-  _powerUpDropChance: 0.2
+  _pointsOnDeath: 100
+  _pointsOnBoundary: -10
+  _powerUpDropChance: 0.15
   _rayCastOffset: -3
   _rayCastDistance: 16
   _laserShot: {fileID: 1635626956414016838, guid: d97fa67cff977cf4ba2c4775e30381c3,
