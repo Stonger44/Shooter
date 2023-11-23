@@ -244,7 +244,6 @@ public class Enemy : MonoBehaviour
 
         if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag || otherTag == _blastZoneTag)
         {
-            _gameManager.UpdateScore(_pointsOnDeath);
             DestroySelf();
         }
     }
@@ -263,6 +262,8 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(0.25f);
 
+        _gameManager.UpdateScore(_pointsOnDeath);
+        _gameManager.UpdateEnemyCount(1);
         _thrusters.SetActive(false);
 
         if (Random.value < _powerUpDropChance)

@@ -130,7 +130,6 @@ public class Asteroid : MonoBehaviour
 
         if (_health < 1 || otherTag == _playerTag || otherTag == _blastZoneTag)
         {
-            _gameManager.UpdateScore(_pointsOnDeath);
             StartCoroutine(DestroyAsteroid());
         }
     }
@@ -145,6 +144,8 @@ public class Asteroid : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
+        _gameManager.UpdateScore(_pointsOnDeath);
+        _gameManager.UpdateEnemyCount(1);
         _asteroidSprite.SetActive(false);
         _spawnManager.SpawnPowerUp(this.transform.position);
     }

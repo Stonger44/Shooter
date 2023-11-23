@@ -18,7 +18,8 @@ public class UIManager : MonoBehaviour
     private bool _displayGameOver = false;
 
     [Header("Game")]
-    [SerializeField] private Text _waveBanner;
+    [SerializeField] private GameObject _waveBanner;
+    [SerializeField] private Text _waveBannerText;
     [SerializeField] private Text _score;
     [SerializeField] private Text _waveCount;
     [SerializeField] private Text _enemyCount;
@@ -75,6 +76,23 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public IEnumerator WaveCleared(int waveNumber)
+    {
+        _waveBannerText.text = $"Wave {waveNumber - 1} Cleared!";
+        yield return new WaitForSeconds(2f);
+        _waveBanner.SetActive(false);
+    }
+
+    public IEnumerator UpdateWave(int waveNumber, int enemyCount)
+    {
+        _waveBannerText.text = $"Wave {waveNumber}";
+        _waveBanner.SetActive(true);
+        _waveCount.text = $"Wave: {waveNumber}";
+        _enemyCount.text = $"Enemies: {enemyCount}";
+        yield return new WaitForSeconds(2f);
+        _waveBanner.SetActive(false);
+    }
+
     public void TogglePausedUI()
     {
         bool showPausedUI = !_paused.activeInHierarchy;
@@ -86,6 +104,11 @@ public class UIManager : MonoBehaviour
     public void UpdateScoreUI(int score)
     {
         _score.text = $"Score: {score}";
+    }
+
+    public void UpdateEnemyCount(int enemyCount)
+    {
+        _enemyCount.text = $"Enemies: {enemyCount}";
     }
 
     public void UpdateLivesUI(int lives)

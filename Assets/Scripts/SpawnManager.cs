@@ -35,22 +35,25 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float _rareSpawnChance = 0.2f;
 
     [Header("Game Management")]
-    [SerializeField] private bool _stopSpawning = false;
+    [SerializeField] private bool _canSpawn = false;
+    [SerializeField] private int _enemyWaveTotalCount;
+    [SerializeField] private int _enemiesSpawned;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnEnemy());
+
     }
 
     public void StopSpawning()
     {
-        _stopSpawning = true;
+        _canSpawn = false;
     }
 
     public void StartSpawning()
     {
-        _stopSpawning = false;
+        _canSpawn = true;
+        StartCoroutine(SpawnEnemy());
     }
 
     public void SpawnPowerUp(Vector2 spawnPosition)
@@ -61,9 +64,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        yield return new WaitForSeconds(_enemySpawnTime);
-
-        while (!_stopSpawning)
+        while (_canSpawn)
         {
             float yPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
             _enemySpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionEnemySpawn);
