@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _enemyWaveMultiplier = 10;
     [SerializeField] private int _enemyWaveTotalCount;
     [SerializeField] private int _enemiesRemaining;
+    private bool _isBetweenWaves = false;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
-        _enemyWaveTotalCount = CalculateWaveEnemyCount();
+        _enemyWaveTotalCount = CalculateEnemyWaveCount();
         _enemiesRemaining = _enemyWaveTotalCount;
         StartCoroutine(Startwave());
     }
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (!_gameOver && Input.GetKeyDown(KeyCode.P) && _player.GetPlayerLives() > 0)
+        if (!_gameOver && !_isBetweenWaves && Input.GetKeyDown(KeyCode.P) && _player.GetPlayerLives() > 0)
         {
             if (_gamePaused)
             {
@@ -99,12 +100,16 @@ public class GameManager : MonoBehaviour
         _enemiesRemaining -= enemiesDestroyed;
         _uiManager.UpdateEnemyCount(_enemiesRemaining);
 
-        if (_enemyWaveTotalCount == 0)
+        if (_enemiesRemaining == 0)
         {
             StartCoroutine(WaveCleared());
         }
     }
 
+    public int GetEnemyWaveTotalCount()
+    {
+        return _enemyWaveTotalCount;
+    }
     public void GameOver()
     {
         _gameOver = true;
@@ -130,18 +135,21 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_uiManager.UpdateWave(_currentWave, _enemyWaveTotalCount));
         yield return new WaitForSeconds(2f);
         _spawnManager.StartSpawning();
+        _isBetweenWaves = false;
     }
 
     private IEnumerator WaveCleared()
     {
-        _uiManager.WaveCleared(_currentWave);
+        _isBetweenWaves = true;
+        StartCoroutine(_uiManager.WaveCleared(_currentWave));
         _currentWave++;
-        _enemyWaveTotalCount = CalculateWaveEnemyCount();
+        _enemyWaveTotalCount = CalculateEnemyWaveCount();
+        _enemiesRemaining = _enemyWaveTotalCount;
         yield return new WaitForSeconds(2f);
         StartCoroutine(Startwave());
     }
 
-    private int CalculateWaveEnemyCount()
+    private int CalculateEnemyWaveCount()
     {
         return _currentWave * _enemyWaveMultiplier;
     }
@@ -160,7 +168,7 @@ public class GameManager : MonoBehaviour
         _gamePaused = false;
         Time.timeScale = _player.IsSpeedBoostActive() ? _player.GetSpeedBoostTimeScale() : 1f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        PauseBGM();
+        _bgmAudio.UnPause();
         _uiManager.TogglePausedUI();
     }
 

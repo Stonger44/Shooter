@@ -78,7 +78,8 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator WaveCleared(int waveNumber)
     {
-        _waveBannerText.text = $"Wave {waveNumber - 1} Cleared!";
+        _waveBannerText.text = $"Wave {waveNumber} Cleared!";
+        _waveBanner.SetActive(true);
         yield return new WaitForSeconds(2f);
         _waveBanner.SetActive(false);
     }

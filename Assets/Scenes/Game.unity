@@ -1319,6 +1319,8 @@ MonoBehaviour:
   - {fileID: 5353324495217767819, guid: 74d15f6a5410be64fba0cd9133f0333b, type: 3}
   _rareSpawnChance: 0.1
   _canSpawn: 0
+  _enemyWaveTotalCount: 0
+  _enemiesSpawned: 0
 --- !u!4 &455001553
 Transform:
   m_ObjectHideFlags: 0
@@ -1734,7 +1736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.7, y: -25.5}
+  m_AnchoredPosition: {x: 2.9, y: -25.5}
   m_SizeDelta: {x: 54, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &590601433

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    private GameManager _gameManager;
+
     [Header("Boundaries")]
     [SerializeField] private float _enemySpawnRightBoundary = 11.2f;
     [SerializeField] private float _enemySpawnUpperBoundary = 3.7f;
     [SerializeField] private float _enemySpawnLowerBoundary = -4.9f;
-
 
     /*-----Enemy Array Indices-----*\
     0: Enemy
@@ -42,7 +43,11 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (_gameManager == null)
+        {
+            Debug.LogError("GameManager is null!");
+        }
     }
 
     public void StopSpawning()
@@ -64,6 +69,9 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
+        _enemyWaveTotalCount = _gameManager.GetEnemyWaveTotalCount();
+        _enemiesSpawned = 0;
+
         while (_canSpawn)
         {
             float yPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
@@ -72,6 +80,13 @@ public class SpawnManager : MonoBehaviour
             int randomIndex = GetRandomIndex(_enemies, 1);
             _spawnedEnemy = Instantiate(_enemies[randomIndex], _enemySpawnPosition, Quaternion.identity);
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
+            _enemiesSpawned++;
+
+            if (_enemiesSpawned == _enemyWaveTotalCount)
+            {
+                StopSpawning();
+            }
+
             yield return new WaitForSeconds(_enemySpawnTime);
         }
     }
