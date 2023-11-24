@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _enemyWaveMultiplier = 10;
     [SerializeField] private int _enemyWaveTotalCount;
     [SerializeField] private int _enemiesRemaining;
-    private bool _isBetweenWaves = false;
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +75,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (!_gameOver && !_isBetweenWaves && Input.GetKeyDown(KeyCode.P) && _player.GetPlayerLives() > 0)
+        if (!_gameOver && Input.GetKeyDown(KeyCode.P) && _player.GetPlayerLives() > 0)
         {
             if (_gamePaused)
             {
@@ -135,12 +134,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_uiManager.UpdateWave(_currentWave, _enemyWaveTotalCount));
         yield return new WaitForSeconds(2f);
         _spawnManager.StartSpawning();
-        _isBetweenWaves = false;
     }
 
     private IEnumerator WaveCleared()
     {
-        _isBetweenWaves = true;
         StartCoroutine(_uiManager.WaveCleared(_currentWave));
         _currentWave++;
         _enemyWaveTotalCount = CalculateEnemyWaveCount();
