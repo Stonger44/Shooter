@@ -263,7 +263,7 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         _gameManager.UpdateScore(_pointsOnDeath);
-        _gameManager.UpdateEnemyCount(1);
+        _gameManager.UpdateEnemyCount();
         _thrusters.SetActive(false);
 
         if (Random.value < _powerUpDropChance)

@@ -145,7 +145,7 @@ public class Asteroid : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         _gameManager.UpdateScore(_pointsOnDeath);
-        _gameManager.UpdateEnemyCount(1);
+        _gameManager.UpdateEnemyCount();
         _asteroidSprite.SetActive(false);
         _spawnManager.SpawnPowerUp(this.transform.position);
     }

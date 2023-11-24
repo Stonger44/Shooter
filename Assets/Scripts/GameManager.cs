@@ -94,9 +94,9 @@ public class GameManager : MonoBehaviour
         _uiManager.UpdateScoreUI(_score);
     }
 
-    public void UpdateEnemyCount(int enemiesDestroyed)
+    public void UpdateEnemyCount()
     {
-        _enemiesRemaining -= enemiesDestroyed;
+        _enemiesRemaining--;
         _uiManager.UpdateEnemyCount(_enemiesRemaining);
 
         if (_enemiesRemaining == 0)
