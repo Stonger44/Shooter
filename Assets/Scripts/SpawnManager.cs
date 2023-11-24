@@ -37,7 +37,7 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Game Management")]
     [SerializeField] private bool _canSpawn = false;
-    [SerializeField] private int _enemyWaveTotalCount;
+    [SerializeField] private int _waveEnemyTotalCount;
     [SerializeField] private int _enemiesSpawned;
 
     // Start is called before the first frame update
@@ -69,7 +69,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        _enemyWaveTotalCount = _gameManager.GetEnemyWaveTotalCount();
+        _waveEnemyTotalCount = _gameManager.GetWaveEnemyTotalCount();
         _enemiesSpawned = 0;
 
         while (_canSpawn)
@@ -82,7 +82,7 @@ public class SpawnManager : MonoBehaviour
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
             _enemiesSpawned++;
 
-            if (_enemiesSpawned == _enemyWaveTotalCount)
+            if (_enemiesSpawned == _waveEnemyTotalCount)
             {
                 StopSpawning();
             }

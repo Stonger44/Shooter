@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Wave")]
     [SerializeField] private int _currentWave = 1;
-    [SerializeField] private int _enemyWaveMultiplier = 10;
-    [SerializeField] private int _enemyWaveTotalCount;
+    [SerializeField] private int _waveEnemyMultiplier = 10;
+    [SerializeField] private int _waveEnemyTotalCount;
     [SerializeField] private int _enemiesRemaining;
 
     // Start is called before the first frame update
@@ -49,8 +49,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
-        _enemyWaveTotalCount = CalculateEnemyWaveCount();
-        _enemiesRemaining = _enemyWaveTotalCount;
+        _waveEnemyTotalCount = CalculateEnemyWaveCount();
+        _enemiesRemaining = _waveEnemyTotalCount;
         StartCoroutine(Startwave());
     }
 
@@ -105,9 +105,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public int GetEnemyWaveTotalCount()
+    public int GetWaveEnemyTotalCount()
     {
-        return _enemyWaveTotalCount;
+        return _waveEnemyTotalCount;
     }
     public void GameOver()
     {
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Startwave()
     {
-        StartCoroutine(_uiManager.UpdateWave(_currentWave, _enemyWaveTotalCount));
+        StartCoroutine(_uiManager.UpdateWave(_currentWave, _waveEnemyTotalCount));
         yield return new WaitForSeconds(2f);
         _spawnManager.StartSpawning();
     }
@@ -140,15 +140,15 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(_uiManager.WaveCleared(_currentWave));
         _currentWave++;
-        _enemyWaveTotalCount = CalculateEnemyWaveCount();
-        _enemiesRemaining = _enemyWaveTotalCount;
+        _waveEnemyTotalCount = CalculateEnemyWaveCount();
+        _enemiesRemaining = _waveEnemyTotalCount;
         yield return new WaitForSeconds(2f);
         StartCoroutine(Startwave());
     }
 
     private int CalculateEnemyWaveCount()
     {
-        return _currentWave * _enemyWaveMultiplier;
+        return _currentWave * _waveEnemyMultiplier;
     }
 
     private void PauseGame()

@@ -18,9 +18,9 @@ public class UIManager : MonoBehaviour
     private bool _displayGameOver = false;
 
     [Header("Game")]
+    [SerializeField] private Text _score;
     [SerializeField] private GameObject _waveBanner;
     [SerializeField] private Text _waveBannerText;
-    [SerializeField] private Text _score;
     [SerializeField] private Text _waveCount;
     [SerializeField] private Text _enemyCount;
 
