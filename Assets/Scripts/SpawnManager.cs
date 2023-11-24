@@ -18,8 +18,8 @@ public class SpawnManager : MonoBehaviour
     [Header("Enemy")]
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject[] _enemies;
-    [SerializeField] private float _enemySpawnTime = 2;
-    [SerializeField] private float _minEnemySpawnTime = 1;
+    [SerializeField] private float _enemySpawnTime = 2f;
+    [SerializeField] private float _minEnemySpawnTime = 1f;
     [SerializeField] private float _enemySpawnTimeDecrement = 0.1f;
     private GameObject _spawnedEnemy;
     private Vector2 _enemySpawnPosition;
@@ -88,6 +88,11 @@ public class SpawnManager : MonoBehaviour
             }
 
             yield return new WaitForSeconds(_enemySpawnTime);
+        }
+
+        if (_enemySpawnTime > _minEnemySpawnTime)
+        {
+            _enemySpawnTime -= _enemySpawnTimeDecrement;
         }
     }
 

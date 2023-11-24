@@ -1310,7 +1310,7 @@ MonoBehaviour:
   - {fileID: 7461290498793702394, guid: 331c06e5bb01bf247a452854317fe9a1, type: 3}
   _enemySpawnTime: 2
   _minEnemySpawnTime: 1
-  _enemySpawnTimeDecrement: 0.2
+  _enemySpawnTimeDecrement: 0.1
   _powerUps:
   - {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
   - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
