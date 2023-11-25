@@ -15,6 +15,7 @@ public class PowerUp : MonoBehaviour
     2: Shield
     3: SpaceBomb
     4: PlayerLife
+    5: SlowBomb
     \*-----Power Up Ids-----*/
     [SerializeField] private int _powerUpId;
     [SerializeField] private float _powerUpLeftBoundary = -11f;
@@ -47,7 +48,10 @@ public class PowerUp : MonoBehaviour
 
         _colorWaitForSeconds = new WaitForSeconds(_colorBlinkTime);
 
-        BlinkColors();
+        if (_showPowerUpBlinkColors || _showPowerDownBlinkColors)
+        {
+            BlinkColors(); 
+        }
         StartCoroutine(DestroyPowerUp());
     }
 
