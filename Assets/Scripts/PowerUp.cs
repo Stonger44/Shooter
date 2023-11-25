@@ -95,6 +95,9 @@ public class PowerUp : MonoBehaviour
                     case 4:
                         player.CollectPlayerLife();
                         break;
+                    case 5:
+                        player.DetonateSlowBomb();
+                        break;
                     default:
                         break;
                 }

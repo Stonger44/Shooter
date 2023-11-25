@@ -246,6 +246,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void DetonateSlowBomb()
+    {
+
+    }
+
     private void Move()
     {
         _horizontalAxis = Input.GetAxis("Horizontal");
