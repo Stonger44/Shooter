@@ -394,9 +394,9 @@ MonoBehaviour:
   _returnToMainMenuUI: {fileID: 1169881340}
   _paused: {fileID: 2115348141}
   _gameOverBlinkTime: 0.5
+  _score: {fileID: 1127146970}
   _waveBanner: {fileID: 325802743}
   _waveBannerText: {fileID: 325802745}
-  _score: {fileID: 1127146970}
   _waveCount: {fileID: 928444262}
   _enemyCount: {fileID: 1117832678}
   _speedBoostBar: {fileID: 426377160}
@@ -670,8 +670,8 @@ MonoBehaviour:
   _gameOver: 0
   _gamePaused: 0
   _currentWave: 1
-  _enemyWaveMultiplier: 5
-  _enemyWaveTotalCount: 0
+  _waveEnemyMultiplier: 10
+  _waveEnemyTotalCount: 0
   _enemiesRemaining: 0
 --- !u!1 &325802743
 GameObject:
@@ -1319,7 +1319,7 @@ MonoBehaviour:
   - {fileID: 5353324495217767819, guid: 74d15f6a5410be64fba0cd9133f0333b, type: 3}
   _rareSpawnChance: 0.1
   _canSpawn: 0
-  _enemyWaveTotalCount: 0
+  _waveEnemyTotalCount: 0
   _enemiesSpawned: 0
 --- !u!4 &455001553
 Transform:
