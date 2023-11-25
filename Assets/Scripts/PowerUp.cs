@@ -22,8 +22,14 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private float _speed = 0.5f;
     private Vector2 _direction = Vector2.left;
 
+    [Header("Colors")]
+    [SerializeField] bool _showPowerUpBlinkColors = false;
+    [SerializeField] bool _showPowerDownBlinkColors = false;
+    [SerializeField] private float _colorBlinkTime = 0.1f;
     private SpriteRenderer _renderer;
     private List<Color> _colorList = new List<Color>();
+    private WaitForSeconds _colorWaitForSeconds;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -39,12 +45,9 @@ public class PowerUp : MonoBehaviour
             Debug.LogError("Renderer is null!");
         }
 
-        if (_powerUpId > 2)
-        {
-            LoadColorList();
-            StartCoroutine(MakePowerUpColorful());
-        }
-        
+        _colorWaitForSeconds = new WaitForSeconds(_colorBlinkTime);
+
+        BlinkColors();
         StartCoroutine(DestroyPowerUp());
     }
 
@@ -103,6 +106,12 @@ public class PowerUp : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    private void BlinkColors()
+    {
+        LoadColorList();
+        StartCoroutine(MakePowerUpColorful());
+    }
+
     private IEnumerator MakePowerUpColorful()
     {
         if (_renderer != null)
@@ -112,7 +121,7 @@ public class PowerUp : MonoBehaviour
                 foreach (Color color in _colorList)
                 {
                     _renderer.color = color;
-                    yield return new WaitForSeconds(0.1f);
+                    yield return _colorWaitForSeconds;
                 }
                 
             } 
@@ -121,18 +130,26 @@ public class PowerUp : MonoBehaviour
 
     private void LoadColorList()
     {
-        _colorList.Add(new Color(255, 0, 0)); // Red
-        _colorList.Add(new Color(255, 150, 0)); // Orange
-        _colorList.Add(new Color(255, 255, 0)); // Yellow
-        _colorList.Add(new Color(255, 120, 0)); // Yellow Green
-        _colorList.Add(new Color(0, 255, 0)); // Green
-        _colorList.Add(new Color(0, 255, 150)); // Light Green
-        _colorList.Add(new Color(0, 255, 255)); // Blue Green
-        _colorList.Add(new Color(0, 150, 255)); // Light Blue
-        _colorList.Add(new Color(0, 0, 255)); // Blue
-        _colorList.Add(new Color(120, 0, 255)); // Blue Purple
-        _colorList.Add(new Color(255, 0, 255)); // Purple
-        _colorList.Add(new Color(255, 0, 120)); // Pink
-        _colorList.Add(new Color(255, 0, 0)); // Red
+        if (_showPowerUpBlinkColors)
+        {
+            _colorList.Add(new Color(255, 0, 0)); // Red
+            _colorList.Add(new Color(255, 150, 0)); // Orange
+            _colorList.Add(new Color(255, 255, 0)); // Yellow
+            _colorList.Add(new Color(255, 120, 0)); // Yellow Green
+            _colorList.Add(new Color(0, 255, 0)); // Green
+            _colorList.Add(new Color(0, 255, 150)); // Light Green
+            _colorList.Add(new Color(0, 255, 255)); // Blue Green
+            _colorList.Add(new Color(0, 150, 255)); // Light Blue
+            _colorList.Add(new Color(0, 0, 255)); // Blue
+            _colorList.Add(new Color(120, 0, 255)); // Blue Purple
+            _colorList.Add(new Color(255, 0, 255)); // Purple
+            _colorList.Add(new Color(255, 0, 120)); // Pink
+            _colorList.Add(new Color(255, 0, 0)); // Red
+        }
+        else if (_showPowerDownBlinkColors)
+        {
+            _colorList.Add(Color.white);
+            _colorList.Add(Color.red);
+        }
     }
 }

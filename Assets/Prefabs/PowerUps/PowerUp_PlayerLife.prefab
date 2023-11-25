@@ -147,3 +147,6 @@ MonoBehaviour:
   _powerUpLeftBoundary: -11
   _powerUpAvailableTime: 3
   _speed: 0.5
+  _showPowerUpBlinkColors: 1
+  _showPowerDownBlinkColors: 0
+  _colorBlinkTime: 0.1
