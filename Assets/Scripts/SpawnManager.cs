@@ -24,14 +24,14 @@ public class SpawnManager : MonoBehaviour
     private GameObject _spawnedEnemy;
     private Vector2 _enemySpawnPosition;
 
-    /*-----Power Up Array Indices-----*\
+    /*-----PowerUp Array Indices-----*\
     0: TripleShot
     1: SpeedBoost
     2: Shield
     3: SpaceBomb
     4: PlayerLife
     5: SlowBomb
-    \*-----Power Up Array Indices-----*/
+    \*-----PowerUp Array Indices-----*/
     [Header("PowerUps")]
     [SerializeField] private GameObject[] _powerUps;
     [SerializeField] private float _rareSpawnChance = 0.2f;

@@ -10,14 +10,14 @@ public class PowerUp : MonoBehaviour
     private AudioManager _audioManager;
     private SpriteRenderer _renderer;
 
-    /*-----Power Up Ids-----*\
+    /*-----PowerUp Ids-----*\
     0: TripleShot
     1: SpeedBoost
     2: Shield
     3: SpaceBomb
     4: PlayerLife
     5: SlowBomb
-    \*-----Power Up Ids-----*/
+    \*-----PowerUp Ids-----*/
     [SerializeField] private int _powerUpId;
     [SerializeField] private float _powerUpLeftBoundary = -11f;
     [SerializeField] private float _powerUpAvailableTime = 3f;
@@ -31,7 +31,7 @@ public class PowerUp : MonoBehaviour
     private List<Color> _colorList = new List<Color>();
     private WaitForSeconds _colorWaitForSeconds;
 
-    [Header("Power Downs")]
+    [Header("PowerDowns")]
     [SerializeField] private bool _isPowerDown;
     [SerializeField] private GameObject _powerDownExplosion;
     [SerializeField] private CircleCollider2D _collider;
