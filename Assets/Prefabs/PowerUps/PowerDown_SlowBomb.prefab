@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 307999514745454932}
   - component: {fileID: 307999514745454935}
   m_Layer: 0
-  m_Name: PowerUp_SlowBomb
-  m_TagString: PowerUp
+  m_Name: PowerDown_SlowBomb
+  m_TagString: PowerDown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

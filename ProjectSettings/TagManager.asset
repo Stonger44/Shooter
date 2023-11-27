@@ -10,6 +10,7 @@ TagManager:
   - TripleShot
   - LaserEnemy
   - BlastZone
+  - PowerDown
   layers:
   - Default
   - TransparentFX
