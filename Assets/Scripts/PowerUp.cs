@@ -49,13 +49,17 @@ public class PowerUp : MonoBehaviour
         {
             Debug.LogError("Renderer is null!");
         }
-        if (_isPowerDown && _collider == null)
+
+        if (_isPowerDown)
         {
-            Debug.LogError("PowerUp Collider is null!");
-        }
-        if (_isPowerDown && _powerDownExplosion == null)
-        {
-            Debug.LogError("PowerDownExplosion is null!");
+            if (_collider == null)
+            {
+                Debug.LogError("PowerUp Collider is null!");
+            }
+            if (_powerDownExplosion == null)
+            {
+                Debug.LogError("PowerDownExplosion is null!");
+            }
         }
 
         _colorWaitForSeconds = new WaitForSeconds(_colorBlinkTime);

@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _engineDamage;
     [SerializeField] private float _engineDamageTime = 4f;
     private float _engineRepairTime;
-    [SerializeField] private float _engineDamageSpeedMultiplier = 0.4f;
+    [SerializeField] private float _engineDamageSpeedMultiplier = 0.3f;
     [SerializeField] private bool _isEngineDamaged = false;
     private int _lives = 3;
 
