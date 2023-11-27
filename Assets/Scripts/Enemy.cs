@@ -47,7 +47,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject _laserShot;
     [SerializeField] private AudioClip _laserSound;
     [SerializeField] private float _laserShotOffset = -0.955f;
-    [SerializeField] private float _fireRate = 1f;
+    [SerializeField] private float _initialFireDelay = 0.75f;
+    [SerializeField] private float _fireRate = 3f;
     private bool _canFire = true;
 
     [Header("Thrusters")]
@@ -129,7 +130,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Fire()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
 
         Vector2 laserPosition = transform.position;
         laserPosition.x += _laserShotOffset;

@@ -151,7 +151,8 @@ MonoBehaviour:
     type: 3}
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _laserShotOffset: -0.813
-  _fireRate: 2
+  _initialFireDelay: 0.75
+  _fireRate: 3
   _thrusters: {fileID: 6786483613924043021}
 --- !u!95 &1714212125148499326
 Animator:
