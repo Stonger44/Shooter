@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [Header("Game State")]
     [SerializeField] private bool _gameOver = false;
     [SerializeField] private bool _gamePaused = false;
+    [SerializeField] private bool _isTesting = false;
 
     private int _score = 0;
 
@@ -49,9 +50,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
-        _waveEnemyTotalCount = CalculateEnemyWaveCount();
-        _enemiesRemaining = _waveEnemyTotalCount;
-        StartCoroutine(Startwave());
+        if (!_isTesting)
+        {
+            _waveEnemyTotalCount = CalculateEnemyWaveCount();
+            _enemiesRemaining = _waveEnemyTotalCount;
+            StartCoroutine(Startwave()); 
+        }
     }
 
     // Update is called once per frame

@@ -6,8 +6,10 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     private const string _playerTag = "Player";
+    private const string _laserTag = "Laser";
 
     private AudioManager _audioManager;
+    private SpriteRenderer _renderer;
 
     /*-----Power Up Ids-----*\
     0: TripleShot
@@ -27,10 +29,13 @@ public class PowerUp : MonoBehaviour
     [SerializeField] bool _showPowerUpBlinkColors = false;
     [SerializeField] bool _showPowerDownBlinkColors = false;
     [SerializeField] private float _colorBlinkTime = 0.1f;
-    private SpriteRenderer _renderer;
     private List<Color> _colorList = new List<Color>();
     private WaitForSeconds _colorWaitForSeconds;
-    
+
+    [Header("Power Downs")]
+    [SerializeField] private bool _isPowerDown;
+    [SerializeField] private GameObject _powerDownExplosion;
+    [SerializeField] private CircleCollider2D _collider;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +49,14 @@ public class PowerUp : MonoBehaviour
         if (_renderer == null)
         {
             Debug.LogError("Renderer is null!");
+        }
+        if (_isPowerDown && _collider == null)
+        {
+            Debug.LogError("PowerUp Collider is null!");
+        }
+        if (_isPowerDown && _powerDownExplosion == null)
+        {
+            Debug.LogError("PowerDownExplosion is null!");
         }
 
         _colorWaitForSeconds = new WaitForSeconds(_colorBlinkTime);
@@ -82,35 +95,62 @@ public class PowerUp : MonoBehaviour
                 {
                     case 0:
                         player.ActivateTripleShot();
+                        CollectPowerUp();
                         break;
                     case 1:
                         player.ActivateSpeedBoost();
+                        CollectPowerUp();
                         break;
                     case 2:
                         player.ActivateShields();
+                        CollectPowerUp();
                         break;
                     case 3:
                         player.CollectSpaceBomb();
+                        CollectPowerUp();
                         break;
                     case 4:
                         player.CollectPlayerLife();
+                        CollectPowerUp();
                         break;
                     case 5:
                         player.DetonateSlowBomb();
+                        StartCoroutine(DestroyPowerDown());
                         break;
                     default:
                         break;
                 }
             }
-            _audioManager.PlayPowerUpSound();
-            Destroy(this.gameObject);
         }
+
+        if (_isPowerDown && other.tag == _laserTag)
+        {
+            Destroy(other.gameObject);
+            StartCoroutine(DestroyPowerDown());
+        }
+    }
+
+    private void CollectPowerUp()
+    {
+        _audioManager.PlayPowerUpSound();
+        Destroy(this.gameObject);
     }
 
     private IEnumerator DestroyPowerUp()
     {
         yield return new WaitForSeconds(_powerUpAvailableTime);
         Destroy(this.gameObject);
+    }
+
+    private IEnumerator DestroyPowerDown()
+    {
+        _collider.enabled = false;
+        _powerDownExplosion.SetActive(true);
+        _audioManager.PlayExplosionSound();
+        Destroy(this.gameObject, 2.7f);
+
+        yield return new WaitForSeconds(0.20f);
+        _renderer.enabled = false;
     }
 
     private void BlinkColors()

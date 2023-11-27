@@ -248,7 +248,7 @@ public class Player : MonoBehaviour
 
     public void DetonateSlowBomb()
     {
-
+        Damage();
     }
 
     private void Move()
