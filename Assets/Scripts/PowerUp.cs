@@ -6,7 +6,6 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     private const string _playerTag = "Player";
-    private const string _laserTag = "Laser";
 
     private AudioManager _audioManager;
     private SpriteRenderer _renderer;
@@ -121,12 +120,6 @@ public class PowerUp : MonoBehaviour
                         break;
                 }
             }
-        }
-
-        if (_isPowerDown && other.tag == _laserTag)
-        {
-            Destroy(other.gameObject);
-            StartCoroutine(DestroyPowerDown());
         }
     }
 

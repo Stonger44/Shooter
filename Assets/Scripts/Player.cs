@@ -66,16 +66,21 @@ public class Player : MonoBehaviour
     private List<GameObject> _inactiveDamageEffectList = new List<GameObject>();
     private GameObject _activeDamageEffect;
     [SerializeField] private GameObject _deathExplosion;
+    [SerializeField] private GameObject _engineDamage;
+    [SerializeField] private float _engineDamageTime = 4f;
+    private float _engineRepairTime;
+    [SerializeField] private float _engineDamageSpeedMultiplier = 0.4f;
+    [SerializeField] private bool _isEngineDamaged = false;
     private int _lives = 3;
 
-    [Header("Triple Shot")]
+    [Header("TripleShot")]
     [SerializeField] private GameObject _tripleShot;
     [SerializeField] private float _tripleShotFireRate = 0.18f;
     [SerializeField] private int _tripleShotAmmo;
     [SerializeField] private int _tripleShotMaxAmmo = 15;
     private bool _isTripleShotActive = false;
 
-    [Header("Speed Boost")]
+    [Header("SpeedBoost")]
     [SerializeField] private float _speedBoostActiveTime = 3f;
     [SerializeField] private float _speedBoostTimeScale = 0.5f;
     [SerializeField] private float _speedBoostSpeed = 10f;
@@ -249,6 +254,9 @@ public class Player : MonoBehaviour
     public void DetonateSlowBomb()
     {
         Damage();
+        _isEngineDamaged = true;
+        _engineDamage.SetActive(true);
+        _engineRepairTime = Time.time + _engineDamageTime;
     }
 
     private void Move()
@@ -299,9 +307,27 @@ public class Player : MonoBehaviour
 
         CheckAfterBurner();
 
+        if (_isEngineDamaged)
+        {
+            CheckEngineDamage();
+        }
+
         transform.Translate(_direction * _speed * Time.deltaTime);
 
         transform.position = new Vector2(Mathf.Clamp(transform.position.x, _playerLeftBoundary, _playerRightBoundary), Mathf.Clamp(transform.position.y, _playerLowerBoundary, _playerUpperBoundary));
+    }
+
+    private void CheckEngineDamage()
+    {
+        if (Time.time > _engineRepairTime)
+        {
+            _isEngineDamaged = false;
+            _engineDamage.SetActive(false);
+        }
+        else
+        {
+            _speed *= _engineDamageSpeedMultiplier;
+        }
     }
 
     private void CheckSpeedBoostTime()
