@@ -48,7 +48,7 @@ public class EnemyGrunt : MonoBehaviour
     [SerializeField] private GameObject _laserShot;
     [SerializeField] private AudioClip _laserSound;
     [SerializeField] private float _laserShotOffset = -0.955f;
-    [SerializeField] private float _initialFireDelay = 0.75f;
+    [SerializeField] private float _initialFireDelay = 1f;
     [SerializeField] private float _fireRate = 3f;
     private bool _canFire = true;
 

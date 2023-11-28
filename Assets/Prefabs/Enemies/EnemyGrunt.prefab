@@ -256,6 +256,7 @@ MonoBehaviour:
   _enemyUpperBoundary: 4.15
   _enemyLowerBoundary: -5.15
   _speed: 4
+  _maxHealth: 3
   _health: 3
   _pointsOnDeath: 100
   _pointsOnBoundary: -10
@@ -266,7 +267,7 @@ MonoBehaviour:
     type: 3}
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _laserShotOffset: -0.955
-  _initialFireDelay: 0.75
+  _initialFireDelay: 1
   _fireRate: 3
   _thrusters: {fileID: 6786483613924043021}
 --- !u!1 &4128709576221973290
