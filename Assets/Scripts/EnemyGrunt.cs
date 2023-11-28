@@ -32,6 +32,7 @@ public class EnemyGrunt : MonoBehaviour
     private bool _isStrafing;
 
     [Header("Health/Damage")]
+    [SerializeField] private int _maxHealth = 3;
     [SerializeField] private int _health = 3;
     [SerializeField] private int _pointsOnDeath = 100;
     [SerializeField] private int _pointsOnBoundary = -10;
@@ -213,7 +214,7 @@ public class EnemyGrunt : MonoBehaviour
         float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
         _position = new Vector2(_enemyRightBoundary, yPosition);
         transform.position = _position;
-        _health = 3;
+        _health = _maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

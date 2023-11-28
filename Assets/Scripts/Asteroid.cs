@@ -31,7 +31,8 @@ public class Asteroid : MonoBehaviour
     private Vector2 _direction = Vector2.left;
 
     [Header("Health/Damage")]
-    [SerializeField] private int _health = 6;
+    [SerializeField] private int _maxHealth = 12;
+    [SerializeField] private int _health = 12;
     private bool _isExploding;
     [SerializeField] private int _pointsOnDeath = 200;
     [SerializeField] private int _pointsOnBoundary = -20;
@@ -93,7 +94,7 @@ public class Asteroid : MonoBehaviour
         float yPosition = Random.Range(_asteroidLowerBoundary, _asteroidUpperBoundary);
         _position = new Vector2(_asteroidRightBoundary, yPosition);
         transform.position = _position;
-        _health = 6;
+        _health = _maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
