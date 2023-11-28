@@ -1339,7 +1339,7 @@ MonoBehaviour:
   _enemySpawnLowerBoundary: -4.5
   _enemyContainer: {fileID: 793658857}
   _enemies:
-  - {fileID: 3368753958657129261, guid: 07a25606273788949a87fa6d12c5e870, type: 3}
+  - {fileID: 3368753958657129261, guid: 4f516739d3fb3f7438696018fdec378d, type: 3}
   - {fileID: 7461290498793702394, guid: 331c06e5bb01bf247a452854317fe9a1, type: 3}
   _enemySpawnTime: 2
   _minEnemySpawnTime: 1

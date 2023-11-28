@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 3557925016122327516}
   - component: {fileID: 5071239424871027877}
   - component: {fileID: -3285928883527815876}
-  - component: {fileID: 516984219116624860}
   - component: {fileID: 1714212125148499326}
   - component: {fileID: 5452423582025157287}
+  - component: {fileID: 93159461788346862}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyGrunt
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,36 +124,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &516984219116624860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3368753958657129261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af53b3e3c2898f74ead640d61917435f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyLeftBoundary: -11.2
-  _enemyRightBoundary: 11
-  _enemyUpperBoundary: 4.15
-  _enemyLowerBoundary: -5.15
-  _speed: 3
-  _health: 3
-  _pointsOnDeath: 100
-  _pointsOnBoundary: -10
-  _powerUpDropChance: 0.15
-  _rayCastOffset: -3
-  _rayCastDistance: 16
-  _laserShot: {fileID: 1635626956414016838, guid: d97fa67cff977cf4ba2c4775e30381c3,
-    type: 3}
-  _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
-  _laserShotOffset: -0.813
-  _initialFireDelay: 0.75
-  _fireRate: 3
-  _thrusters: {fileID: 6786483613924043021}
 --- !u!95 &1714212125148499326
 Animator:
   serializedVersion: 3
@@ -269,6 +239,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &93159461788346862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3368753958657129261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74442eaf7bd6f3b498643b0c9eebfb46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyLeftBoundary: -11.2
+  _enemyRightBoundary: 11
+  _enemyUpperBoundary: 4.15
+  _enemyLowerBoundary: -5.15
+  _speed: 4
+  _health: 3
+  _pointsOnDeath: 100
+  _pointsOnBoundary: -10
+  _powerUpDropChance: 0.15
+  _rayCastOffset: -3.5
+  _rayCastDistance: 16
+  _laserShot: {fileID: 1635626956414016838, guid: d97fa67cff977cf4ba2c4775e30381c3,
+    type: 3}
+  _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  _laserShotOffset: -0.955
+  _initialFireDelay: 0.75
+  _fireRate: 3
+  _thrusters: {fileID: 6786483613924043021}
 --- !u!1 &4128709576221973290
 GameObject:
   m_ObjectHideFlags: 0
