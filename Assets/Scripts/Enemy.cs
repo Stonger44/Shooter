@@ -15,8 +15,18 @@ public class Enemy : MonoBehaviour
     private SpawnManager _spawnManager;
     private AudioManager _audioManager;
     private AudioSource _audioSource;
-    private Animator _animator;
     private CircleCollider2D _collider;
+
+    /*-----PowerUp Ids-----*\
+    0: EnemyGrunt
+    1: EnemyRavager
+    \*-----PowerUp Ids-----*/
+    [SerializeField] private int _enemyId = 0;
+    [Header("EnemyGrunt")]
+    [SerializeField] private Animator _animator;
+    [Header("EnemyRavager")]
+    [SerializeField] private GameObject _explosion;
+    [SerializeField] private SpriteRenderer _renderer;
 
     [Header("Boundaries")]
     [SerializeField] private float _enemyLeftBoundary = -11.2f;
@@ -83,15 +93,31 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("AudioSource is null!");
         }
-        _animator = GetComponent<Animator>();
-        if (_animator == null)
+        if (_enemyId == 0)
         {
-            Debug.LogError("Enemy Animator is null!");
+            _animator = GetComponent<Animator>();
+            if (_animator == null)
+            {
+                Debug.LogError("Animator is null!");
+            } 
+        }
+        else
+        {
+            if (_explosion == null)
+            {
+                Debug.LogError("Explosion is null!");
+            }
+
+            _renderer = GetComponent<SpriteRenderer>();
+            if (_renderer == null)
+            {
+                Debug.LogError("Renderer is null!");
+            }
         }
         _collider = GetComponent<CircleCollider2D>();
         if (_collider == null)
         {
-            Debug.LogError("Enemy Collider is null!");
+            Debug.LogError("Collider is null!");
         }
         Warp();
     }
@@ -254,7 +280,14 @@ public class Enemy : MonoBehaviour
     {
         _isExploding = true;
         _collider.enabled = false;
-        _animator.SetTrigger("OnEnemyDeath");
+        if (_enemyId == 0)
+        {
+            _animator.SetTrigger("OnEnemyDeath"); 
+        }
+        else
+        {
+            _explosion.SetActive(true);
+        }
         StartCoroutine(DisableThrustersAndRollPowerUp());
         _audioManager.PlayExplosionSound();
         Destroy(this.gameObject, 2.7f);
@@ -267,6 +300,10 @@ public class Enemy : MonoBehaviour
         _gameManager.UpdateScore(_pointsOnDeath);
         _gameManager.UpdateEnemyCount();
         _thrusters.SetActive(false);
+        if (_enemyId == 1)
+        {
+            _renderer.enabled = false;
+        }
 
         if (Random.value < _powerUpDropChance)
         {

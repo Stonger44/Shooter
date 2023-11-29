@@ -251,6 +251,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262b26298a3b4714788a48a7fd13982d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyId: 0
+  _animator: {fileID: 1714212125148499326}
+  _explosion: {fileID: 0}
+  _renderer: {fileID: 3557925016122327516}
   _enemyLeftBoundary: -11.2
   _enemyRightBoundary: 11
   _enemyUpperBoundary: 4.15
