@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6224099865748961474}
   - component: {fileID: 6224099865748961473}
   - component: {fileID: 6224099865748961472}
-  - component: {fileID: 6224099865748961500}
   m_Layer: 0
   m_Name: EnemyRavager
   m_TagString: Enemy
@@ -123,28 +122,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6224099865748961500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6224099865748961479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57deb543fb5d5fc43ba9396120a21059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _explosion: {fileID: 907078994266811010}
-  _enemyLeftBoundary: -11.3
-  _enemyRightBoundary: 11.3
-  _enemyUpperBoundary: 3.5
-  _enemyLowerBoundary: -4.7
-  _speed: 2
-  _maxHealth: 12
-  _health: 12
-  _pointsOnDeath: 200
-  _pointsOnBoundary: -20
 --- !u!1 &6224099865990746744
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,12 +226,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a28b749aa1683f349a5226a9e22bb723, type: 3}
---- !u!1 &907078994266811010 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8454611186618823227, guid: a28b749aa1683f349a5226a9e22bb723,
-    type: 3}
-  m_PrefabInstance: {fileID: 8773653770015381689}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &907078994266811008 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8454611186618823225, guid: a28b749aa1683f349a5226a9e22bb723,

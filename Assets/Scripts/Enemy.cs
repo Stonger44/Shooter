@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGrunt : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
