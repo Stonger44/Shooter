@@ -16,6 +16,7 @@ public class Asteroid : MonoBehaviour
     private AudioManager _audioManager;
     private CircleCollider2D _collider;
 
+    [Header("Child Objects")]
     [SerializeField] private GameObject _asteroidSprite;
     [SerializeField] private GameObject _explosion;
 

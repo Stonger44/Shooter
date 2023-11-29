@@ -16,9 +16,6 @@ public class EnemyRavager : MonoBehaviour
     private AudioManager _audioManager;
     private CircleCollider2D _collider;
 
-    [SerializeField] private GameObject _asteroidSprite;
-    [SerializeField] private GameObject _explosion;
-
     [Header("Boundaries")]
     [SerializeField] private float _enemyLeftBoundary = -11.3f;
     [SerializeField] private float _enemyRightBoundary = 11.3f;
@@ -36,6 +33,7 @@ public class EnemyRavager : MonoBehaviour
     private bool _isExploding;
     [SerializeField] private int _pointsOnDeath = 200;
     [SerializeField] private int _pointsOnBoundary = -20;
+    [SerializeField] private GameObject _explosion;
 
     // Start is called before the first frame update
     void Start()
