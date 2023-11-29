@@ -148,14 +148,21 @@ public class Enemy : MonoBehaviour
                 if (_canFire)
                 {
                     _canFire = false;
-                    StartCoroutine(Fire());
+                    if (_enemyId == 0)
+                    {
+                        StartCoroutine(TrooperFire());
+                    }
+                    else
+                    {
+                        StartCoroutine(LeaderFire());
+                    }
                 }
             }
 
         }
     }
 
-    private IEnumerator Fire()
+    private IEnumerator TrooperFire()
     {
         yield return new WaitForSeconds(0.5f);
 
@@ -167,6 +174,13 @@ public class Enemy : MonoBehaviour
         _audioSource.Play();
 
         StartCoroutine(ReadyFire());
+    }
+
+    private IEnumerator LeaderFire()
+    {
+        // Set up LeaderFire
+
+        yield return null;
     }
 
     private IEnumerator ReadyFire()
@@ -268,9 +282,16 @@ public class Enemy : MonoBehaviour
 
     private void DamageSelf(string otherTag)
     {
-        _health--;
+        if (otherTag == _tripleShotTag)
+        {
+            _health -= 3;
+        }
+        else
+        {
+            _health--;
+        }
 
-        if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag || otherTag == _blastZoneTag)
+        if (_health < 1 || otherTag == _playerTag || otherTag == _blastZoneTag)
         {
             DestroySelf();
         }
@@ -300,7 +321,7 @@ public class Enemy : MonoBehaviour
         _gameManager.UpdateScore(_pointsOnDeath);
         _gameManager.UpdateEnemyCount();
         _thrusters.SetActive(false);
-        if (_enemyId == 1)
+        if (_enemyId > 0)
         {
             _renderer.enabled = false;
         }
