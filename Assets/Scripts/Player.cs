@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _engineDamageSpeedMultiplier = 0.3f;
     [SerializeField] private bool _isEngineDamaged = false;
     private int _lives = 3;
+    private Vector2 _deathPosition = new Vector2(0f, 8f);
 
     [Header("TripleShot")]
     [SerializeField] private GameObject _tripleShot;
@@ -141,11 +142,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (_lives > 0)
+        {
+            Move();
 
-        Fire();
+            Fire();
 
-        FireSpaceBomb();
+            FireSpaceBomb(); 
+        }
     }
 
     public int GetPlayerLives()
@@ -525,7 +529,8 @@ public class Player : MonoBehaviour
         Instantiate(_deathExplosion, this.transform.position, Quaternion.Euler(0, 0, 90));
         _audioManager.PlayExplosionSound();
         _gameManager.PauseBGM();
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        this.transform.position = _deathPosition;
     }
 
 }

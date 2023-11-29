@@ -83,7 +83,7 @@ public class SpawnManager : MonoBehaviour
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
             _enemiesSpawned++;
 
-            if (_enemiesSpawned == _waveEnemyTotalCount)
+            if (_gameManager.IsGameOver() || _enemiesSpawned == _waveEnemyTotalCount)
             {
                 StopSpawning();
             }
