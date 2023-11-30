@@ -173,7 +173,7 @@ public class Enemy : MonoBehaviour
         Vector2 laserPosition = transform.position;
         laserPosition.x += _laserOffset;
         Instantiate(_laser, laserPosition, Quaternion.identity);
-        
+        Debug.Break();
         SetLaserSound();
         _audioSource.Play();
 

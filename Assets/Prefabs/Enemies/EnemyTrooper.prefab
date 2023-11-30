@@ -257,6 +257,7 @@ MonoBehaviour:
   _renderer: {fileID: 3557925016122327516}
   _missile: {fileID: 0}
   _missileOffset: 0
+  _laserOffsetArray: []
   _enemyLeftBoundary: -11.2
   _enemyRightBoundary: 11
   _enemyUpperBoundary: 4.15
@@ -271,8 +272,7 @@ MonoBehaviour:
   _rayCastDistance: 16
   _laser: {fileID: 1635626956414016838, guid: ecc878101c56185419878c8643fde796, type: 3}
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
-  _laserOffset: -0.955
-  _initialFireDelay: 1
+  _laserOffset: -0.811
   _fireRate: 3
   _thrusters: {fileID: 6786483613924043021}
 --- !u!1 &4128709576221973290
