@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private GameObject _missile;
     [SerializeField] private float _missileOffset = -1.177f;
+    [SerializeField] private float[] _laserOffsetArray;
 
     [Header("Boundaries")]
     [SerializeField] private float _enemyLeftBoundary = -11.2f;
@@ -61,7 +62,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject _laser;
     [SerializeField] private AudioClip _laserSound;
     [SerializeField] private float _laserOffset = -0.955f;
-    [SerializeField] private float _initialFireDelay = 1f;
+    [SerializeField] private WaitForSeconds _initialFireDelay = new WaitForSeconds(1f);
     [SerializeField] private float _fireRate = 3f;
     private bool _canFire = true;
 
@@ -167,7 +168,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator TrooperFire()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return _initialFireDelay;
 
         Vector2 laserPosition = transform.position;
         laserPosition.x += _laserOffset;
@@ -181,9 +182,26 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator LeaderFire()
     {
-        // Set up LeaderFire
+        yield return _initialFireDelay;
 
-        yield return null;
+        Vector2 missilePosition = transform.position;
+        missilePosition.x += _missileOffset;
+        Instantiate(_missile, missilePosition, Quaternion.identity);
+
+        yield return new WaitForSeconds(0.5f);
+
+        foreach (var offset in _laserOffsetArray)
+        {
+            Vector2 laserPosition = transform.position;
+            laserPosition.x += offset;
+            Instantiate(_laser, laserPosition, Quaternion.identity);
+
+            SetLaserSound();
+            _audioSource.Play();
+        }
+
+
+        StartCoroutine(ReadyFire());
     }
 
     private IEnumerator ReadyFire()

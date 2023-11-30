@@ -256,7 +256,7 @@ MonoBehaviour:
   _explosion: {fileID: 0}
   _renderer: {fileID: 3557925016122327516}
   _missile: {fileID: 0}
-  _missileOffset: -1.177
+  _missileOffset: 0
   _enemyLeftBoundary: -11.2
   _enemyRightBoundary: 11
   _enemyUpperBoundary: 4.15
