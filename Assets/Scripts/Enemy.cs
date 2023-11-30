@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private GameObject _missile;
     [SerializeField] private float _missileOffset = -1.177f;
-    [SerializeField] private float[] _laserOffsetArray;
+    [SerializeField] private float[] _yLaserOffsetArray;
 
     [Header("Boundaries")]
     [SerializeField] private float _enemyLeftBoundary = -11.2f;
@@ -54,15 +54,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _powerUpDropChance = 0.15f;
 
     [Header("Targeting System")]
-    [SerializeField] private float _rayCastOffset = -3.5f;
+    [SerializeField] private float _xRayCastOffset = -3.5f;
+    [SerializeField] private float _yRayCastOffset = 0.558f;
     [SerializeField] private float _rayCastDistance = 16f;
     private Vector2 _rayCastOrigin;
 
     [Header("Laser")]
     [SerializeField] private GameObject _laser;
     [SerializeField] private AudioClip _laserSound;
-    [SerializeField] private float _laserOffset = -0.955f;
-    [SerializeField] private WaitForSeconds _initialFireDelay = new WaitForSeconds(1f);
+    [SerializeField] private float _xLaserOffset = -0.811f;
+    private WaitForSeconds _fireDelay = new WaitForSeconds(1f);
     [SerializeField] private float _fireRate = 3f;
     private bool _canFire = true;
 
@@ -140,7 +141,7 @@ public class Enemy : MonoBehaviour
     private void ScanForTarget()
     {
         _rayCastOrigin = transform.position;
-        _rayCastOrigin.x += _rayCastOffset;
+        _rayCastOrigin.x += _xRayCastOffset;
 
         RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance);
         //Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
@@ -164,16 +165,49 @@ public class Enemy : MonoBehaviour
             }
 
         }
+
+        if (_enemyId == 1)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                _rayCastOrigin = transform.position;
+                _rayCastOrigin.x += _xRayCastOffset;
+                _rayCastOrigin.y += (i == 0) ? _yRayCastOffset : -_yRayCastOffset;
+
+                hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance);
+                //Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
+
+                if (hitObject.collider != null)
+                {
+                    if (hitObject.collider.tag == _playerTag)
+                    {
+                        if (_canFire)
+                        {
+                            _canFire = false;
+                            if (_enemyId == 0)
+                            {
+                                StartCoroutine(TrooperFire());
+                            }
+                            else
+                            {
+                                StartCoroutine(LeaderFire());
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
     }
 
     private IEnumerator TrooperFire()
     {
-        yield return _initialFireDelay;
+        yield return _fireDelay;
 
         Vector2 laserPosition = transform.position;
-        laserPosition.x += _laserOffset;
+        laserPosition.x += _xLaserOffset;
         Instantiate(_laser, laserPosition, Quaternion.identity);
-        Debug.Break();
+
         SetLaserSound();
         _audioSource.Play();
 
@@ -182,24 +216,41 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator LeaderFire()
     {
-        yield return _initialFireDelay;
+        yield return _fireDelay;
 
         Vector2 missilePosition = transform.position;
         missilePosition.x += _missileOffset;
         Instantiate(_missile, missilePosition, Quaternion.identity);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return _fireDelay;
 
-        foreach (var offset in _laserOffsetArray)
+        for (int i = 0; i < _yLaserOffsetArray.Length * 2; i++)
         {
             Vector2 laserPosition = transform.position;
-            laserPosition.x += offset;
-            Instantiate(_laser, laserPosition, Quaternion.identity);
+            laserPosition.x += _xLaserOffset;
+
+            if (i % 2 == 0)
+            {
+                laserPosition.y += _yLaserOffsetArray[0];
+                Instantiate(_laser, laserPosition, Quaternion.identity);
+                
+                laserPosition.y -= _yLaserOffsetArray[0] * 2;
+                Instantiate(_laser, laserPosition, Quaternion.identity);
+            }
+            else
+            {
+                laserPosition.y += _yLaserOffsetArray[1];
+                Instantiate(_laser, laserPosition, Quaternion.identity);
+                
+                laserPosition.y -= _yLaserOffsetArray[1] * 2;
+                Instantiate(_laser, laserPosition, Quaternion.identity);
+            }
 
             SetLaserSound();
             _audioSource.Play();
-        }
 
+            yield return new WaitForSeconds(0.5f);
+        }
 
         StartCoroutine(ReadyFire());
     }

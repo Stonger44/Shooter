@@ -210,6 +210,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a3fae36b98634408335446f1a42931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _missileId: 1
+  _boundary: -12
+  _speed: 10
+  _smokeTrail: {fileID: 6114101213781797118}
 --- !u!1 &6114101213097924305
 GameObject:
   m_ObjectHideFlags: 0
