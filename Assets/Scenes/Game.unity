@@ -701,7 +701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOver: 0
   _gamePaused: 0
-  _isTesting: 1
+  _isTesting: 0
   _currentWave: 1
   _waveEnemyMultiplier: 10
   _waveEnemyTotalCount: 0
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   _enemies:
   - {fileID: 3368753958657129261, guid: 4f345f142aa084942950e8b3a46ff191, type: 3}
   - {fileID: 7461290498793702394, guid: 331c06e5bb01bf247a452854317fe9a1, type: 3}
-  - {fileID: 6224099865748961479, guid: ae778721fd22eac499b5f3f8c1d51c3e, type: 3}
+  - {fileID: 4093667370062700018, guid: e7a51cf312dde9c4688902814590af82, type: 3}
   _enemySpawnTime: 2
   _minEnemySpawnTime: 1
   _enemySpawnTimeDecrement: 0.1
@@ -4214,75 +4214,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583821288}
   m_CullTransparentMesh: 0
---- !u!1001 &1608020698
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4093667370062700018, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_Name
-      value: EnemyMissileer
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093667370062700030, guid: e7a51cf312dde9c4688902814590af82,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e7a51cf312dde9c4688902814590af82, type: 3}
 --- !u!1001 &1629210852
 PrefabInstance:
   m_ObjectHideFlags: 0
