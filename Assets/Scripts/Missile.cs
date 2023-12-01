@@ -9,7 +9,6 @@ public class Missile : MonoBehaviour
     // 0: Player Missile 
     // 1: Enemy Missile
     [SerializeField] private int _missileId;
-    [SerializeField] private float _boundary;
     [SerializeField] private float _speed;
     private Vector2 _missileDirection;
 
@@ -24,6 +23,8 @@ public class Missile : MonoBehaviour
         {
             _missileDirection = Vector2.left;
         }
+
+        StartCoroutine(ArmMissile());
     }
 
     // Update is called once per frame
@@ -35,34 +36,17 @@ public class Missile : MonoBehaviour
     private void Move()
     {
         transform.Translate(_missileDirection * _speed * Time.deltaTime);
-
-        DestroyIfOutOfBounds();
     }
 
-    private void DestroyIfOutOfBounds()
+    private IEnumerator ArmMissile()
     {
-        if (_missileId == 0)
-        {
-            if (transform.position.x > _boundary)
-            {
-                if (transform.parent != null)
-                {
-                    Destroy(transform.parent.gameObject);
-                }
-                Destroy(this.gameObject);
-            }
-        }
-        else // _missileId == 1 (Enemy Missile)
-        {
-            if (transform.position.x < _boundary)
-            {
-                if (transform.parent != null)
-                {
-                    Destroy(transform.parent.gameObject);
-                }
-                Destroy(this.gameObject);
-            }
-        }
+        yield return new WaitForSeconds(2f);
+        DetonateMissile();
     }
 
+    private void DetonateMissile()
+    {
+        // Activate Explosion
+        Destroy(this.gameObject);
+    }
 }

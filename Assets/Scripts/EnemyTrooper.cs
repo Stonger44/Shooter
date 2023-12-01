@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyTrooper : MonoBehaviour
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
@@ -14,23 +14,9 @@ public class Enemy : MonoBehaviour
     private GameManager _gameManager;
     private SpawnManager _spawnManager;
     private AudioManager _audioManager;
-    private AudioSource _audioSource;
     private CircleCollider2D _collider;
-
-    /*-----PowerUp Ids-----*\
-    0: EnemyGrunt
-    1: EnemyRavager
-    \*-----PowerUp Ids-----*/
-    [SerializeField] private int _enemyId = 0;
-    [Header("EnemyTrooper")]
-    [SerializeField] private Animator _animator;
-
-    [Header("EnemyLeader")]
-    [SerializeField] private GameObject _explosion;
-    [SerializeField] private SpriteRenderer _renderer;
-    [SerializeField] private GameObject _missile;
-    [SerializeField] private float _missileOffset = -1.177f;
-    [SerializeField] private float[] _yLaserOffsetArray;
+    private Animator _animator;
+    private AudioSource _audioSource;
 
     [Header("Boundaries")]
     [SerializeField] private float _enemyLeftBoundary = -11.2f;
@@ -93,37 +79,22 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("AudioManager is null!");
         }
-        _audioSource =GetComponent<AudioSource>();
-        if (_audioSource == null)
-        {
-            Debug.LogError("AudioSource is null!");
-        }
-        if (_enemyId == 0)
-        {
-            _animator = GetComponent<Animator>();
-            if (_animator == null)
-            {
-                Debug.LogError("Animator is null!");
-            } 
-        }
-        else
-        {
-            if (_explosion == null)
-            {
-                Debug.LogError("Explosion is null!");
-            }
-
-            _renderer = GetComponent<SpriteRenderer>();
-            if (_renderer == null)
-            {
-                Debug.LogError("Renderer is null!");
-            }
-        }
         _collider = GetComponent<CircleCollider2D>();
         if (_collider == null)
         {
             Debug.LogError("Collider is null!");
         }
+        _animator = GetComponent<Animator>();
+        if (_animator == null)
+        {
+            Debug.LogError("Animator is null!");
+        }
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            Debug.LogError("AudioSource is null!");
+        }
+
         Warp();
     }
 
@@ -153,103 +124,25 @@ public class Enemy : MonoBehaviour
                 if (_canFire)
                 {
                     _canFire = false;
-                    if (_enemyId == 0)
-                    {
-                        StartCoroutine(TrooperFire());
-                    }
-                    else
-                    {
-                        StartCoroutine(LeaderFire());
-                    }
+                    StartCoroutine(Fire());
                 }
             }
 
         }
-
-        if (_enemyId == 1)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                _rayCastOrigin = transform.position;
-                _rayCastOrigin.x += _xRayCastOffset;
-                _rayCastOrigin.y += (i == 0) ? _yRayCastOffset : -_yRayCastOffset;
-
-                hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance);
-                //Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
-
-                if (hitObject.collider != null)
-                {
-                    if (hitObject.collider.tag == _playerTag)
-                    {
-                        if (_canFire)
-                        {
-                            _canFire = false;
-                            if (_enemyId == 0)
-                            {
-                                StartCoroutine(TrooperFire());
-                            }
-                            else
-                            {
-                                StartCoroutine(LeaderFire());
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
     }
 
-    private IEnumerator TrooperFire()
+    private IEnumerator Fire()
     {
         yield return _fireDelay;
 
-        Vector2 laserPosition = transform.position;
-        laserPosition.x += _xLaserOffset;
-        Instantiate(_laser, laserPosition, Quaternion.identity);
-
-        SetLaserSound();
-        _audioSource.Play();
-
-        StartCoroutine(ReadyFire());
-    }
-
-    private IEnumerator LeaderFire()
-    {
-        yield return _fireDelay;
-
-        Vector2 missilePosition = transform.position;
-        missilePosition.x += _missileOffset;
-        Instantiate(_missile, missilePosition, Quaternion.identity);
-
-        yield return _fireDelay;
-
-        for (int i = 0; i < _yLaserOffsetArray.Length * 2; i++)
+        if (!_isExploding)
         {
             Vector2 laserPosition = transform.position;
             laserPosition.x += _xLaserOffset;
-
-            if (i % 2 == 0)
-            {
-                laserPosition.y += _yLaserOffsetArray[0];
-                Instantiate(_laser, laserPosition, Quaternion.identity);
-                
-                laserPosition.y -= _yLaserOffsetArray[0] * 2;
-                Instantiate(_laser, laserPosition, Quaternion.identity);
-            }
-            else
-            {
-                laserPosition.y += _yLaserOffsetArray[1];
-                Instantiate(_laser, laserPosition, Quaternion.identity);
-                
-                laserPosition.y -= _yLaserOffsetArray[1] * 2;
-                Instantiate(_laser, laserPosition, Quaternion.identity);
-            }
+            Instantiate(_laser, laserPosition, Quaternion.identity);
 
             SetLaserSound();
-            _audioSource.Play();
-
-            yield return new WaitForSeconds(0.5f);
+            _audioSource.Play(); 
         }
 
         StartCoroutine(ReadyFire());
@@ -337,22 +230,22 @@ public class Enemy : MonoBehaviour
         {
             case _playerTag:
                 _player.Damage();
-                DamageSelf(_otherTag);
+                Damage(_otherTag);
                 break;
             case _laserTag:
             case _tripleShotTag:
                 Destroy(other.gameObject);
-                DamageSelf(_otherTag);
+                Damage(_otherTag);
                 break;
             case _blastZoneTag:
-                DamageSelf(_otherTag);
+                Damage(_otherTag);
                 break;
             default:
                 break;
         }
     }
 
-    private void DamageSelf(string otherTag)
+    private void Damage(string otherTag)
     {
         if (otherTag == _tripleShotTag)
         {
@@ -373,14 +266,7 @@ public class Enemy : MonoBehaviour
     {
         _isExploding = true;
         _collider.enabled = false;
-        if (_enemyId == 0)
-        {
-            _animator.SetTrigger("OnEnemyDeath"); 
-        }
-        else
-        {
-            _explosion.SetActive(true);
-        }
+        _animator.SetTrigger("OnEnemyDeath");
         StartCoroutine(DisableThrustersAndRollPowerUp());
         _audioManager.PlayExplosionSound();
         Destroy(this.gameObject, 2.7f);
@@ -393,10 +279,6 @@ public class Enemy : MonoBehaviour
         _gameManager.UpdateScore(_pointsOnDeath);
         _gameManager.UpdateEnemyCount();
         _thrusters.SetActive(false);
-        if (_enemyId > 0)
-        {
-            _renderer.enabled = false;
-        }
 
         if (Random.value < _powerUpDropChance)
         {

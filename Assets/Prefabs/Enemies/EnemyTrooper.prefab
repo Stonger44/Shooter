@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3285928883527815876}
   - component: {fileID: 1714212125148499326}
   - component: {fileID: 5452423582025157287}
-  - component: {fileID: 1666058130452714712}
+  - component: {fileID: 9018932643458980802}
   m_Layer: 0
   m_Name: EnemyTrooper
   m_TagString: Enemy
@@ -239,7 +239,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1666058130452714712
+--- !u!114 &9018932643458980802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,16 +248,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3368753958657129261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 262b26298a3b4714788a48a7fd13982d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a80c0d17f9b77f4d821290b85aa4051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyId: 0
   _animator: {fileID: 1714212125148499326}
   _explosion: {fileID: 0}
-  _renderer: {fileID: 3557925016122327516}
+  _renderer: {fileID: 0}
   _missile: {fileID: 0}
-  _missileOffset: 0
-  _laserOffsetArray: []
+  _missileOffset: -1.177
+  _yLaserOffsetArray: []
   _enemyLeftBoundary: -11.2
   _enemyRightBoundary: 11
   _enemyUpperBoundary: 4.15
@@ -268,11 +268,12 @@ MonoBehaviour:
   _pointsOnDeath: 100
   _pointsOnBoundary: -10
   _powerUpDropChance: 0.15
-  _rayCastOffset: -3.5
+  _xRayCastOffset: -3.5
+  _yRayCastOffset: 0.558
   _rayCastDistance: 16
   _laser: {fileID: 1635626956414016838, guid: ecc878101c56185419878c8643fde796, type: 3}
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
-  _laserOffset: -0.811
+  _xLaserOffset: -0.811
   _fireRate: 3
   _thrusters: {fileID: 6786483613924043021}
 --- !u!1 &4128709576221973290

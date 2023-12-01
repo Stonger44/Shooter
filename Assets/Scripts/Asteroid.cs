@@ -123,20 +123,22 @@ public class Asteroid : MonoBehaviour
 
     private void Damage(string otherTag)
     {
-        _health--;
-
         if (otherTag == _tripleShotTag)
         {
             _health -= 3;
         }
+        else
+        {
+            _health--;
+        }
 
         if (_health < 1 || otherTag == _playerTag || otherTag == _blastZoneTag)
         {
-            StartCoroutine(DestroyAsteroid());
+            StartCoroutine(DestroySelf());
         }
     }
 
-    private IEnumerator DestroyAsteroid()
+    private IEnumerator DestroySelf()
     {
         _isExploding = true;
         _collider.enabled = false;
