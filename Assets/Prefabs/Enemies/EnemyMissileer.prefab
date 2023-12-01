@@ -570,7 +570,7 @@ MonoBehaviour:
   _enemyRightBoundary: 11.15
   _enemyUpperBoundary: 3.6
   _enemyLowerBoundary: -4.6
-  _speed: 4
+  _speed: 3
   _maxHealth: 9
   _health: 9
   _pointsOnDeath: 300
