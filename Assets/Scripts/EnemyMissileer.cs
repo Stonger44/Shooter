@@ -111,36 +111,41 @@ public class EnemyMissileer : MonoBehaviour
 
     private void ScanForTarget()
     {
+        bool targetAcquired = IsTargetAcquired(_xRayCastOffset, _yRayCastOffset) || IsTargetAcquired(_xRayCastOffset, -_yRayCastOffset);
+
+        if (!_isExploding && _canFire && targetAcquired)
+        {
+            _canFire = false;
+            StartCoroutine(Fire());
+        }
+    }
+
+    private bool IsTargetAcquired(float xOffset, float yOffset)
+    {
         _rayCastOrigin = transform.position;
-        _rayCastOrigin.x += _xRayCastOffset;
+        _rayCastOrigin.x += xOffset;
+        _rayCastOrigin.y += yOffset;
 
         RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance);
-        //Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
-
+        Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
         if (hitObject.collider != null)
         {
             if (hitObject.collider.tag == _playerTag)
             {
-                if (_canFire)
-                {
-                    _canFire = false;
-                    StartCoroutine(Fire());
-                }
+                return true;
             }
 
         }
+
+        return false;
     }
 
     private IEnumerator Fire()
     {
         yield return _fireDelay;
-
-        if (!_isExploding)
-        {
-            FireMissile(_xMissileOffset, _yMissileOffset);
-            yield return _fireDelay;
-            FireMissile(_xMissileOffset, -_yMissileOffset);
-        }
+        FireMissile(_xMissileOffset, _yMissileOffset);
+        yield return _fireDelay;
+        FireMissile(_xMissileOffset, -_yMissileOffset);
 
         StartCoroutine(ReadyFire());
     }
