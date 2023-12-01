@@ -211,8 +211,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _missileId: 1
-  _boundary: -12
   _speed: 8
+  _missileExplosion: {fileID: 5998372259099333284, guid: 11291b52a8d0161419951b8525304808,
+    type: 3}
 --- !u!1 &6114101213097924305
 GameObject:
   m_ObjectHideFlags: 0

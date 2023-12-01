@@ -11,6 +11,7 @@ public class Missile : MonoBehaviour
     [SerializeField] private int _missileId;
     [SerializeField] private float _speed;
     private Vector2 _missileDirection;
+    [SerializeField] private GameObject _missileExplosion;
 
     // Start is called before the first frame update
     void Start()
@@ -40,13 +41,13 @@ public class Missile : MonoBehaviour
 
     private IEnumerator ArmMissile()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         DetonateMissile();
     }
 
     private void DetonateMissile()
     {
-        // Activate Explosion
+        Instantiate(_missileExplosion, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 }
