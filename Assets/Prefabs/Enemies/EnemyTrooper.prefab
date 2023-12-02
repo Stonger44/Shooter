@@ -251,18 +251,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a80c0d17f9b77f4d821290b85aa4051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyId: 0
-  _animator: {fileID: 1714212125148499326}
-  _explosion: {fileID: 0}
-  _renderer: {fileID: 0}
-  _missile: {fileID: 0}
-  _missileOffset: -1.177
-  _yLaserOffsetArray: []
   _enemyLeftBoundary: -11.2
   _enemyRightBoundary: 11
   _enemyUpperBoundary: 4.15
   _enemyLowerBoundary: -5.15
-  _speed: 4
+  _speed: 3
   _maxHealth: 3
   _health: 3
   _pointsOnDeath: 100

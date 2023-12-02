@@ -25,7 +25,7 @@ public class EnemyTrooper : MonoBehaviour
     [SerializeField] private float _enemyLowerBoundary = -5.15f;
 
     [Header("Movement")]
-    [SerializeField] private float _speed = 4f;
+    [SerializeField] private float _speed = 3f;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
     private bool _willStrafe;
