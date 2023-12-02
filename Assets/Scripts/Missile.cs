@@ -47,7 +47,7 @@ public class Missile : MonoBehaviour
 
     private void DetonateMissile()
     {
-        Instantiate(_missileExplosion, transform.position, Quaternion.identity);
+        Instantiate(_missileExplosion, transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
 }
