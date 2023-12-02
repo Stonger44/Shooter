@@ -27,7 +27,9 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private float _asteroidLowerBoundary = -4.7f;
 
     [Header("Movement")]
-    [SerializeField] private float _speed = 2f;
+    [SerializeField] private float _minSpeed = 2f;
+    [SerializeField] private float _maxSpeed = 3f;
+    private float _speed;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
 
@@ -68,6 +70,8 @@ public class Asteroid : MonoBehaviour
         }
 
         Warp();
+
+        _speed = Random.Range(_minSpeed, _maxSpeed);
     }
 
     // Update is called once per frame

@@ -27,6 +27,7 @@ public class EnemyMissileer : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float _speed = 4f;
+    private float _standardSpeed;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
     private bool _willStrafe;
@@ -96,6 +97,8 @@ public class EnemyMissileer : MonoBehaviour
         }
 
         Warp();
+
+        _standardSpeed = _speed;
     }
 
     // Update is called once per frame
@@ -134,19 +137,22 @@ public class EnemyMissileer : MonoBehaviour
             {
                 return true;
             }
-
         }
-
         return false;
     }
 
     private IEnumerator Fire()
     {
         yield return _fireDelay;
-        FireMissile(_xMissileOffset, _yMissileOffset);
+        if (!_isExploding)
+        {
+            FireMissile(_xMissileOffset, _yMissileOffset); 
+        }
         yield return _fireDelay;
-        FireMissile(_xMissileOffset, -_yMissileOffset);
-
+        if (!_isExploding)
+        {
+            FireMissile(_xMissileOffset, -_yMissileOffset); 
+        }
         StartCoroutine(ReadyFire());
     }
 
@@ -196,8 +202,9 @@ public class EnemyMissileer : MonoBehaviour
     private void Strafe()
     {
         float randomY = Random.value < 0.5f ? -1 : 1;
-        _direction = new Vector2(_direction.x, randomY);
+        _direction = new Vector2(-_direction.x, randomY);
         _isStrafing = true;
+        _speed *= 2;
         StartCoroutine(StrafeDuration());
     }
 
@@ -208,6 +215,7 @@ public class EnemyMissileer : MonoBehaviour
         {
             _direction = Vector2.left;
             _isStrafing = false;
+            _speed = _standardSpeed;
         }
     }
 

@@ -6,10 +6,14 @@ using UnityEngine.Experimental.XR;
 
 public class Missile : MonoBehaviour
 {
+    private const string _playerTag = "Player";
+    private string _otherTag = string.Empty;
+
     // 0: Player Missile 
     // 1: Enemy Missile
     [SerializeField] private int _missileId;
     [SerializeField] private float _speed;
+    [SerializeField] private float _missileActiveTime = 3f;
     private Vector2 _missileDirection;
     [SerializeField] private GameObject _missileExplosion;
 
@@ -41,8 +45,18 @@ public class Missile : MonoBehaviour
 
     private IEnumerator ArmMissile()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(_missileActiveTime);
         DetonateMissile();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        _otherTag = other.tag;
+
+        if (_otherTag == _playerTag)
+        {
+            DetonateMissile();
+        }
     }
 
     private void DetonateMissile()
