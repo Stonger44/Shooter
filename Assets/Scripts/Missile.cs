@@ -50,10 +50,15 @@ public class Missile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Move();
+
     }
 
     private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void Move()
     {
         Vector2 lookDirection = (Vector2)_player.transform.position - _rigidBody.position;
 
@@ -64,11 +69,6 @@ public class Missile : MonoBehaviour
         _rigidBody.angularVelocity = -rotateAmount * _rotateSpeed;
 
         _rigidBody.velocity = -transform.right * _speed;
-    }
-
-    private void Move()
-    {
-        transform.Translate(_missileDirection * _speed * Time.deltaTime);
     }
 
     private IEnumerator ArmMissile()
