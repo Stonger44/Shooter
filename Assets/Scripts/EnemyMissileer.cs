@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyMissileer : MonoBehaviour
 {
@@ -20,16 +21,18 @@ public class EnemyMissileer : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer;
 
     [Header("Boundaries")]
-    [SerializeField] private float _enemyLeftBoundary = -11.2f;
-    [SerializeField] private float _enemyRightBoundary = 11f;
-    [SerializeField] private float _enemyUpperBoundary = 4.15f;
-    [SerializeField] private float _enemyLowerBoundary = -5.15f;
+    [SerializeField] private float _enemyLeftBoundary = -12f;
+    [SerializeField] private float _enemyRightBoundary = 11.15f;
+    [SerializeField] private float _enemyUpperBoundary = 3.6f;
+    [SerializeField] private float _enemyLowerBoundary = -4.6f;
 
     [Header("Movement")]
-    [SerializeField] private float _speed = 4f;
+    [SerializeField] private float _speed = 1f;
     private float _standardSpeed;
     private Vector2 _position;
-    private Vector2 _direction = Vector2.left;
+    [SerializeField] private float _xDirection = -1f;
+    [SerializeField] private float _yDirection = 2f;
+    private Vector2 _direction;
     private bool _willStrafe;
     private bool _isStrafing;
 
@@ -99,6 +102,9 @@ public class EnemyMissileer : MonoBehaviour
         Warp();
 
         _standardSpeed = _speed;
+
+        float yDirection = Random.value < 0.5f ? -_yDirection : _yDirection;
+        _direction = new Vector2(_xDirection, yDirection);
     }
 
     // Update is called once per frame
@@ -182,6 +188,11 @@ public class EnemyMissileer : MonoBehaviour
             }
         }
 
+        if (!_isExploding && (transform.position.y >= _enemyUpperBoundary || transform.position.y <= _enemyLowerBoundary))
+        {
+            Change_Y_Direction();
+        }
+
         transform.Translate(_direction * _speed * Time.deltaTime);
 
         if (!_isExploding)
@@ -199,10 +210,21 @@ public class EnemyMissileer : MonoBehaviour
         }
     }
 
+    private void Change_Y_Direction()
+    {
+        if (transform.position.y >= _enemyUpperBoundary)
+        {
+            _direction.y = -_yDirection;
+        }
+        else if (transform.position.y <= _enemyLowerBoundary)
+        {
+            _direction.y = _yDirection;
+        }
+    }
+
     private void Strafe()
     {
-        float randomY = Random.value < 0.5f ? -1 : 1;
-        _direction = new Vector2(-_direction.x, randomY);
+        _direction = new Vector2(-_xDirection, _direction.y);
         _isStrafing = true;
         _speed *= 2;
         StartCoroutine(StrafeDuration());
@@ -213,7 +235,7 @@ public class EnemyMissileer : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (!_isExploding)
         {
-            _direction = Vector2.left;
+            _direction = new Vector2(_xDirection, _direction.y);
             _isStrafing = false;
             _speed = _standardSpeed;
         }

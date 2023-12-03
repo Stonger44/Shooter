@@ -41,6 +41,8 @@ public class Missile : MonoBehaviour
     private void Move()
     {
         transform.Translate(_missileDirection * _speed * Time.deltaTime);
+
+        // Make Missile rotate and follow player
     }
 
     private IEnumerator ArmMissile()
