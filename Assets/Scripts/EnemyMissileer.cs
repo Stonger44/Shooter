@@ -55,7 +55,7 @@ public class EnemyMissileer : MonoBehaviour
     [SerializeField] private float _xMissileOffset = -1.177f;
     [SerializeField] private float _yMissileOffset = -1.177f;
     [SerializeField] private float _fireRate = 3f;
-    private WaitForSeconds _fireDelay = new WaitForSeconds(1f);
+    private WaitForSeconds _fireDelay = new WaitForSeconds(0.5f);
     private bool _canFire = true;
 
     [Header("Thrusters")]
@@ -178,15 +178,15 @@ public class EnemyMissileer : MonoBehaviour
 
     private void Move()
     {
-        if (!_isExploding && !_isStrafing)
-        {
-            _willStrafe = Random.value < (0.2f * Time.deltaTime);
+        //if (!_isExploding && !_isStrafing)
+        //{
+        //    _willStrafe = Random.value < (0.1f * Time.deltaTime);
 
-            if (_willStrafe)
-            {
-                Strafe();
-            }
-        }
+        //    if (_willStrafe)
+        //    {
+        //        Strafe();
+        //    }
+        //}
 
         if (!_isExploding && (transform.position.y >= _enemyUpperBoundary || transform.position.y <= _enemyLowerBoundary))
         {
@@ -226,7 +226,7 @@ public class EnemyMissileer : MonoBehaviour
     {
         _direction = new Vector2(-_xDirection, _direction.y);
         _isStrafing = true;
-        _speed *= 2;
+        //_speed *= 2;
         StartCoroutine(StrafeDuration());
     }
 
@@ -237,7 +237,7 @@ public class EnemyMissileer : MonoBehaviour
         {
             _direction = new Vector2(_xDirection, _direction.y);
             _isStrafing = false;
-            _speed = _standardSpeed;
+            //_speed = _standardSpeed;
         }
     }
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6114101212540124536}
   - component: {fileID: 6114101212540124539}
   - component: {fileID: 6114101212540124537}
+  - component: {fileID: -6578582133762017721}
   - component: {fileID: 6114101212540124538}
   - component: {fileID: 6114101212540124541}
   m_Layer: 0
@@ -101,7 +102,28 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -3.6, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
+--- !u!50 &-6578582133762017721
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6114101212540124540}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!82 &6114101212540124538
 AudioSource:
   m_ObjectHideFlags: 0
@@ -211,7 +233,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _missileId: 1
-  _speed: 9
+  _speed: 15
+  _rotateSpeed: 150
+  _missileActiveTime: 2.5
   _missileExplosion: {fileID: 5998372259099333284, guid: 11291b52a8d0161419951b8525304808,
     type: 3}
 --- !u!1 &6114101213097924305
