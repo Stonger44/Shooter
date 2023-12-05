@@ -109,6 +109,61 @@ public class EnemyTrooper : MonoBehaviour
         }
     }
 
+    private void Move()
+    {
+        if (!_isExploding && !_isStrafing)
+        {
+            _willStrafe = Random.value < (0.2f * Time.deltaTime);
+
+            if (_willStrafe)
+            {
+                Strafe();
+            }
+        }
+
+        transform.Translate(_direction * _speed * Time.deltaTime);
+
+        if (!_isExploding)
+        {
+            transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, _enemyLowerBoundary, _enemyUpperBoundary));
+        }
+
+        if (!_isExploding && transform.position.x < _enemyLeftBoundary)
+        {
+            if (!_gameManager.IsGameOver())
+            {
+                _gameManager.UpdateScore(_pointsOnBoundary);
+            }
+            Warp();
+        }
+    }
+
+    private void Strafe()
+    {
+        float randomY = Random.value < 0.5f ? -1 : 1;
+        _direction = new Vector2(_direction.x, randomY);
+        _isStrafing = true;
+        StartCoroutine(StrafeDuration());
+    }
+
+    private IEnumerator StrafeDuration()
+    {
+        yield return new WaitForSeconds(1f);
+        if (!_isExploding)
+        {
+            _direction = Vector2.left;
+            _isStrafing = false;
+        }
+    }
+
+    private void Warp()
+    {
+        float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
+        _position = new Vector2(_enemyRightBoundary, yPosition);
+        transform.position = _position;
+        _health = _maxHealth;
+    }
+
     private void ScanForTarget()
     {
         _rayCastOrigin = transform.position;
@@ -165,61 +220,6 @@ public class EnemyTrooper : MonoBehaviour
         {
             _audioSource.pitch = 0.3f;
         }
-    }
-
-    private void Move()
-    {
-        if (!_isExploding && !_isStrafing)
-        {
-            _willStrafe = Random.value < (0.2f * Time.deltaTime);
-
-            if (_willStrafe)
-            {
-                Strafe();
-            }
-        }
-
-        transform.Translate(_direction * _speed * Time.deltaTime);
-
-        if (!_isExploding)
-        {
-            transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, _enemyLowerBoundary, _enemyUpperBoundary)); 
-        }
-
-        if (!_isExploding && transform.position.x < _enemyLeftBoundary)
-        {
-            if (!_gameManager.IsGameOver())
-            {
-                _gameManager.UpdateScore(_pointsOnBoundary); 
-            }
-            Warp();
-        }
-    }
-
-    private void Strafe()
-    {
-        float randomY = Random.value < 0.5f ? -1 : 1;
-        _direction = new Vector2(_direction.x, randomY);
-        _isStrafing = true;
-        StartCoroutine(StrafeDuration());
-    }
-
-    private IEnumerator StrafeDuration()
-    {
-        yield return new WaitForSeconds(1f);
-        if (!_isExploding)
-        {
-            _direction = Vector2.left;
-            _isStrafing = false; 
-        }
-    }
-
-    private void Warp()
-    {
-        float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
-        _position = new Vector2(_enemyRightBoundary, yPosition);
-        transform.position = _position;
-        _health = _maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
