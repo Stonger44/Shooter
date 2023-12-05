@@ -178,16 +178,6 @@ public class EnemyMissileer : MonoBehaviour
 
     private void Move()
     {
-        //if (!_isExploding && !_isStrafing)
-        //{
-        //    _willStrafe = Random.value < (0.1f * Time.deltaTime);
-
-        //    if (_willStrafe)
-        //    {
-        //        Strafe();
-        //    }
-        //}
-
         if (!_isExploding && (transform.position.y >= _enemyUpperBoundary || transform.position.y <= _enemyLowerBoundary))
         {
             Change_Y_Direction();
@@ -219,25 +209,6 @@ public class EnemyMissileer : MonoBehaviour
         else if (transform.position.y <= _enemyLowerBoundary)
         {
             _direction.y = _yDirection;
-        }
-    }
-
-    private void Strafe()
-    {
-        _direction = new Vector2(-_xDirection, _direction.y);
-        _isStrafing = true;
-        //_speed *= 2;
-        StartCoroutine(StrafeDuration());
-    }
-
-    private IEnumerator StrafeDuration()
-    {
-        yield return new WaitForSeconds(1f);
-        if (!_isExploding)
-        {
-            _direction = new Vector2(_xDirection, _direction.y);
-            _isStrafing = false;
-            //_speed = _standardSpeed;
         }
     }
 
