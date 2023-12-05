@@ -28,13 +28,10 @@ public class EnemyMissileer : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float _speed = 1f;
-    private float _standardSpeed;
     private Vector2 _position;
     [SerializeField] private float _xDirection = -1f;
     [SerializeField] private float _yDirection = 2f;
     private Vector2 _direction;
-    private bool _willStrafe;
-    private bool _isStrafing;
 
     [Header("Health/Damage")]
     [SerializeField] private int _maxHealth = 3;
@@ -100,8 +97,6 @@ public class EnemyMissileer : MonoBehaviour
         }
 
         Warp();
-
-        _standardSpeed = _speed;
 
         float yDirection = Random.value < 0.5f ? -_yDirection : _yDirection;
         _direction = new Vector2(_xDirection, yDirection);
