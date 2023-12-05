@@ -102,7 +102,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -3.6, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
 --- !u!50 &-6578582133762017721
 Rigidbody2D:
   serializedVersion: 4
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _missileId: 1
-  _speed: 15
+  _speed: 10
   _rotateSpeed: 150
   _missileActiveTime: 2.5
   _missileExplosion: {fileID: 5998372259099333284, guid: 11291b52a8d0161419951b8525304808,

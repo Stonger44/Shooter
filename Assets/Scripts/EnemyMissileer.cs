@@ -49,8 +49,8 @@ public class EnemyMissileer : MonoBehaviour
 
     [Header("Missile")]
     [SerializeField] private GameObject _missile;
-    [SerializeField] private float _xMissileOffset = -1.177f;
-    [SerializeField] private float _yMissileOffset = -1.177f;
+    [SerializeField] private float _xMissileOffset = -0.4f;
+    [SerializeField] private float _yMissileOffset = 0.82f;
     [SerializeField] private float _fireRate = 3f;
     private WaitForSeconds _fireDelay = new WaitForSeconds(0.5f);
     private bool _canFire = true;
