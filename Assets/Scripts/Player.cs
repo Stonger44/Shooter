@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _engineDamageSpeedMultiplier = 0.3f;
     [SerializeField] private bool _isEngineDamaged = false;
     private int _lives = 3;
-    private Vector2 _deathPosition = new Vector2(0f, 15f);
+    private Vector2 _deathPosition = new Vector2(-44f, 0f);
 
     [Header("TripleShot")]
     [SerializeField] private GameObject _tripleShot;

@@ -170,7 +170,7 @@ public class EnemyTrooper : MonoBehaviour
         _rayCastOrigin.x += _xRayCastOffset;
 
         RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance);
-        Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
+        //Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
 
         if (hitObject.collider != null)
         {
