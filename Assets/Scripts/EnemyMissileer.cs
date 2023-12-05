@@ -118,6 +118,50 @@ public class EnemyMissileer : MonoBehaviour
         }
     }
 
+    private void Move()
+    {
+        if (!_isExploding && (transform.position.y >= _enemyUpperBoundary || transform.position.y <= _enemyLowerBoundary))
+        {
+            Change_Y_Direction();
+        }
+
+        transform.Translate(_direction * _speed * Time.deltaTime);
+
+        if (!_isExploding)
+        {
+            transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, _enemyLowerBoundary, _enemyUpperBoundary));
+        }
+
+        if (!_isExploding && transform.position.x < _enemyLeftBoundary)
+        {
+            if (!_gameManager.IsGameOver())
+            {
+                _gameManager.UpdateScore(_pointsOnBoundary);
+            }
+            Warp();
+        }
+    }
+
+    private void Change_Y_Direction()
+    {
+        if (transform.position.y >= _enemyUpperBoundary)
+        {
+            _direction.y = -_yDirection;
+        }
+        else if (transform.position.y <= _enemyLowerBoundary)
+        {
+            _direction.y = _yDirection;
+        }
+    }
+
+    private void Warp()
+    {
+        float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
+        _position = new Vector2(_enemyRightBoundary, yPosition);
+        transform.position = _position;
+        _health = _maxHealth;
+    }
+
     private void ScanForTarget()
     {
         bool targetAcquired = IsTargetAcquired(_xRayCastOffset, _yRayCastOffset) || IsTargetAcquired(_xRayCastOffset, -_yRayCastOffset);
@@ -174,50 +218,6 @@ public class EnemyMissileer : MonoBehaviour
     {
         yield return new WaitForSeconds(_fireRate);
         _canFire = true;
-    }
-
-    private void Move()
-    {
-        if (!_isExploding && (transform.position.y >= _enemyUpperBoundary || transform.position.y <= _enemyLowerBoundary))
-        {
-            Change_Y_Direction();
-        }
-
-        transform.Translate(_direction * _speed * Time.deltaTime);
-
-        if (!_isExploding)
-        {
-            transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, _enemyLowerBoundary, _enemyUpperBoundary));
-        }
-
-        if (!_isExploding && transform.position.x < _enemyLeftBoundary)
-        {
-            if (!_gameManager.IsGameOver())
-            {
-                _gameManager.UpdateScore(_pointsOnBoundary);
-            }
-            Warp();
-        }
-    }
-
-    private void Change_Y_Direction()
-    {
-        if (transform.position.y >= _enemyUpperBoundary)
-        {
-            _direction.y = -_yDirection;
-        }
-        else if (transform.position.y <= _enemyLowerBoundary)
-        {
-            _direction.y = _yDirection;
-        }
-    }
-
-    private void Warp()
-    {
-        float yPosition = Random.Range(_enemyLowerBoundary, _enemyUpperBoundary);
-        _position = new Vector2(_enemyRightBoundary, yPosition);
-        transform.position = _position;
-        _health = _maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
