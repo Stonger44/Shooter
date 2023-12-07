@@ -14,6 +14,7 @@ public class SpawnManager : MonoBehaviour
     /*-----Enemy Array Indices-----*\
     0: Enemy
     1: Asteroid
+    2: EnemyMissileer
     \*-----Enemy Array Indices-----*/
     [Header("Enemy")]
     [SerializeField] private GameObject _enemyContainer;
