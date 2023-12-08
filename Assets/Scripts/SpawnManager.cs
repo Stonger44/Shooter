@@ -19,6 +19,7 @@ public class SpawnManager : MonoBehaviour
     [Header("Enemy")]
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject[] _enemies;
+    [SerializeField] private int[] _enemySpawnWeights;
     [SerializeField] private float _enemySpawnTime = 2f;
     [SerializeField] private float _minEnemySpawnTime = 1f;
     [SerializeField] private float _enemySpawnTimeDecrement = 0.1f;
@@ -26,16 +27,16 @@ public class SpawnManager : MonoBehaviour
     private Vector2 _enemySpawnPosition;
 
     /*-----PowerUp Array Indices-----*\
-    0: TripleShot
-    1: SpeedBoost
-    2: Shield
-    3: SpaceBomb
+    0: SpeedBoost
+    1: TripleShot
+    2: SpaceBomb
+    3: Shield
     4: PlayerLife
     5: SlowBomb
     \*-----PowerUp Array Indices-----*/
     [Header("PowerUps")]
     [SerializeField] private GameObject[] _powerUps;
-    [SerializeField] private float _rareSpawnChance = 0.2f;
+    [SerializeField] private int[] _powerUpSpawnWeights;
 
     [Header("Game Management")]
     [SerializeField] private bool _canSpawn = false;
@@ -49,6 +50,15 @@ public class SpawnManager : MonoBehaviour
         if (_gameManager == null)
         {
             Debug.LogError("GameManager is null!");
+        }
+
+        if (_enemies.Length != _enemySpawnWeights.Length)
+        {
+            Debug.LogError("Enemies and EnemySpawnWeights have different lengths!");
+        }
+        if (_powerUps.Length != _powerUpSpawnWeights.Length)
+        {
+            Debug.LogError("PowerUps and PowerUpSpawnWeights have different lengths!");
         }
     }
 
@@ -65,8 +75,8 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnPowerUp(Vector2 spawnPosition)
     {
-        int randomIndex = GetRandomIndex(_powerUps, 3);
-        Instantiate(_powerUps[randomIndex], spawnPosition, Quaternion.identity);
+        int spawnIndex = GetSpawnIndex(_powerUpSpawnWeights);
+        Instantiate(_powerUps[spawnIndex], spawnPosition, Quaternion.identity);
     }
 
     private IEnumerator SpawnEnemy()
@@ -79,8 +89,8 @@ public class SpawnManager : MonoBehaviour
             float yPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
             _enemySpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionEnemySpawn);
 
-            int randomIndex = GetRandomIndex(_enemies, 1);
-            _spawnedEnemy = Instantiate(_enemies[randomIndex], _enemySpawnPosition, Quaternion.identity);
+            int spawnIndex = GetSpawnIndex(_enemySpawnWeights);
+            _spawnedEnemy = Instantiate(_enemies[spawnIndex], _enemySpawnPosition, Quaternion.identity);
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
             _enemiesSpawned++;
 
@@ -98,21 +108,31 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private int GetRandomIndex(GameObject[] spawnList, int rareSpawnIndexStart)
+    private int GetSpawnIndex(int[] spawnWeightArray)
     {
-        int randomIndex = Random.Range(0, spawnList.Length);
+        int spawnIndex = 0;
+        int totalWeight = 0;
 
-        // This is to make certain spawns more rare:
-        // if the index is one of the rare spawns, _rareSpawnChance to spawn, else roll one more time
-        if (randomIndex >= rareSpawnIndexStart)
+        foreach (int weight in spawnWeightArray)
         {
-            if (Random.value > _rareSpawnChance)
+            totalWeight += weight;
+        }
+
+        int randomValue = Random.Range(0, totalWeight + 1);
+
+        for (int i = 0; i < spawnWeightArray.Length; i++)
+        {
+            if (randomValue <= spawnWeightArray[i])
             {
-                // Roll again
-                randomIndex = Random.Range(0, spawnList.Length);
+                spawnIndex = i;
+                break;
+            }
+            else
+            {
+                randomValue -= spawnWeightArray[i];
             }
         }
 
-        return randomIndex;
+        return spawnIndex;
     }
 }
