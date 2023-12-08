@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _missileId: 1
-  _speed: 10
+  _speed: 12
   _rotateSpeed: 150
   _missileActiveTime: 2.5
   _missileExplosion: {fileID: 5998372259099333284, guid: 11291b52a8d0161419951b8525304808,

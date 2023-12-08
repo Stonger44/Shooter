@@ -19,7 +19,7 @@ public class SpawnManager : MonoBehaviour
     [Header("Enemy")]
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private GameObject[] _enemies;
-    [SerializeField] private int[] _enemySpawnWeights;
+    [SerializeField] private int[] _enemySpawnDistribution;
     [SerializeField] private float _enemySpawnTime = 2f;
     [SerializeField] private float _minEnemySpawnTime = 1f;
     [SerializeField] private float _enemySpawnTimeDecrement = 0.1f;
@@ -36,7 +36,7 @@ public class SpawnManager : MonoBehaviour
     \*-----PowerUp Array Indices-----*/
     [Header("PowerUps")]
     [SerializeField] private GameObject[] _powerUps;
-    [SerializeField] private int[] _powerUpSpawnWeights;
+    [SerializeField] private int[] _powerUpSpawnDistribution;
 
     [Header("Game Management")]
     [SerializeField] private bool _canSpawn = false;
@@ -52,13 +52,13 @@ public class SpawnManager : MonoBehaviour
             Debug.LogError("GameManager is null!");
         }
 
-        if (_enemies.Length != _enemySpawnWeights.Length)
+        if (_enemies.Length != _enemySpawnDistribution.Length)
         {
-            Debug.LogError("Enemies and EnemySpawnWeights have different lengths!");
+            Debug.LogError("Enemies and EnemySpawnDistribution have different lengths!");
         }
-        if (_powerUps.Length != _powerUpSpawnWeights.Length)
+        if (_powerUps.Length != _powerUpSpawnDistribution.Length)
         {
-            Debug.LogError("PowerUps and PowerUpSpawnWeights have different lengths!");
+            Debug.LogError("PowerUps and PowerUpSpawnDistribution have different lengths!");
         }
     }
 
@@ -75,7 +75,7 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnPowerUp(Vector2 spawnPosition)
     {
-        int spawnIndex = GetSpawnIndex(_powerUpSpawnWeights);
+        int spawnIndex = GetSpawnIndex(_powerUpSpawnDistribution);
         Instantiate(_powerUps[spawnIndex], spawnPosition, Quaternion.identity);
     }
 
@@ -89,7 +89,7 @@ public class SpawnManager : MonoBehaviour
             float yPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
             _enemySpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionEnemySpawn);
 
-            int spawnIndex = GetSpawnIndex(_enemySpawnWeights);
+            int spawnIndex = GetSpawnIndex(_enemySpawnDistribution);
             _spawnedEnemy = Instantiate(_enemies[spawnIndex], _enemySpawnPosition, Quaternion.identity);
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
             _enemiesSpawned++;
@@ -108,28 +108,28 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private int GetSpawnIndex(int[] spawnWeightArray)
+    private int GetSpawnIndex(int[] spawnDistributionArray)
     {
         int spawnIndex = 0;
         int totalWeight = 0;
 
-        foreach (int weight in spawnWeightArray)
+        foreach (int weight in spawnDistributionArray)
         {
             totalWeight += weight;
         }
 
         int randomValue = Random.Range(0, totalWeight + 1);
 
-        for (int i = 0; i < spawnWeightArray.Length; i++)
+        for (int i = 0; i < spawnDistributionArray.Length; i++)
         {
-            if (randomValue <= spawnWeightArray[i])
+            if (randomValue <= spawnDistributionArray[i])
             {
                 spawnIndex = i;
                 break;
             }
             else
             {
-                randomValue -= spawnWeightArray[i];
+                randomValue -= spawnDistributionArray[i];
             }
         }
 

@@ -480,7 +480,7 @@ MonoBehaviour:
   _health: 9
   _pointsOnDeath: 300
   _pointsOnBoundary: -30
-  _powerUpDropChance: 0.2
+  _powerUpDropChance: 0.25
   _xRayCastOffset: -3.5
   _yRayCastOffset: 0.558
   _rayCastDistance: 16
