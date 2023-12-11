@@ -164,7 +164,8 @@ public class Player : MonoBehaviour
             _shieldLevel--;
             if (_shieldLevel < 1)
             {
-                _shield.SetActive(false);
+                //_shield.SetActive(false);
+                StartCoroutine(ShieldFailure());
             }
             _uiManager.UpdateShieldsUI(_shieldLevel);
 
@@ -261,6 +262,19 @@ public class Player : MonoBehaviour
         _isEngineDamaged = true;
         _engineDamage.SetActive(true);
         _engineRepairTime = Time.time + _engineDamageTime;
+    }
+
+    private IEnumerator ShieldFailure()
+    {
+        WaitForSeconds _shieldFlickerTime = new WaitForSeconds(0.05f);
+        bool showShieldSprite = false;
+
+        for (int i = 0; i < 3; i++)
+        {
+            yield return _shieldFlickerTime;
+            _shield.SetActive(showShieldSprite);
+            showShieldSprite = !showShieldSprite;
+        }
     }
 
     private void Move()

@@ -35,8 +35,8 @@ public class EnemyTrooper : MonoBehaviour
     [SerializeField] private int _maxHealth = 1;
     [SerializeField] private int _health = 1;
     [SerializeField] private int _maxShields = 2;
-    [SerializeField] private int _shields = 2;
-    [SerializeField] private GameObject _shieldSprite;
+    [SerializeField] private int _shieldLevel = 2;
+    [SerializeField] private GameObject _shield;
     [SerializeField] private int _pointsOnDeath = 100;
     [SerializeField] private int _pointsOnBoundary = -10;
     private bool _isExploding;
@@ -165,8 +165,8 @@ public class EnemyTrooper : MonoBehaviour
         _position = new Vector2(_enemyRightBoundary, yPosition);
         transform.position = _position;
         _health = _maxHealth;
-        _shields = _maxShields;
-        _shieldSprite.SetActive(true);
+        _shieldLevel = _maxShields;
+        _shield.SetActive(true);
     }
 
     private void ScanForTarget()
@@ -252,20 +252,20 @@ public class EnemyTrooper : MonoBehaviour
 
     private void Damage(string otherTag)
     {
-        if (_shields > 0)
+        if (_shieldLevel > 0)
         {
             if (otherTag == _tripleShotTag)
             {
-                _shields -= 3;
+                _shieldLevel -= 3;
             }
             else
             {
-                _shields--;
+                _shieldLevel--;
             }
 
-            if (_shields < 1)
+            if (_shieldLevel < 1)
             {
-                _shields = 0;
+                _shieldLevel = 0;
                 //_shieldSprite.SetActive(false);
                 StartCoroutine(ShieldFailure());
             }
@@ -301,7 +301,7 @@ public class EnemyTrooper : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             yield return _shieldFlickerTime;
-            _shieldSprite.SetActive(showShieldSprite);
+            _shield.SetActive(showShieldSprite);
             showShieldSprite = !showShieldSprite;
         }
     }
