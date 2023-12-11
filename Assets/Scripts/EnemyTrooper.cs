@@ -32,8 +32,11 @@ public class EnemyTrooper : MonoBehaviour
     private bool _isStrafing;
 
     [Header("Health/Damage")]
-    [SerializeField] private int _maxHealth = 3;
-    [SerializeField] private int _health = 3;
+    [SerializeField] private int _maxHealth = 1;
+    [SerializeField] private int _health = 1;
+    [SerializeField] private int _maxShields = 2;
+    [SerializeField] private int _shields = 2;
+    [SerializeField] private GameObject _shieldSprite;
     [SerializeField] private int _pointsOnDeath = 100;
     [SerializeField] private int _pointsOnBoundary = -10;
     private bool _isExploding;
@@ -162,6 +165,8 @@ public class EnemyTrooper : MonoBehaviour
         _position = new Vector2(_enemyRightBoundary, yPosition);
         transform.position = _position;
         _health = _maxHealth;
+        _shields = _maxShields;
+        _shieldSprite.SetActive(true);
     }
 
     private void ScanForTarget()
@@ -247,18 +252,57 @@ public class EnemyTrooper : MonoBehaviour
 
     private void Damage(string otherTag)
     {
-        if (otherTag == _tripleShotTag)
+        if (_shields > 0)
         {
-            _health -= 3;
+            if (otherTag == _tripleShotTag)
+            {
+                _shields -= 3;
+            }
+            else
+            {
+                _shields--;
+            }
+
+            if (_shields < 1)
+            {
+                _shields = 0;
+                //_shieldSprite.SetActive(false);
+                StartCoroutine(ShieldFailure());
+            }
         }
         else
         {
-            _health--;
+            if (otherTag == _tripleShotTag)
+            {
+                _health -= 3;
+            }
+            else
+            {
+                _health--;
+            }
+
+            if (_health < 1)
+            {
+                _health = 0;
+            }
         }
 
-        if (_health < 1 || otherTag == _playerTag || otherTag == _blastZoneTag)
+        if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag || otherTag == _blastZoneTag)
         {
             DestroySelf();
+        }
+    }
+
+    private IEnumerator ShieldFailure()
+    {
+        WaitForSeconds _shieldFlickerTime = new WaitForSeconds(0.05f);
+        bool showShieldSprite = false;
+
+        for (int i = 0; i < 3; i++)
+        {
+            yield return _shieldFlickerTime;
+            _shieldSprite.SetActive(showShieldSprite);
+            showShieldSprite = !showShieldSprite;
         }
     }
 
