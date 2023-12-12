@@ -578,8 +578,11 @@ MonoBehaviour:
   _speed: 1.5
   _xDirection: -1
   _yDirection: 2
-  _maxHealth: 9
-  _health: 9
+  _maxHealth: 3
+  _health: 3
+  _maxShields: 6
+  _shieldLevel: 6
+  _shield: {fileID: 155247360}
   _pointsOnDeath: 300
   _pointsOnBoundary: -30
   _powerUpDropChance: 0.25
@@ -607,17 +610,17 @@ PrefabInstance:
     - target: {fileID: 8454611186618823225, guid: a28b749aa1683f349a5226a9e22bb723,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.3
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 8454611186618823225, guid: a28b749aa1683f349a5226a9e22bb723,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.3
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 8454611186618823225, guid: a28b749aa1683f349a5226a9e22bb723,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.3
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 8454611186618823225, guid: a28b749aa1683f349a5226a9e22bb723,
         type: 3}

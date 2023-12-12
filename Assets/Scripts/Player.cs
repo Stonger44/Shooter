@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : SpaceShip
 {
     private const string _laserEnemyTag = "LaserEnemy";
 
@@ -164,8 +164,7 @@ public class Player : MonoBehaviour
             _shieldLevel--;
             if (_shieldLevel < 1)
             {
-                //_shield.SetActive(false);
-                StartCoroutine(ShieldFailure());
+                StartCoroutine(ShieldFailure(_shield));
             }
             _uiManager.UpdateShieldsUI(_shieldLevel);
 
@@ -262,19 +261,6 @@ public class Player : MonoBehaviour
         _isEngineDamaged = true;
         _engineDamage.SetActive(true);
         _engineRepairTime = Time.time + _engineDamageTime;
-    }
-
-    private IEnumerator ShieldFailure()
-    {
-        WaitForSeconds _shieldFlickerTime = new WaitForSeconds(0.05f);
-        bool showShieldSprite = false;
-
-        for (int i = 0; i < 3; i++)
-        {
-            yield return _shieldFlickerTime;
-            _shield.SetActive(showShieldSprite);
-            showShieldSprite = !showShieldSprite;
-        }
     }
 
     private void Move()

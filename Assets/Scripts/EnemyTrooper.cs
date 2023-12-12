@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTrooper : MonoBehaviour
+public class EnemyTrooper : SpaceShip
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
@@ -252,57 +252,35 @@ public class EnemyTrooper : MonoBehaviour
 
     private void Damage(string otherTag)
     {
+        if (otherTag == _playerTag || otherTag == _tripleShotTag || otherTag == _blastZoneTag)
+        {
+            if (_shieldLevel > 0)
+            {
+                _shieldLevel = 0;
+                StartCoroutine(ShieldFailure(_shield));
+            }
+            _health = 0;
+            DestroySelf();
+            return;
+        }
+
         if (_shieldLevel > 0)
         {
-            if (otherTag == _tripleShotTag)
-            {
-                _shieldLevel -= 3;
-            }
-            else
-            {
-                _shieldLevel--;
-            }
+            _shieldLevel--;
 
             if (_shieldLevel < 1)
             {
-                _shieldLevel = 0;
-                //_shieldSprite.SetActive(false);
-                StartCoroutine(ShieldFailure());
+                StartCoroutine(ShieldFailure(_shield));
             }
         }
         else
         {
-            if (otherTag == _tripleShotTag)
-            {
-                _health -= 3;
-            }
-            else
-            {
-                _health--;
-            }
+            _health--;
 
             if (_health < 1)
             {
-                _health = 0;
+                DestroySelf();
             }
-        }
-
-        if (_health < 1 || otherTag == _playerTag || otherTag == _tripleShotTag || otherTag == _blastZoneTag)
-        {
-            DestroySelf();
-        }
-    }
-
-    private IEnumerator ShieldFailure()
-    {
-        WaitForSeconds _shieldFlickerTime = new WaitForSeconds(0.05f);
-        bool showShieldSprite = false;
-
-        for (int i = 0; i < 3; i++)
-        {
-            yield return _shieldFlickerTime;
-            _shield.SetActive(showShieldSprite);
-            showShieldSprite = !showShieldSprite;
         }
     }
 

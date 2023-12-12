@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EnemyMissileer : MonoBehaviour
+public class EnemyMissileer : SpaceShip
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
@@ -36,6 +36,9 @@ public class EnemyMissileer : MonoBehaviour
     [Header("Health/Damage")]
     [SerializeField] private int _maxHealth = 3;
     [SerializeField] private int _health = 3;
+    [SerializeField] private int _maxShields = 6;
+    [SerializeField] private int _shieldLevel = 6;
+    [SerializeField] private GameObject _shield;
     [SerializeField] private int _pointsOnDeath = 100;
     [SerializeField] private int _pointsOnBoundary = -10;
     private bool _isExploding;
@@ -155,6 +158,8 @@ public class EnemyMissileer : MonoBehaviour
         _position = new Vector2(_enemyRightBoundary, yPosition);
         transform.position = _position;
         _health = _maxHealth;
+        _shieldLevel = _maxShields;
+        _shield.SetActive(true);
     }
 
     private void ScanForTarget()
@@ -240,18 +245,49 @@ public class EnemyMissileer : MonoBehaviour
 
     private void Damage(string otherTag)
     {
-        if (otherTag == _tripleShotTag)
+        if (otherTag == _playerTag || otherTag == _blastZoneTag)
         {
-            _health -= 3;
+            if (_shieldLevel > 0)
+            {
+                _shieldLevel = 0;
+                StartCoroutine(ShieldFailure(_shield));
+            }
+            _health = 0;
+            DestroySelf();
+            return;
+        }
+
+        if (_shieldLevel > 0)
+        {
+            if (otherTag == _tripleShotTag)
+            {
+                _shieldLevel -= 3;
+            }
+            else
+            {
+                _shieldLevel--;
+            }
+
+            if (_shieldLevel < 1)
+            {
+                StartCoroutine(ShieldFailure(_shield));
+            }
         }
         else
         {
-            _health--;
-        }
+            if (otherTag == _tripleShotTag)
+            {
+                _health -= 3;
+            }
+            else
+            {
+                _health--;
+            }
 
-        if (_health < 1 || otherTag == _playerTag || otherTag == _blastZoneTag)
-        {
-            DestroySelf();
+            if (_health < 1)
+            {
+                DestroySelf();
+            }
         }
     }
 

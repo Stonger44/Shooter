@@ -361,8 +361,8 @@ MonoBehaviour:
   _maxHealth: 1
   _health: 1
   _maxShields: 2
-  _shields: 2
-  _shieldSprite: {fileID: 1404051493}
+  _shieldLevel: 2
+  _shield: {fileID: 1404051493}
   _pointsOnDeath: 100
   _pointsOnBoundary: -10
   _powerUpDropChance: 0.1
