@@ -47,6 +47,7 @@ public class EnemyTrooper : SpaceShip
     [SerializeField] private float _yRayCastOffset = 0.558f;
     [SerializeField] private float _rayCastDistance = 16f;
     private Vector2 _rayCastOrigin;
+    [SerializeField] private LayerMask _layerMask;
 
     [Header("Laser")]
     [SerializeField] private GameObject _laser;
@@ -174,7 +175,7 @@ public class EnemyTrooper : SpaceShip
         _rayCastOrigin = transform.position;
         _rayCastOrigin.x += _xRayCastOffset;
 
-        RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance);
+        RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance, _layerMask);
         //Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
 
         if (hitObject.collider != null)
