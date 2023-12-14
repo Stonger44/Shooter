@@ -25,11 +25,14 @@ public class EnemyTrooper : SpaceShip
     [SerializeField] private float _enemyLowerBoundary = -5.15f;
 
     [Header("Movement")]
-    [SerializeField] private float _speed = 3f;
+    [SerializeField] private float _standardSpeed = 3f;
+    [SerializeField] private float _rammingSpeed = 6f;
+    private float _speed;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
     private bool _willStrafe;
     private bool _isStrafing;
+    private bool _isRamming;
 
     [Header("Health/Damage")]
     [SerializeField] private int _maxHealth = 1;
@@ -99,6 +102,8 @@ public class EnemyTrooper : SpaceShip
             Debug.LogError("AudioSource is null!");
         }
 
+        _speed = _standardSpeed;
+
         Warp();
     }
 
@@ -113,17 +118,34 @@ public class EnemyTrooper : SpaceShip
         }
     }
 
+    public void IsRamming(bool isRamming)
+    {
+        _isRamming = isRamming;
+    }
+
     private void Move()
     {
-        if (!_isExploding && !_isStrafing)
+        if (!_isExploding && _isRamming)
         {
-            _willStrafe = Random.value < (0.2f * Time.deltaTime);
-
-            if (_willStrafe)
-            {
-                Strafe();
-            }
+            _direction = (Vector2)_player.transform.position - (Vector2)transform.position;
+            _direction.Normalize();
+            _speed = _rammingSpeed;
         }
+        else
+        {
+            _direction = Vector2.left;
+            _speed = _standardSpeed;
+        }
+
+        //if (!_isExploding && !_isRamming && !_isStrafing)
+        //{
+        //    _willStrafe = Random.value < (0.2f * Time.deltaTime);
+
+        //    if (_willStrafe)
+        //    {
+        //        Strafe();
+        //    }
+        //}
 
         transform.Translate(_direction * _speed * Time.deltaTime);
 

@@ -57,7 +57,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10, y: 4}
+  m_Size: {x: 10, y: 6}
   m_EdgeRadius: 0
 --- !u!50 &180711083
 Rigidbody2D:
@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd1a4cc2fcd681c4dae9277f8cb282bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyTrooper: {fileID: 9018932643458980802}
 --- !u!1 &1404051493
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +451,8 @@ MonoBehaviour:
   _enemyRightBoundary: 11
   _enemyUpperBoundary: 4.15
   _enemyLowerBoundary: -5.15
-  _speed: 3
+  _standardSpeed: 3
+  _rammingSpeed: 6
   _maxHealth: 1
   _health: 1
   _maxShields: 2
