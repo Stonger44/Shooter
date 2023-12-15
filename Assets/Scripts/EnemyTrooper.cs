@@ -34,6 +34,10 @@ public class EnemyTrooper : SpaceShip
     private bool _isStrafing;
     private bool _isRamming;
 
+    [Header("Thrusters")]
+    [SerializeField] private GameObject _thrusters;
+    [SerializeField] private GameObject _rammingThrusters;
+
     [Header("Health/Damage")]
     [SerializeField] private int _maxHealth = 1;
     [SerializeField] private int _health = 1;
@@ -59,9 +63,6 @@ public class EnemyTrooper : SpaceShip
     private WaitForSeconds _fireDelay = new WaitForSeconds(1f);
     [SerializeField] private float _fireRate = 3f;
     private bool _canFire = true;
-
-    [Header("Thrusters")]
-    [SerializeField] private GameObject _thrusters;
 
     // Start is called before the first frame update
     void Start()
@@ -121,31 +122,32 @@ public class EnemyTrooper : SpaceShip
     public void IsRamming(bool isRamming)
     {
         _isRamming = isRamming;
+
+        if (!_isExploding && !_isRamming)
+        {
+            _direction = Vector2.left;
+            _speed = _standardSpeed;
+            _thrusters.SetActive(true);
+            _rammingThrusters.SetActive(false);
+        }
     }
 
     private void Move()
     {
         if (!_isExploding && _isRamming)
         {
-            _direction = (Vector2)_player.transform.position - (Vector2)transform.position;
-            _direction.Normalize();
-            _speed = _rammingSpeed;
+            PrepareForRammingSpeed();
         }
-        else
+
+        if (!_isExploding && !_isRamming && !_isStrafing)
         {
-            _direction = Vector2.left;
-            _speed = _standardSpeed;
+            _willStrafe = Random.value < (0.2f * Time.deltaTime);
+
+            if (_willStrafe)
+            {
+                Strafe();
+            }
         }
-
-        //if (!_isExploding && !_isRamming && !_isStrafing)
-        //{
-        //    _willStrafe = Random.value < (0.2f * Time.deltaTime);
-
-        //    if (_willStrafe)
-        //    {
-        //        Strafe();
-        //    }
-        //}
 
         transform.Translate(_direction * _speed * Time.deltaTime);
 
@@ -162,6 +164,15 @@ public class EnemyTrooper : SpaceShip
             }
             Warp();
         }
+    }
+
+    private void PrepareForRammingSpeed()
+    {
+        _direction = (Vector2)_player.transform.position - (Vector2)transform.position;
+        _direction.Normalize();
+        _speed = _rammingSpeed;
+        _thrusters.SetActive(false);
+        _rammingThrusters.SetActive(true);
     }
 
     private void Strafe()
@@ -253,7 +264,6 @@ public class EnemyTrooper : SpaceShip
     private void OnTriggerEnter2D(Collider2D other)
     {
         _otherTag = other.tag;
-
         switch (_otherTag)
         {
             case _playerTag:
@@ -324,6 +334,7 @@ public class EnemyTrooper : SpaceShip
         _gameManager.UpdateScore(_pointsOnDeath);
         _gameManager.UpdateEnemyCount();
         _thrusters.SetActive(false);
+        _rammingThrusters.SetActive(false);
 
         if (Random.value < _powerUpDropChance)
         {
