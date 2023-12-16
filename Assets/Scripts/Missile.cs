@@ -17,7 +17,7 @@ public class Missile : MonoBehaviour
     [SerializeField] private int _missileId;
     [SerializeField] private float _speed = 10;
     [SerializeField] private float _rotateSpeed = 125;
-    [SerializeField] private float _missileActiveTime = 2.5f;
+    [SerializeField] private float _missileActiveTime = 2f;
     private Vector2 _missileDirection;
     [SerializeField] private GameObject _missileExplosion;
 
@@ -45,12 +45,6 @@ public class Missile : MonoBehaviour
         }
 
         StartCoroutine(ArmMissile());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void FixedUpdate()

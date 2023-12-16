@@ -164,7 +164,10 @@ public class EnemyMissileer : SpaceShip
 
     private void ScanForTarget()
     {
-        bool targetAcquired = IsTargetAcquired(_xRayCastOffset, _yRayCastOffset) || IsTargetAcquired(_xRayCastOffset, -_yRayCastOffset);
+        bool targetAcquired = IsTargetAcquired(Vector2.left, _xRayCastOffset, _yRayCastOffset) ||
+                                IsTargetAcquired(Vector2.left, _xRayCastOffset, -_yRayCastOffset) ||
+                                IsTargetAcquired(Vector2.right, -_xRayCastOffset, _yRayCastOffset) ||
+                                IsTargetAcquired(Vector2.right, -_xRayCastOffset, -_yRayCastOffset);
 
         if (!_isExploding && _canFire && targetAcquired)
         {
@@ -173,14 +176,14 @@ public class EnemyMissileer : SpaceShip
         }
     }
 
-    private bool IsTargetAcquired(float xOffset, float yOffset)
+    private bool IsTargetAcquired(Vector2 direction, float xOffset, float yOffset)
     {
         _rayCastOrigin = transform.position;
         _rayCastOrigin.x += xOffset;
         _rayCastOrigin.y += yOffset;
 
-        RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance);
-        //Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
+        RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, direction, _rayCastDistance);
+        Debug.DrawRay(_rayCastOrigin, direction * _rayCastDistance, Color.green);
         if (hitObject.collider != null)
         {
             if (hitObject.collider.tag == _playerTag)
@@ -209,9 +212,22 @@ public class EnemyMissileer : SpaceShip
     private void FireMissile(float xOffset, float yOffset)
     {
         Vector2 missilePosition = transform.position;
-        missilePosition.x += xOffset;
-        missilePosition.y += yOffset;
-        Instantiate(_missile, missilePosition, Quaternion.identity);
+        Quaternion missileRotation;
+
+        if (_player.transform.position.x < transform.position.x)
+        {
+            missilePosition.x += xOffset;
+            missilePosition.y += yOffset;
+            missileRotation = Quaternion.identity;
+        }
+        else
+        {
+            missilePosition.x -= xOffset;
+            missilePosition.y += yOffset;
+            missileRotation = Quaternion.Euler(new Vector3(0, 0, 180));
+        }
+
+        Instantiate(_missile, missilePosition, missileRotation);
     }
 
     private IEnumerator ReadyFire()
