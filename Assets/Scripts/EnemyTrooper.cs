@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyTrooper : SpaceShip
 {
     private const string _playerTag = "Player";
+    private const string _powerUpTag = "PowerUp";
     private const string _laserTag = "Laser";
     private const string _tripleShotTag = "TripleShot";
     private const string _blastZoneTag = "BlastZone";
@@ -209,19 +210,15 @@ public class EnemyTrooper : SpaceShip
         _rayCastOrigin.x += _xRayCastOffset;
 
         RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, Vector2.left, _rayCastDistance, _layerMask);
-        //Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
+        Debug.DrawRay(_rayCastOrigin, Vector2.left * _rayCastDistance, Color.green);
 
-        if (hitObject.collider != null)
+        if (hitObject.collider?.tag == _playerTag || hitObject.collider?.tag == _powerUpTag)
         {
-            if (hitObject.collider.tag == _playerTag)
+            if (_canFire)
             {
-                if (_canFire)
-                {
-                    _canFire = false;
-                    StartCoroutine(Fire());
-                }
+                _canFire = false;
+                StartCoroutine(Fire());
             }
-
         }
     }
 

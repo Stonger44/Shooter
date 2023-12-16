@@ -6,6 +6,8 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     private const string _playerTag = "Player";
+    private const string _laserEnemyTag = "LaserEnemy";
+    private string _otherTag = string.Empty;
 
     private AudioManager _audioManager;
     private SpriteRenderer _renderer;
@@ -23,6 +25,9 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private float _powerUpAvailableTime = 3f;
     [SerializeField] private float _speed = 0.5f;
     private Vector2 _direction = Vector2.left;
+    [SerializeField] private GameObject _explosion;
+    [SerializeField] private Collider2D _collider;
+    private bool _isBeingDestroyed = false;
 
     [Header("Colors")]
     [SerializeField] bool _showPowerUpBlinkColors = false;
@@ -33,8 +38,6 @@ public class PowerUp : MonoBehaviour
 
     [Header("PowerDowns")]
     [SerializeField] private bool _isPowerDown;
-    [SerializeField] private GameObject _powerDownExplosion;
-    [SerializeField] private CircleCollider2D _collider;
 
     // Start is called before the first frame update
     void Start()
@@ -49,17 +52,13 @@ public class PowerUp : MonoBehaviour
         {
             Debug.LogError("Renderer is null!");
         }
-
-        if (_isPowerDown)
+        if (_explosion == null)
         {
-            if (_collider == null)
-            {
-                Debug.LogError("PowerUp Collider is null!");
-            }
-            if (_powerDownExplosion == null)
-            {
-                Debug.LogError("PowerDownExplosion is null!");
-            }
+            Debug.LogError("Explosion is null!");
+        }
+        if (_collider == null)
+        {
+            Debug.LogError("PowerUp Collider is null!");
         }
 
         _colorWaitForSeconds = new WaitForSeconds(_colorBlinkTime);
@@ -68,7 +67,7 @@ public class PowerUp : MonoBehaviour
         {
             BlinkColors(); 
         }
-        StartCoroutine(DestroyPowerUp());
+        StartCoroutine(ExpirePowerUp());
     }
 
     // Update is called once per frame
@@ -89,7 +88,9 @@ public class PowerUp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == _playerTag)
+        _otherTag = other.tag;
+
+        if (_otherTag == _playerTag)
         {
             Player player = other.GetComponent<Player>();
             if (player != null)
@@ -118,12 +119,17 @@ public class PowerUp : MonoBehaviour
                         break;
                     case 5:
                         player.DetonateSlowBomb();
-                        StartCoroutine(DestroyPowerDown());
+                        StartCoroutine(DestroyPowerUp());
                         break;
                     default:
                         break;
                 }
             }
+        }
+        else if (!_isPowerDown && _otherTag == _laserEnemyTag)
+        {
+            Destroy(other.gameObject);
+            StartCoroutine(DestroyPowerUp());
         }
     }
 
@@ -133,16 +139,20 @@ public class PowerUp : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private IEnumerator DestroyPowerUp()
+    private IEnumerator ExpirePowerUp()
     {
         yield return new WaitForSeconds(_powerUpAvailableTime);
-        Destroy(this.gameObject);
+        if (!_isBeingDestroyed)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
-    private IEnumerator DestroyPowerDown()
+    private IEnumerator DestroyPowerUp()
     {
+        _isBeingDestroyed = true;
         _collider.enabled = false;
-        _powerDownExplosion.SetActive(true);
+        _explosion.SetActive(true);
         _audioManager.PlayExplosionSound();
         Destroy(this.gameObject, 2.7f);
 

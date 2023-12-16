@@ -138,11 +138,11 @@ MonoBehaviour:
   _powerUpLeftBoundary: -11
   _powerUpAvailableTime: 9
   _speed: 0.5
+  _explosion: {fileID: 8454611186588263751}
   _showPowerUpBlinkColors: 0
   _showPowerDownBlinkColors: 1
   _colorBlinkTime: 0.25
   _isPowerDown: 1
-  _powerDownExplosion: {fileID: 8454611186588263751}
   _collider: {fileID: 307999514745454933}
 --- !u!1001 &114710396
 PrefabInstance:

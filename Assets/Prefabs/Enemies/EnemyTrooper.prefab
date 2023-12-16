@@ -570,7 +570,7 @@ MonoBehaviour:
   _rayCastDistance: 16
   _layerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2560
   _laser: {fileID: 1635626956414016838, guid: ecc878101c56185419878c8643fde796, type: 3}
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _xLaserOffset: -0.811
