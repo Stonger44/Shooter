@@ -23,7 +23,9 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private int _powerUpId;
     [SerializeField] private float _powerUpLeftBoundary = -11f;
     [SerializeField] private float _powerUpAvailableTime = 3f;
-    [SerializeField] private float _speed = 0.5f;
+    [SerializeField] private float _standardSpeed = 0.5f;
+    [SerializeField] private float _collectionSpeed = 4f;
+    private float _speed;
     private Vector2 _direction = Vector2.left;
     [SerializeField] private GameObject _explosion;
     [SerializeField] private Collider2D _collider;
@@ -38,6 +40,16 @@ public class PowerUp : MonoBehaviour
 
     [Header("PowerDowns")]
     [SerializeField] private bool _isPowerDown;
+
+    private void OnEnable()
+    {
+        Player.onAttractPowerUp += MoveTowardPlayer;
+    }
+
+    private void OnDisable()
+    {
+        Player.onAttractPowerUp -= MoveTowardPlayer;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -67,6 +79,9 @@ public class PowerUp : MonoBehaviour
         {
             BlinkColors(); 
         }
+
+        _speed = _standardSpeed;
+
         StartCoroutine(ExpirePowerUp());
     }
 
@@ -84,6 +99,13 @@ public class PowerUp : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void MoveTowardPlayer(GameObject player)
+    {
+        _direction = (Vector2)player.transform.position - (Vector2)transform.position;
+        _direction.Normalize();
+        _speed = _collectionSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

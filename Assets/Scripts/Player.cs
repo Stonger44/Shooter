@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -101,6 +102,8 @@ public class Player : SpaceShip
     [SerializeField] private int _spaceBombMaxAmmo = 3;
     private bool _canFireSpaceBomb = true;
 
+    public static event Action<GameObject> onAttractPowerUp;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -148,7 +151,17 @@ public class Player : SpaceShip
 
             Fire();
 
-            FireSpaceBomb(); 
+            FireSpaceBomb();
+
+            AttractPowerUp();
+        }
+    }
+
+    private void AttractPowerUp()
+    {
+        if (Input.GetKey(KeyCode.RightControl))
+        {
+            onAttractPowerUp?.Invoke(this.gameObject);
         }
     }
 
@@ -518,7 +531,7 @@ public class Player : SpaceShip
         yield return new WaitForSeconds(0.12f);
 
         _inactiveDamageEffectList = _damageEffectList.Where(dmgEfct => dmgEfct.activeInHierarchy == false).ToList();
-        int randomIndex = Random.Range(0, _inactiveDamageEffectList.Count);
+        int randomIndex = UnityEngine.Random.Range(0, _inactiveDamageEffectList.Count);
         _inactiveDamageEffectList[randomIndex].SetActive(true);
 
         StartCoroutine(_camera.CameraShake());
