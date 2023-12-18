@@ -44,11 +44,13 @@ public class PowerUp : MonoBehaviour
     private void OnEnable()
     {
         Player.onAttractPowerUp += MoveTowardPlayer;
+        Player.onStopAttractingPowerUp += StopMovingTowardPlayer;
     }
 
     private void OnDisable()
     {
         Player.onAttractPowerUp -= MoveTowardPlayer;
+        Player.onStopAttractingPowerUp -= StopMovingTowardPlayer;
     }
 
     // Start is called before the first frame update
@@ -106,6 +108,12 @@ public class PowerUp : MonoBehaviour
         _direction = (Vector2)player.transform.position - (Vector2)transform.position;
         _direction.Normalize();
         _speed = _collectionSpeed;
+    }
+
+    private void StopMovingTowardPlayer()
+    {
+        _direction = Vector2.left;
+        _speed = _standardSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

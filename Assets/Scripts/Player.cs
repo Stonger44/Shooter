@@ -103,6 +103,7 @@ public class Player : SpaceShip
     private bool _canFireSpaceBomb = true;
 
     public static event Action<GameObject> onAttractPowerUp;
+    public static event Action onStopAttractingPowerUp;
 
     // Start is called before the first frame update
     void Start()
@@ -162,6 +163,10 @@ public class Player : SpaceShip
         if (Input.GetKey(KeyCode.RightControl))
         {
             onAttractPowerUp?.Invoke(this.gameObject);
+        }
+        if (Input.GetKeyUp(KeyCode.RightControl))
+        {
+            onStopAttractingPowerUp?.Invoke();
         }
     }
 
