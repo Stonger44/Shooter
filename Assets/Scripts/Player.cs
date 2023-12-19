@@ -160,11 +160,11 @@ public class Player : SpaceShip
 
     private void AttractPowerUp()
     {
-        if (Input.GetKey(KeyCode.RightControl))
+        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
             onAttractPowerUp?.Invoke(this.gameObject);
         }
-        if (Input.GetKeyUp(KeyCode.RightControl))
+        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
         {
             onStopAttractingPowerUp?.Invoke();
         }
