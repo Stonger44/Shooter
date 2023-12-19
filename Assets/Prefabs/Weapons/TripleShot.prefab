@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4511263273684437510}
   - component: {fileID: 4031057473576740291}
   - component: {fileID: 277491787537789517}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TripleShot
   m_TagString: TripleShot
   m_Icon: {fileID: 0}

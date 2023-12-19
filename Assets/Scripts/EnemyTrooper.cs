@@ -28,16 +28,17 @@ public class EnemyTrooper : SpaceShip
     [Header("Movement")]
     [SerializeField] private float _standardSpeed = 3f;
     [SerializeField] private float _rammingSpeed = 6f;
+    [SerializeField] private float _jinkingSpeed = 6f;
     private float _speed;
     private Vector2 _position;
     private Vector2 _direction = Vector2.left;
-    private bool _willStrafe;
-    private bool _isStrafing;
+    private bool _shouldJink;
+    private bool _isJinking;
     private bool _isRamming;
 
     [Header("Thrusters")]
     [SerializeField] private GameObject _thrusters;
-    [SerializeField] private GameObject _rammingThrusters;
+    [SerializeField] private GameObject _afterBurner;
 
     [Header("Health/Damage")]
     [SerializeField] private int _maxHealth = 1;
@@ -129,8 +130,13 @@ public class EnemyTrooper : SpaceShip
             _direction = Vector2.left;
             _speed = _standardSpeed;
             _thrusters.SetActive(true);
-            _rammingThrusters.SetActive(false);
+            _afterBurner.SetActive(false);
         }
+    }
+
+    public void ShouldJink()
+    {
+        _shouldJink = true;
     }
 
     private void Move()
@@ -140,14 +146,9 @@ public class EnemyTrooper : SpaceShip
             PrepareForRammingSpeed();
         }
 
-        if (!_isExploding && !_isRamming && !_isStrafing)
+        if (_shouldJink && !_isExploding && !_isRamming && !_isJinking)
         {
-            _willStrafe = Random.value < (0.2f * Time.deltaTime);
-
-            if (_willStrafe)
-            {
-                Strafe();
-            }
+            Jink();
         }
 
         transform.Translate(_direction * _speed * Time.deltaTime);
@@ -173,25 +174,33 @@ public class EnemyTrooper : SpaceShip
         _direction.Normalize();
         _speed = _rammingSpeed;
         _thrusters.SetActive(false);
-        _rammingThrusters.SetActive(true);
+        _afterBurner.SetActive(true);
     }
 
-    private void Strafe()
+    private void Jink()
     {
         float randomY = Random.value < 0.5f ? -1 : 1;
-        _direction = new Vector2(_direction.x, randomY);
-        _isStrafing = true;
-        StartCoroutine(StrafeDuration());
+        _direction = new Vector2(_direction.x/2, randomY);
+        _isJinking = true;
+        _speed = _jinkingSpeed;
+        _thrusters.SetActive(false);
+        _afterBurner.SetActive(true);
+        StartCoroutine(JinkDuration());
     }
 
-    private IEnumerator StrafeDuration()
+    private IEnumerator JinkDuration()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         if (!_isExploding)
         {
             _direction = Vector2.left;
-            _isStrafing = false;
+            _speed = _standardSpeed;
+            _thrusters.SetActive(true);
+            _afterBurner.SetActive(false);
         }
+        yield return new WaitForSeconds(2f);
+        _shouldJink = false;
+        _isJinking = false;
     }
 
     private void Warp()
@@ -331,7 +340,7 @@ public class EnemyTrooper : SpaceShip
         _gameManager.UpdateScore(_pointsOnDeath);
         _gameManager.UpdateEnemyCount();
         _thrusters.SetActive(false);
-        _rammingThrusters.SetActive(false);
+        _afterBurner.SetActive(false);
 
         if (Random.value < _powerUpDropChance)
         {

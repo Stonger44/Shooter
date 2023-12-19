@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5129613380710418249}
   - component: {fileID: 7919850543978927826}
   - component: {fileID: 4433804439980409108}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Laser
   m_TagString: Laser
   m_Icon: {fileID: 0}
@@ -124,4 +124,3 @@ MonoBehaviour:
   _laserId: 0
   _boundary: 10.6
   _speed: 20
-  _laserDirection: {x: 1, y: 0}

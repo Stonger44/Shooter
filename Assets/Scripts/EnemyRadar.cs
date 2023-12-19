@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyRadar : MonoBehaviour
 {
     private const string _playerTag = "Player";
+    private const string _laserTag = "Laser";
+    private const string _tripleShotTag = "TripleShot";
 
     [SerializeField] private EnemyTrooper _enemyTrooper;
 
@@ -22,6 +24,10 @@ public class EnemyRadar : MonoBehaviour
         if (other.tag == _playerTag)
         {
             _enemyTrooper.IsRamming(true);
+        }
+        else if (other.tag == _laserTag || other.tag == _tripleShotTag)
+        {
+            _enemyTrooper.ShouldJink();
         }
     }
 
