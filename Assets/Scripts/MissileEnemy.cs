@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.XR;
 
-public class Missile : MonoBehaviour
+public class MissileEnemy : MonoBehaviour
 {
     private const string _playerTag = "Player";
     private string _otherTag = string.Empty;
@@ -12,13 +12,10 @@ public class Missile : MonoBehaviour
     private GameObject _player;
     private Rigidbody2D _rigidBody;
 
-    // 0: Player Missile 
-    // 1: Enemy Missile
-    [SerializeField] private int _missileId;
-    [SerializeField] private float _speed = 10;
+    [SerializeField] private float _speed = 12;
     [SerializeField] private float _rotateSpeed = 125;
     [SerializeField] private float _missileActiveTime = 2f;
-    private Vector2 _missileDirection;
+    private Vector2 _missileDirection = Vector2.left;
     [SerializeField] private GameObject _missileExplosion;
 
     // Start is called before the first frame update
@@ -33,15 +30,6 @@ public class Missile : MonoBehaviour
         if (_rigidBody == null)
         {
             Debug.LogError("RigidBody is null!");
-        }
-
-        if (_missileId == 0)
-        {
-            _missileDirection = Vector2.right;
-        }
-        else if (_missileId == 1)
-        {
-            _missileDirection = Vector2.left;
         }
 
         StartCoroutine(ArmMissile());

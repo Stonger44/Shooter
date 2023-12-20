@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6114101212540124537}
   - component: {fileID: -6578582133762017721}
   - component: {fileID: 6114101212540124538}
-  - component: {fileID: 6114101212540124541}
+  - component: {fileID: 6952836397475896826}
   m_Layer: 0
   m_Name: MissileEnemy
   m_TagString: Untagged
@@ -220,7 +220,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6114101212540124541
+--- !u!114 &6952836397475896826
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,12 +229,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6114101212540124540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90a3fae36b98634408335446f1a42931, type: 3}
+  m_Script: {fileID: 11500000, guid: c3f3ac39dab97744ea527e579ca1220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _missileId: 1
   _speed: 12
-  _rotateSpeed: 150
+  _rotateSpeed: 125
   _missileActiveTime: 2
   _missileExplosion: {fileID: 5998372259099333284, guid: 11291b52a8d0161419951b8525304808,
     type: 3}
