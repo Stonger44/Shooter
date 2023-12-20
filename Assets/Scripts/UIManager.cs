@@ -31,19 +31,22 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image _afterBurnerBar;
     [SerializeField] private GameObject _afterBurnerCoolDown;
 
-    [Header("SpaceBomb")]
-    [SerializeField] private GameObject[] _spaceBombArray;
-
-    [Header("TripleShot")]
-    [SerializeField] private Text _tripleShotAmmo;
-    private string _tripleShotAmmoCount;
-
     [Header("Lives")]
     [SerializeField] private Image _lives;
     [SerializeField] private Sprite[] _livesSpriteArray;
 
     [Header("Shields")]
     [SerializeField] private GameObject[] _shieldsArray;
+
+    [Header("TripleShot")]
+    [SerializeField] private Text _tripleShotAmmo;
+    private string _tripleShotAmmoCount;
+
+    [Header("Homing Missile")]
+    [SerializeField] private GameObject[] _homingMissileArray;
+
+    [Header("SpaceBomb")]
+    [SerializeField] private GameObject[] _spaceBombArray;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +76,10 @@ public class UIManager : MonoBehaviour
         foreach (GameObject spaceBomb in _spaceBombArray)
         {
             spaceBomb.SetActive(false);
+        }
+        foreach (GameObject missile in _homingMissileArray)
+        {
+            missile.SetActive(false);
         }
     }
 
@@ -112,58 +119,6 @@ public class UIManager : MonoBehaviour
         _enemyCount.text = $"Enemies: {enemyCount}";
     }
 
-    public void UpdateLivesUI(int lives)
-    {
-        _lives.sprite = _livesSpriteArray[lives];
-
-        if (lives < 1)
-        {
-            InitiateGameOverUI();
-        }
-    }
-
-    public void UpdateShieldsUI(int shieldLevel)
-    {
-        for (int i = 0; i < _shieldsArray.Length; i++)
-        {
-            if (i < shieldLevel)
-            {
-                _shieldsArray[i].SetActive(true);
-            }
-            else
-            {
-                _shieldsArray[i].SetActive(false);
-            }
-        }
-    }
-
-    public void UpdateSpaceBombAmmo(int spaceBombAmmo)
-    {
-        for (int i = 0; i < _spaceBombArray.Length; i++)
-        {
-            if (i < spaceBombAmmo)
-            {
-                _spaceBombArray[i].SetActive(true);
-            }
-            else
-            {
-                _spaceBombArray[i].SetActive(false);
-            }
-        }
-    }
-
-    public void UpdateTripleShotAmmo(int tripleShotAmmo)
-    {
-        _tripleShotAmmoCount = string.Empty;
-
-        for (int i = 0; i < tripleShotAmmo; i++)
-        {
-            _tripleShotAmmoCount += "|";
-        }
-
-        _tripleShotAmmo.text = _tripleShotAmmoCount;
-    }
-
     public void UpdateSpeedBoostBar(float speedBoostActiveTime, float speedBoostDeactivationTime)
     {
         float speedBoostTimeRemaining = speedBoostDeactivationTime - Time.time;
@@ -200,6 +155,73 @@ public class UIManager : MonoBehaviour
             }
         }
         _afterBurnerCoolDown.SetActive(false);
+    }
+
+    public void UpdateLivesUI(int lives)
+    {
+        _lives.sprite = _livesSpriteArray[lives];
+
+        if (lives < 1)
+        {
+            InitiateGameOverUI();
+        }
+    }
+
+    public void UpdateShieldsUI(int shieldLevel)
+    {
+        for (int i = 0; i < _shieldsArray.Length; i++)
+        {
+            if (i < shieldLevel)
+            {
+                _shieldsArray[i].SetActive(true);
+            }
+            else
+            {
+                _shieldsArray[i].SetActive(false);
+            }
+        }
+    }
+
+    public void UpdateTripleShotAmmo(int tripleShotAmmo)
+    {
+        _tripleShotAmmoCount = string.Empty;
+
+        for (int i = 0; i < tripleShotAmmo; i++)
+        {
+            _tripleShotAmmoCount += "|";
+        }
+
+        _tripleShotAmmo.text = _tripleShotAmmoCount;
+    }
+
+    public void UpdateHomingMissileAmmo(int homingMissileAmmo)
+    {
+        for (int i = 0; i < _homingMissileArray.Length; i++)
+        {
+            if (i < homingMissileAmmo)
+            {
+                _homingMissileArray[i].SetActive(true);
+            }
+            else
+            {
+                _homingMissileArray[i].SetActive(false);
+            }
+        }
+    }
+
+    public void UpdateSpaceBombAmmo(int spaceBombAmmo)
+    {
+        for (int i = 0; i < _spaceBombArray.Length; i++)
+        {
+            if (i < spaceBombAmmo)
+            {
+                _spaceBombArray[i].SetActive(true);
+            }
+            else
+            {
+                _spaceBombArray[i].SetActive(false);
+            }
+        }
     }
 
     private void InitiateGameOverUI()
