@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MissilePlayer : MonoBehaviour
@@ -13,7 +12,6 @@ public class MissilePlayer : MonoBehaviour
     [SerializeField] private float _speed = 12;
     [SerializeField] private float _rotateSpeed = 125;
     [SerializeField] private float _missileActiveTime = 2f;
-    private Vector2 _missileDirection = Vector2.left;
     [SerializeField] private GameObject _missileExplosion;
 
     // Start is called before the first frame update

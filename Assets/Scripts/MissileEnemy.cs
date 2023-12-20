@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Experimental.XR;
 
 public class MissileEnemy : MonoBehaviour
 {
@@ -15,7 +12,6 @@ public class MissileEnemy : MonoBehaviour
     [SerializeField] private float _speed = 12;
     [SerializeField] private float _rotateSpeed = 125;
     [SerializeField] private float _missileActiveTime = 2f;
-    private Vector2 _missileDirection = Vector2.left;
     [SerializeField] private GameObject _missileExplosion;
 
     // Start is called before the first frame update
