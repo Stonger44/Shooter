@@ -102,6 +102,15 @@ public class Player : SpaceShip
     [SerializeField] private int _spaceBombMaxAmmo = 3;
     private bool _canFireSpaceBomb = true;
 
+    [Header("HomingMissile")]
+    [SerializeField] private GameObject _homingMissile;
+    private Vector2 _homingMissilePosition;
+    [SerializeField] private float _homingMissileOffset = 0.665f;
+    [SerializeField] private float _homingMissileFireRate = 0.75f;
+    [SerializeField] private int _homingMissileAmmo;
+    [SerializeField] private int _homingMissileMaxAmmo = 6;
+    private bool _canFirehomingMissile = true;
+
     public static event Action<GameObject> onAttractPowerUp;
     public static event Action onStopAttractingPowerUp;
 
@@ -151,6 +160,8 @@ public class Player : SpaceShip
             Move();
 
             Fire();
+
+            FireHomingMissile();
 
             FireSpaceBomb();
 
@@ -241,12 +252,13 @@ public class Player : SpaceShip
 
     public void CollectHomingMissiles()
     {
-        
+        _homingMissileAmmo = _homingMissileMaxAmmo;
+        _uiManager.UpdateHomingMissileAmmo(_homingMissileAmmo);
     }
 
     public void CollectSpaceBomb()
     {
-        if (_spaceBombAmmo < 3)
+        if (_spaceBombAmmo < _spaceBombMaxAmmo)
         {
             _spaceBombAmmo++;
             _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
@@ -503,6 +515,28 @@ public class Player : SpaceShip
                 _audioSource.pitch = 0.8f;
             }
         }
+    }
+
+    private void FireHomingMissile()
+    {   
+        if (_canFirehomingMissile && _homingMissileAmmo> 0 && Input.GetKeyDown(KeyCode.RightShift))
+        {
+            _homingMissileAmmo--;
+            _uiManager.UpdateHomingMissileAmmo(_homingMissileAmmo);
+
+            _homingMissilePosition = transform.position;
+            _homingMissilePosition.x += _homingMissileOffset;
+            Instantiate(_homingMissile, _homingMissilePosition, Quaternion.identity);
+
+            _canFirehomingMissile = false;
+            StartCoroutine(ReadyFireHomingMissile());
+        }
+    }
+
+    private IEnumerator ReadyFireHomingMissile()
+    {
+        yield return new WaitForSeconds(_homingMissileFireRate);
+        _canFirehomingMissile = true;
     }
 
     private void FireSpaceBomb()

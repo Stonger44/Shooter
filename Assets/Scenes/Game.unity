@@ -1460,7 +1460,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1418024961
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 1b4a8fdd39d3a45d0a9ee484ad6800ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1549,6 +1549,12 @@ MonoBehaviour:
   _spaceBombFireRate: 0.75
   _spaceBombAmmo: 0
   _spaceBombMaxAmmo: 3
+  _homingMissile: {fileID: 4804971160070910261, guid: 0043f236358781f4abd1f9ff2f2b13dd,
+    type: 3}
+  _homingMissileOffset: 0.665
+  _homingMissileFireRate: 0.75
+  _homingMissileAmmo: 0
+  _homingMissileMaxAmmo: 6
 --- !u!61 &487352433
 BoxCollider2D:
   m_ObjectHideFlags: 0
