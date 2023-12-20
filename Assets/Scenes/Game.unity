@@ -708,7 +708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOver: 0
   _gamePaused: 0
-  _isTesting: 1
+  _isTesting: 0
   _currentWave: 1
   _waveEnemyMultiplier: 10
   _waveEnemyTotalCount: 0
