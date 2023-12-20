@@ -12,12 +12,13 @@ public class PowerUp : MonoBehaviour
     private SpriteRenderer _renderer;
 
     /*-----PowerUp Ids-----*\
-    0: TripleShot
-    1: SpeedBoost
-    2: Shield
+    0: SpeedBoost
+    1: TripleShot
+    2: HomingMissile
     3: SpaceBomb
-    4: PlayerLife
-    5: SlowBomb
+    4: Shield
+    5: PlayerLife
+    6: SlowBomb
     \*-----PowerUp Ids-----*/
     [SerializeField] private int _powerUpId;
     [SerializeField] private float _powerUpLeftBoundary = -11f;
@@ -127,15 +128,15 @@ public class PowerUp : MonoBehaviour
                 switch (_powerUpId)
                 {
                     case 0:
-                        player.ActivateTripleShot();
-                        CollectPowerUp();
-                        break;
-                    case 1:
                         player.ActivateSpeedBoost();
                         CollectPowerUp();
                         break;
+                    case 1:
+                        player.ActivateTripleShot();
+                        CollectPowerUp();
+                        break;
                     case 2:
-                        player.ActivateShields();
+                        player.CollectHomingMissiles();
                         CollectPowerUp();
                         break;
                     case 3:
@@ -143,10 +144,14 @@ public class PowerUp : MonoBehaviour
                         CollectPowerUp();
                         break;
                     case 4:
-                        player.CollectPlayerLife();
+                        player.ActivateShields();
                         CollectPowerUp();
                         break;
                     case 5:
+                        player.CollectPlayerLife();
+                        CollectPowerUp();
+                        break;
+                    case 6:
                         player.DetonateSlowBomb();
                         StartCoroutine(DestroyPowerUp());
                         break;

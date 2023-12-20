@@ -28,10 +28,11 @@ public class SpawnManager : MonoBehaviour
     /*-----PowerUp Array Indices-----*\
     0: SpeedBoost
     1: TripleShot
-    2: SpaceBomb
-    3: Shield
-    4: PlayerLife
-    5: SlowBomb
+    2: HomingMissile
+    3: SpaceBomb
+    4: Shield
+    5: PlayerLife
+    6: SlowBomb
     \*-----PowerUp Array Indices-----*/
     [Header("PowerUps")]
     [SerializeField] private GameObject[] _powerUps;

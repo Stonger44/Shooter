@@ -708,7 +708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOver: 0
   _gamePaused: 0
-  _isTesting: 0
+  _isTesting: 1
   _currentWave: 1
   _waveEnemyMultiplier: 10
   _waveEnemyTotalCount: 0
@@ -1356,11 +1356,12 @@ MonoBehaviour:
   _powerUps:
   - {fileID: 6924605583387584157, guid: de6dd8099e4bbd94bb5a2cf4d7c5908e, type: 3}
   - {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
+  - {fileID: 7319432523490945080, guid: 79a3cac3e5862384fb336eb6e2bac8ae, type: 3}
   - {fileID: 3496811457575112303, guid: ff87ce208317d5147a6ddfa3bfe13c10, type: 3}
   - {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a, type: 3}
   - {fileID: 5353324495217767819, guid: 74d15f6a5410be64fba0cd9133f0333b, type: 3}
   - {fileID: 307999514745454934, guid: 491335fabea2fb64a83731cd03a9f71d, type: 3}
-  _powerUpSpawnDistribution: 030000000300000002000000010000000100000001000000
+  _powerUpSpawnDistribution: 03000000030000000300000002000000010000000100000001000000
   _canSpawn: 0
   _waveEnemyTotalCount: 0
   _enemiesSpawned: 0

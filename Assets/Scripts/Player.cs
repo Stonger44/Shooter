@@ -201,19 +201,16 @@ public class Player : SpaceShip
         }
     }
 
-    public void ActivateTripleShot()
+    public bool GetAfterBurnerCoolDown()
     {
-        _isTripleShotActive = true;
-        _fireRate = _tripleShotFireRate;
-        _tripleShotAmmo = _tripleShotMaxAmmo;
-        _uiManager.UpdateTripleShotAmmo(_tripleShotAmmo);
+        return _afterBurnerIsInCoolDown;
     }
 
     public void ActivateSpeedBoost()
     {
         Time.timeScale = _speedBoostTimeScale;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        
+
         _afterBurnerDepletionRate /= 2;
         _afterBurnerRechargeRate /= 2;
         _afterBurnerCoolDownTime *= 2;
@@ -234,19 +231,17 @@ public class Player : SpaceShip
         return _speedBoostTimeScale;
     }
 
-    public void ActivateShields()
+    public void ActivateTripleShot()
     {
-        if (_shieldLevel < 3)
-        {
-            _shieldLevel++;
-            _shield.SetActive(true);
-            _uiManager.UpdateShieldsUI(_shieldLevel);
-        }
+        _isTripleShotActive = true;
+        _fireRate = _tripleShotFireRate;
+        _tripleShotAmmo = _tripleShotMaxAmmo;
+        _uiManager.UpdateTripleShotAmmo(_tripleShotAmmo);
     }
 
-    public bool GetAfterBurnerCoolDown()
+    public void CollectHomingMissiles()
     {
-        return _afterBurnerIsInCoolDown;
+        
     }
 
     public void CollectSpaceBomb()
@@ -255,6 +250,16 @@ public class Player : SpaceShip
         {
             _spaceBombAmmo++;
             _uiManager.UpdateSpaceBombAmmo(_spaceBombAmmo);
+        }
+    }
+
+    public void ActivateShields()
+    {
+        if (_shieldLevel < 3)
+        {
+            _shieldLevel++;
+            _shield.SetActive(true);
+            _uiManager.UpdateShieldsUI(_shieldLevel);
         }
     }
 
