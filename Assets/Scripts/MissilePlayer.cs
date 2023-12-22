@@ -22,6 +22,8 @@ public class MissilePlayer : MonoBehaviour
         {
             Debug.LogError("RigidBody is null!");
         }
+
+        StartCoroutine(ArmMissile());
     }
 
     private void FixedUpdate()
@@ -31,15 +33,18 @@ public class MissilePlayer : MonoBehaviour
 
     private void Move()
     {
-        Vector2 lookDirection = (Vector2)_target.transform.position - _rigidBody.position;
+        if (_target != null)
+        {
+            Vector2 lookDirection = (Vector2)_target.transform.position - _rigidBody.position;
 
-        lookDirection.Normalize();
+            lookDirection.Normalize();
 
-        float rotateAmount = Vector3.Cross(lookDirection, -transform.right).z;
+            float rotateAmount = Vector3.Cross(lookDirection, -transform.right).z;
 
-        _rigidBody.angularVelocity = -rotateAmount * _rotateSpeed;
+            _rigidBody.angularVelocity = -rotateAmount * _rotateSpeed; 
+        }
 
-        _rigidBody.velocity = -transform.right * _speed;
+        _rigidBody.velocity = transform.right * _speed;
     }
 
     private IEnumerator ArmMissile()

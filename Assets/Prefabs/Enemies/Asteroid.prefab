@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7461290498793702373}
   m_Layer: 0
   m_Name: Asteroid
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,7 +186,9 @@ MonoBehaviour:
   _asteroidRightBoundary: 11.3
   _asteroidUpperBoundary: 3.5
   _asteroidLowerBoundary: -4.7
-  _speed: 2
+  _minSpeed: 2
+  _maxSpeed: 3
+  _maxHealth: 12
   _health: 12
   _pointsOnDeath: 200
   _pointsOnBoundary: -20
