@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRadar : MonoBehaviour
+public class MissilePlayerRadar : MonoBehaviour
 {
     private const string _enemyTag = "Enemy";
 
     [SerializeField] private MissilePlayer _missilePlayer;
+    [SerializeField] private Collider2D _radarCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -15,19 +16,18 @@ public class PlayerRadar : MonoBehaviour
         {
             Debug.LogError("MissilePlayer is null!");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (_radarCollider == null)
+        {
+            Debug.LogError("Collider is null!");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == _enemyTag)
         {
-
+            _missilePlayer.SetTarget(other.gameObject);
+            _radarCollider.enabled = false;
         }
     }
 }

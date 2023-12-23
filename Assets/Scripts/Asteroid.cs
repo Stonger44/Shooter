@@ -7,6 +7,7 @@ public class Asteroid : MonoBehaviour
     private const string _laserTag = "Laser";
     private const string _tripleShotTag = "TripleShot";
     private const string _blastZoneTag = "BlastZone";
+    private const string _missileTag = "Missile";
     private string _otherTag = string.Empty;
 
     private Player _player;
@@ -116,6 +117,14 @@ public class Asteroid : MonoBehaviour
                 Destroy(other.gameObject);
                 Damage(_otherTag);
                 break;
+            case _missileTag:
+                MissilePlayer missilePlayer = other.gameObject.GetComponent<MissilePlayer>();
+                if (missilePlayer != null)
+                {
+                    missilePlayer.DetonateMissile();
+                }
+                Damage(_otherTag);
+                break;
             case _blastZoneTag:
                 Damage(_otherTag);
                 break;
@@ -135,7 +144,7 @@ public class Asteroid : MonoBehaviour
             _health--;
         }
 
-        if (_health < 1 || otherTag == _playerTag || otherTag == _blastZoneTag)
+        if (_health < 1 || otherTag == _playerTag || otherTag == _missileTag || otherTag == _blastZoneTag)
         {
             StartCoroutine(DestroySelf());
         }

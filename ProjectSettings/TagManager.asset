@@ -11,6 +11,7 @@ TagManager:
   - LaserEnemy
   - BlastZone
   - PowerDown
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -22,12 +23,12 @@ TagManager:
   - 
   - PostProcessing
   - Player
-  - Radar
+  - MissilePlayerRadar
   - PowerUp
   - PlayerLaser
-  - 
-  - 
-  - 
+  - Enemy
+  - EnemyRadar
+  - MissilePlayer
   - 
   - 
   - 

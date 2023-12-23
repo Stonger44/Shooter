@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1163173409}
   - component: {fileID: 1163173411}
   - component: {fileID: 1163173410}
-  - component: {fileID: 3997077778822288147}
+  - component: {fileID: 6536648948769901996}
   m_Layer: 10
   m_Name: Radar
   m_TagString: Untagged
@@ -80,7 +80,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3997077778822288147
+--- !u!114 &6536648948769901996
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,10 +89,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1163173408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa1955d27be566843a59ddbe06c29144, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d9fb6006dff99e4cbc43492e81fde62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _missilePlayer: {fileID: 4804971160070910270}
+  _radarCollider: {fileID: 1163173411}
 --- !u!1 &4804971158793619129
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,9 +310,9 @@ GameObject:
   - component: {fileID: 4804971160070910264}
   - component: {fileID: 4804971160070910271}
   - component: {fileID: 4804971160070910270}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: MissilePlayer
-  m_TagString: Untagged
+  m_TagString: Missile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -529,7 +530,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 12
-  _rotateSpeed: 125
+  _rotateSpeed: 200
   _missileActiveTime: 2
-  _missileExplosion: {fileID: 5998372259099333284, guid: 11291b52a8d0161419951b8525304808,
-    type: 3}

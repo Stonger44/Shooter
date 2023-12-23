@@ -235,7 +235,7 @@ MonoBehaviour:
   _speed: 12
   _rotateSpeed: 125
   _missileActiveTime: 2
-  _missileExplosion: {fileID: 5998372259099333284, guid: 11291b52a8d0161419951b8525304808,
+  _explosion: {fileID: 5998372259099333284, guid: 17679cc7546b4314e93efcca306ff12f,
     type: 3}
 --- !u!1 &6114101213097924305
 GameObject:

@@ -12,7 +12,6 @@ public class MissilePlayer : MonoBehaviour
     [SerializeField] private float _speed = 12;
     [SerializeField] private float _rotateSpeed = 125;
     [SerializeField] private float _missileActiveTime = 2f;
-    [SerializeField] private GameObject _missileExplosion;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +30,16 @@ public class MissilePlayer : MonoBehaviour
         Move();
     }
 
+    public void SetTarget(GameObject target)
+    {
+        _target = target;
+    }
+
+    public void DetonateMissile()
+    {
+        Destroy(this.gameObject);
+    }
+
     private void Move()
     {
         if (_target != null)
@@ -41,7 +50,7 @@ public class MissilePlayer : MonoBehaviour
 
             float rotateAmount = Vector3.Cross(lookDirection, -transform.right).z;
 
-            _rigidBody.angularVelocity = -rotateAmount * _rotateSpeed; 
+            _rigidBody.angularVelocity = rotateAmount * _rotateSpeed; 
         }
 
         _rigidBody.velocity = transform.right * _speed;
@@ -51,21 +60,5 @@ public class MissilePlayer : MonoBehaviour
     {
         yield return new WaitForSeconds(_missileActiveTime);
         DetonateMissile();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        _otherTag = other.tag;
-
-        if (_otherTag == _enemyTag)
-        {
-            DetonateMissile();
-        }
-    }
-
-    private void DetonateMissile()
-    {
-        Instantiate(_missileExplosion, transform.position, transform.rotation);
-        Destroy(this.gameObject);
     }
 }

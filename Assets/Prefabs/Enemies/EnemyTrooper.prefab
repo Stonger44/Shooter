@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 180711081}
   - component: {fileID: 180711083}
   - component: {fileID: 180711082}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Radar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 1714212125148499326}
   - component: {fileID: 5452423582025157287}
   - component: {fileID: 9018932643458980802}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: EnemyTrooper
   m_TagString: Enemy
   m_Icon: {fileID: 0}

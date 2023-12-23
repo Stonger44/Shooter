@@ -586,7 +586,6 @@ public class Player : SpaceShip
         Instantiate(_deathExplosion, this.transform.position, Quaternion.Euler(0, 0, 90));
         _audioManager.PlayExplosionSound();
         _gameManager.PauseBGM();
-        //Destroy(this.gameObject);
         this.transform.position = _deathPosition;
     }
 

@@ -12,7 +12,7 @@ public class MissileEnemy : MonoBehaviour
     [SerializeField] private float _speed = 12;
     [SerializeField] private float _rotateSpeed = 125;
     [SerializeField] private float _missileActiveTime = 2f;
-    [SerializeField] private GameObject _missileExplosion;
+    [SerializeField] private GameObject _explosion;
 
     // Start is called before the first frame update
     void Start()
@@ -67,7 +67,7 @@ public class MissileEnemy : MonoBehaviour
 
     private void DetonateMissile()
     {
-        Instantiate(_missileExplosion, transform.position, transform.rotation);
+        Instantiate(_explosion, transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
 }

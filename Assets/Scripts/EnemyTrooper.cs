@@ -8,6 +8,7 @@ public class EnemyTrooper : SpaceShip
     private const string _laserTag = "Laser";
     private const string _tripleShotTag = "TripleShot";
     private const string _blastZoneTag = "BlastZone";
+    private const string _missileTag = "Missile";
     private string _otherTag = string.Empty;
 
     private Player _player;
@@ -280,6 +281,14 @@ public class EnemyTrooper : SpaceShip
                 Destroy(other.gameObject);
                 Damage(_otherTag);
                 break;
+            case _missileTag:
+                MissilePlayer missilePlayer = other.gameObject.GetComponent<MissilePlayer>();
+                if (missilePlayer != null)
+                {
+                    missilePlayer.DetonateMissile();
+                }
+                Damage(_otherTag);
+                break;
             case _blastZoneTag:
                 Damage(_otherTag);
                 break;
@@ -290,7 +299,7 @@ public class EnemyTrooper : SpaceShip
 
     private void Damage(string otherTag)
     {
-        if (otherTag == _playerTag || otherTag == _tripleShotTag || otherTag == _blastZoneTag)
+        if (otherTag == _playerTag || otherTag == _tripleShotTag || otherTag == _missileTag || otherTag == _blastZoneTag)
         {
             if (_shieldLevel > 0)
             {

@@ -19,11 +19,11 @@ public class EnemyRadar : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == _playerTag)
+        if (other.CompareTag(_playerTag))
         {
             _enemyTrooper.IsRamming(true);
         }
-        else if (other.tag == _laserTag || other.tag == _tripleShotTag)
+        else if (other.CompareTag(_laserTag) || other.CompareTag(_tripleShotTag))
         {
             _enemyTrooper.ShouldJink();
         }
