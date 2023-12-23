@@ -41,7 +41,7 @@ public class EnemyMissileer : SpaceShip
     [SerializeField] private int _pointsOnDeath = 100;
     [SerializeField] private int _pointsOnBoundary = -10;
     private bool _isExploding;
-    [SerializeField] private float _powerUpDropChance = 0.2f;
+    [SerializeField] private float _powerUpDropChance = 0.25f;
 
     [Header("Targeting System")]
     [SerializeField] private float _xRayCastOffset = -3.5f;
