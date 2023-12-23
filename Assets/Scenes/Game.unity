@@ -1941,6 +1941,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 6708918177189602178, guid: b0092f095714c2c4da5c1f016a191fc2,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6708918177189602181, guid: b0092f095714c2c4da5c1f016a191fc2,
         type: 3}
       propertyPath: m_RootOrder
@@ -3060,6 +3065,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 6708918177189602178, guid: b0092f095714c2c4da5c1f016a191fc2,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6708918177189602181, guid: b0092f095714c2c4da5c1f016a191fc2,
         type: 3}
       propertyPath: m_RootOrder
@@ -3670,6 +3680,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DamageEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6708918177189602178, guid: b0092f095714c2c4da5c1f016a191fc2,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6708918177189602181, guid: b0092f095714c2c4da5c1f016a191fc2,
         type: 3}
@@ -4314,6 +4329,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DamageEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6708918177189602178, guid: b0092f095714c2c4da5c1f016a191fc2,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6708918177189602181, guid: b0092f095714c2c4da5c1f016a191fc2,
         type: 3}
