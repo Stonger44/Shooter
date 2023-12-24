@@ -24,7 +24,7 @@ public class MissilePlayerRadar : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == _enemyTag)
+        if (other.CompareTag(_enemyTag))
         {
             _missilePlayer.SetTarget(other.gameObject);
             _radarCollider.enabled = false;
