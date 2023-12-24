@@ -109,7 +109,7 @@ public class Player : SpaceShip
     [SerializeField] private float _homingMissileFireRate = 0.75f;
     [SerializeField] private int _homingMissileAmmo;
     [SerializeField] private int _homingMissileMaxAmmo = 6;
-    private bool _canFirehomingMissile = true;
+    private bool _canFireHomingMissile = true;
 
     public static event Action<GameObject> onAttractPowerUp;
     public static event Action onStopAttractingPowerUp;
@@ -519,7 +519,7 @@ public class Player : SpaceShip
 
     private void FireHomingMissile()
     {   
-        if (_canFirehomingMissile && _homingMissileAmmo> 0 && Input.GetKeyDown(KeyCode.RightShift))
+        if (_canFireHomingMissile && _homingMissileAmmo > 0 && Input.GetKeyDown(KeyCode.RightShift))
         {
             _homingMissileAmmo--;
             _uiManager.UpdateHomingMissileAmmo(_homingMissileAmmo);
@@ -528,7 +528,7 @@ public class Player : SpaceShip
             _homingMissilePosition.x += _homingMissileOffset;
             Instantiate(_homingMissile, _homingMissilePosition, Quaternion.identity);
 
-            _canFirehomingMissile = false;
+            _canFireHomingMissile = false;
             StartCoroutine(ReadyFireHomingMissile());
         }
     }
@@ -536,7 +536,7 @@ public class Player : SpaceShip
     private IEnumerator ReadyFireHomingMissile()
     {
         yield return new WaitForSeconds(_homingMissileFireRate);
-        _canFirehomingMissile = true;
+        _canFireHomingMissile = true;
     }
 
     private void FireSpaceBomb()
