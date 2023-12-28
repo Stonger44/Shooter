@@ -12,6 +12,7 @@ TagManager:
   - BlastZone
   - PowerDown
   - Missile
+  - EnemyLeader
   layers:
   - Default
   - TransparentFX
