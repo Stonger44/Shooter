@@ -810,11 +810,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abcc535d18df52e4f87860afac2dbc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBoundary: 11
-  _rightBoundary: 21
+  _leftBoundary: 10.75
+  _rightBoundary: 11
   _upperBoundary: 0.3
-  _lowerBoundary: -0.3
+  _lowerBoundary: -1
   _speed: 2
+  _xDirection: -1
+  _yDirection: 0.2
   _powerCore: {fileID: 3036907280270466959}
   _xPowerCoreInternalPosition: -6.84
   _xPowerCoreExposedPosition: -8.4
