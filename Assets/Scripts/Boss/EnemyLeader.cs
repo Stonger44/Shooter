@@ -27,6 +27,8 @@ public class EnemyLeader : SpaceShip
     [Header("Shields")]
     [SerializeField] private GameObject _shield;
 
+    public static event Action onCommenceAttack;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +73,7 @@ public class EnemyLeader : SpaceShip
             _direction = new Vector2(_xHoldDirection, yDirection);
 
             _holdPosition = true;
+            onCommenceAttack?.Invoke();
         }
     }
 
