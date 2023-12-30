@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
     {
         return _waveEnemyTotalCount;
     }
+
     public void GameOver()
     {
         _gameOver = true;

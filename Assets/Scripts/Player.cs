@@ -175,7 +175,7 @@ public class Player : SpaceShip
         {
             onAttractPowerUp?.Invoke(this.gameObject);
         }
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
         {
             onStopAttractingPowerUp?.Invoke();
         }
