@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Wave")]
     [SerializeField] private int _currentWave = 1;
-    [SerializeField] private int _waveEnemyMultiplier = 10;
+    [SerializeField] private int _waveEnemyMultiplier = 5;
     [SerializeField] private int _waveEnemyTotalCount;
     [SerializeField] private int _enemiesRemaining;
 
@@ -106,6 +106,13 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(WaveCleared());
         }
+    }
+
+
+
+    public int GetCurrentWave()
+    {
+        return _currentWave;
     }
 
     public int GetWaveEnemyTotalCount()

@@ -710,7 +710,7 @@ MonoBehaviour:
   _gamePaused: 0
   _isTesting: 0
   _currentWave: 1
-  _waveEnemyMultiplier: 10
+  _waveEnemyMultiplier: 5
   _waveEnemyTotalCount: 0
   _enemiesRemaining: 0
 --- !u!1 &325802743
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   - {fileID: 3368753958657129261, guid: 4f345f142aa084942950e8b3a46ff191, type: 3}
   - {fileID: 7461290498793702394, guid: 331c06e5bb01bf247a452854317fe9a1, type: 3}
   - {fileID: 4093667370062700018, guid: e7a51cf312dde9c4688902814590af82, type: 3}
-  _enemySpawnDistribution: 0a0000000200000001000000
+  _enemySpawnDistribution: 0a0000000400000001000000
   _enemySpawnTime: 2
   _minEnemySpawnTime: 1
   _enemySpawnTimeDecrement: 0.1
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   - {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a, type: 3}
   - {fileID: 5353324495217767819, guid: 74d15f6a5410be64fba0cd9133f0333b, type: 3}
   - {fileID: 307999514745454934, guid: 491335fabea2fb64a83731cd03a9f71d, type: 3}
-  _powerUpSpawnDistribution: 03000000030000000300000002000000010000000100000001000000
+  _powerUpSpawnDistribution: 04000000040000000400000002000000020000000100000001000000
   _canSpawn: 0
   _waveEnemyTotalCount: 0
   _enemiesSpawned: 0

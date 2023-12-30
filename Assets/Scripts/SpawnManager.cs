@@ -40,6 +40,7 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Game Management")]
     [SerializeField] private bool _canSpawn = false;
+    [SerializeField] private int _currentWave;
     [SerializeField] private int _waveEnemyTotalCount;
     [SerializeField] private int _enemiesSpawned;
 
@@ -81,6 +82,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
+        _currentWave = _gameManager.GetCurrentWave();
         _waveEnemyTotalCount = _gameManager.GetWaveEnemyTotalCount();
         _enemiesSpawned = 0;
 
@@ -90,6 +92,13 @@ public class SpawnManager : MonoBehaviour
             _enemySpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionEnemySpawn);
 
             int spawnIndex = GetSpawnIndex(_enemySpawnDistribution);
+
+            // Do not spawn EnemyMissileer on Wave 1, instead spawn EnemyTrooper
+            if (spawnIndex == 2 && _currentWave == 1)
+            {
+                spawnIndex = 0;
+            }
+
             _spawnedEnemy = Instantiate(_enemies[spawnIndex], _enemySpawnPosition, Quaternion.identity);
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
             _enemiesSpawned++;
