@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _waveEnemyMultiplier = 5;
     [SerializeField] private int _waveEnemyTotalCount;
     [SerializeField] private int _enemiesRemaining;
+    [SerializeField] private int _bossWaveMultiplier = 5;
+
+    public static event Action onBossWaveFinalEnemy;
 
     // Start is called before the first frame update
     void Start()
@@ -102,13 +106,28 @@ public class GameManager : MonoBehaviour
         _enemiesRemaining--;
         _uiManager.UpdateEnemyCount(_enemiesRemaining);
 
-        if (_enemiesRemaining == 0)
+        if (IsBossWave())
+        {
+            if (_enemiesRemaining == 1)
+            {
+                onBossWaveFinalEnemy?.Invoke();
+            }
+            else if (_enemiesRemaining == 0)
+            {
+                // Display YOU WIN UI
+                // Display/Activate Continue, Restart, and Main Menu buttons
+            }
+        }
+        else
         {
             StartCoroutine(WaveCleared());
         }
     }
 
-
+    public bool IsBossWave()
+    {
+        return _currentWave % _bossWaveMultiplier == 0;
+    }
 
     public int GetCurrentWave()
     {

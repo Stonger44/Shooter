@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -17,6 +18,8 @@ public class SpawnManager : MonoBehaviour
     \*-----Enemy Array Indices-----*/
     [Header("Enemy")]
     [SerializeField] private GameObject _enemyContainer;
+    [SerializeField] private GameObject _enemyLeader;
+    [SerializeField] private float _enemyLeaderDramaticWaitTime = 3f;
     [SerializeField] private GameObject[] _enemies;
     [SerializeField] private int[] _enemySpawnDistribution;
     [SerializeField] private float _enemySpawnTime = 2f;
@@ -43,6 +46,18 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int _currentWave;
     [SerializeField] private int _waveEnemyTotalCount;
     [SerializeField] private int _enemiesSpawned;
+
+    public static event Action onEnemyLeaderSpawn;
+
+    private void OnEnable()
+    {
+        GameManager.onBossWaveFinalEnemy += CallEnemyleader;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onBossWaveFinalEnemy -= CallEnemyleader;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -80,6 +95,22 @@ public class SpawnManager : MonoBehaviour
         Instantiate(_powerUps[spawnIndex], spawnPosition, Quaternion.identity);
     }
 
+    private void CallEnemyleader()
+    {
+        StartCoroutine(SpawnEnemyLeader());
+    }
+
+    private IEnumerator SpawnEnemyLeader()
+    {
+        yield return new WaitForSeconds(_enemyLeaderDramaticWaitTime);
+
+        _spawnedEnemy = Instantiate(_enemyLeader);
+        _spawnedEnemy.transform.parent = _enemyContainer.transform;
+        // _enemiesSpawned++;
+
+        onEnemyLeaderSpawn?.Invoke();
+    }
+
     private IEnumerator SpawnEnemy()
     {
         _currentWave = _gameManager.GetCurrentWave();
@@ -88,7 +119,7 @@ public class SpawnManager : MonoBehaviour
 
         while (_canSpawn)
         {
-            float yPositionEnemySpawn = Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
+            float yPositionEnemySpawn = UnityEngine.Random.Range(_enemySpawnLowerBoundary, _enemySpawnUpperBoundary);
             _enemySpawnPosition = new Vector2(_enemySpawnRightBoundary, yPositionEnemySpawn);
 
             int spawnIndex = GetSpawnIndex(_enemySpawnDistribution);
@@ -103,7 +134,9 @@ public class SpawnManager : MonoBehaviour
             _spawnedEnemy.transform.parent = _enemyContainer.transform;
             _enemiesSpawned++;
 
-            if (_gameManager.IsGameOver() || _enemiesSpawned == _waveEnemyTotalCount)
+            if (_gameManager.IsGameOver() ||
+                _enemiesSpawned == _waveEnemyTotalCount ||
+                (_gameManager.IsBossWave() && _enemiesSpawned == _waveEnemyTotalCount - 1))
             {
                 StopSpawning();
             }
@@ -127,7 +160,7 @@ public class SpawnManager : MonoBehaviour
             totalWeight += weight;
         }
 
-        int randomValue = Random.Range(0, totalWeight + 1);
+        int randomValue = UnityEngine.Random.Range(0, totalWeight + 1);
 
         for (int i = 0; i < spawnDistributionArray.Length; i++)
         {

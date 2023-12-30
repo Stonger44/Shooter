@@ -29,7 +29,7 @@ public class EnemyLeader : SpaceShip
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector2(21f, 0f);
+        transform.position = new Vector2(22f, 0f);
     }
 
     // Update is called once per frame

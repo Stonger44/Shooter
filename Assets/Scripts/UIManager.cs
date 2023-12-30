@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _restartUI;
     [SerializeField] private GameObject _returnToMainMenuUI;
     [SerializeField] private GameObject _paused;
-    [SerializeField] private float _gameOverBlinkTime = 0.5f;
+    [SerializeField] private WaitForSeconds _blinkWaitForSeconds = new WaitForSeconds(0.5f);
     private bool _displayGameOver = false;
 
     [Header("Game")]
@@ -22,6 +22,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _waveBannerText;
     [SerializeField] private Text _waveCount;
     [SerializeField] private Text _enemyCount;
+
+    [Header("Boss")]
+    [SerializeField] private GameObject _bossUI;
+    private bool _displayBoss = false;
 
     [Header("SpeedBoost")]
     [SerializeField] private Image _speedBoostBar;
@@ -46,6 +50,16 @@ public class UIManager : MonoBehaviour
 
     [Header("SpaceBomb")]
     [SerializeField] private GameObject[] _spaceBombArray;
+
+    private void OnEnable()
+    {
+        SpawnManager.onEnemyLeaderSpawn += DisplayBossUI;
+    }
+
+    private void OnDisable()
+    {
+        SpawnManager.onEnemyLeaderSpawn -= DisplayBossUI;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -236,11 +250,11 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator GameOverBlink()
     {
-        yield return new WaitForSeconds(_gameOverBlinkTime);
+        yield return _blinkWaitForSeconds;
 
         while (true)
         {
-            yield return new WaitForSeconds(_gameOverBlinkTime);
+            yield return _blinkWaitForSeconds;
             
             _displayGameOver = !_displayGameOver;
             _gameOverUI.SetActive(_displayGameOver);
@@ -253,5 +267,21 @@ public class UIManager : MonoBehaviour
         _restartUI.SetActive(true);
         _returnToMainMenuUI.SetActive(true);
         _gameManager.GameOver();
+    }
+
+    private void DisplayBossUI()
+    {
+        StartCoroutine(BossBlink());
+    }
+
+    private IEnumerator BossBlink()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            yield return _blinkWaitForSeconds;
+
+            _displayBoss = !_displayBoss;
+            _bossUI.SetActive(_displayBoss);
+        }
     }
 }
