@@ -16,7 +16,7 @@ public class EnemyLeader : SpaceShip
     private Vector2 _direction = Vector2.left;
     private bool _holdPosition = false;
     [SerializeField] private float _xDirection = -1f;
-    [SerializeField] private float _xHoldDirection = -0.1f;
+    [SerializeField] private float _xHoldDirection = -0.05f;
     [SerializeField] private float _yDirection = 0.2f;
 
     [Header("PowerCore")]
@@ -65,7 +65,7 @@ public class EnemyLeader : SpaceShip
 
     private void CheckApproach()
     {
-        if (transform.position.x <= _leftBoundary)
+        if (transform.position.x <= _rightBoundary)
         {
             float yDirection = UnityEngine.Random.value < 0.5f ? -_yDirection : _yDirection;
             _direction = new Vector2(_xHoldDirection, yDirection);
