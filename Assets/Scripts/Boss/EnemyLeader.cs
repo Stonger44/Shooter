@@ -16,6 +16,7 @@ public class EnemyLeader : SpaceShip
     private Vector2 _direction = Vector2.left;
     private bool _holdPosition = false;
     [SerializeField] private float _xDirection = -1f;
+    [SerializeField] private float _xHoldDirection = -0.1f;
     [SerializeField] private float _yDirection = 0.2f;
 
     [Header("PowerCore")]
@@ -45,6 +46,11 @@ public class EnemyLeader : SpaceShip
             Change_Y_Direction();
         }
 
+        if (_holdPosition && (transform.position.x <= _leftBoundary || transform.position.x >= _rightBoundary))
+        {
+            Change_X_Direction();
+        }
+
         transform.Translate(_direction * _speed * Time.deltaTime);
 
         if (_holdPosition)
@@ -59,10 +65,10 @@ public class EnemyLeader : SpaceShip
 
     private void CheckApproach()
     {
-        if (transform.position.x <= _rightBoundary)
+        if (transform.position.x <= _leftBoundary)
         {
             float yDirection = UnityEngine.Random.value < 0.5f ? -_yDirection : _yDirection;
-            _direction = new Vector2(_xDirection, yDirection);
+            _direction = new Vector2(_xHoldDirection, yDirection);
 
             _holdPosition = true;
         }
@@ -77,6 +83,18 @@ public class EnemyLeader : SpaceShip
         else if (transform.position.y <= _lowerBoundary)
         {
             _direction.y = _yDirection;
+        }
+    }
+
+    private void Change_X_Direction()
+    {
+        if (transform.position.x <= _leftBoundary)
+        {
+            _direction.x = -_xHoldDirection;
+        }
+        else if (transform.position.x >= _rightBoundary)
+        {
+            _direction.x = _xHoldDirection;
         }
     }
 }

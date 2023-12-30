@@ -816,6 +816,7 @@ MonoBehaviour:
   _lowerBoundary: -1
   _speed: 2
   _xDirection: -1
+  _xHoldDirection: -0.1
   _yDirection: 0.2
   _powerCore: {fileID: 3036907280270466959}
   _xPowerCoreInternalPosition: -6.84
