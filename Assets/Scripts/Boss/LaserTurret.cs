@@ -7,13 +7,15 @@ public class LaserTurret : MonoBehaviour
     [Header("Laser")]
     [SerializeField] private GameObject _laser;
     [SerializeField] private AudioClip _laserSound;
-    [SerializeField] private float _xLaserOffset = -0.811f;
+    // [SerializeField] private float _xLaserOffset = -0.811f;
     private WaitForSeconds _fireDelay = new WaitForSeconds(1f);
-    private WaitForSeconds _fireRate = new WaitForSeconds(0.2f);
+    private WaitForSeconds _fireRate = new WaitForSeconds(0.5f);
     private bool _canFire = false;
 
     private AudioSource _audioSource;
 
+    [Header("Turret")]
+    [SerializeField] private Vector3 _angle;
     private void OnEnable()
     {
         EnemyLeader.onCommenceAttack += CommenceFiring;
@@ -42,6 +44,13 @@ public class LaserTurret : MonoBehaviour
             _canFire = false;
             StartCoroutine(Fire());
         }
+
+        Rotate();
+    }
+
+    private void Rotate()
+    {
+        transform.Rotate(-_angle * Time.deltaTime);
     }
 
     private IEnumerator Fire()
@@ -50,9 +59,9 @@ public class LaserTurret : MonoBehaviour
         {
             yield return _fireRate;
 
-            Vector2 laserPosition = transform.position;
-            laserPosition.x += _xLaserOffset;
-            Instantiate(_laser, laserPosition, Quaternion.identity);
+            // Vector2 laserPosition = transform.position;
+            // laserPosition.x += _xLaserOffset;
+            Instantiate(_laser, transform.position, transform.rotation);
 
             SetLaserSound();
             _audioSource.Play(); 
