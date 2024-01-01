@@ -15,7 +15,9 @@ public class LaserTurret : MonoBehaviour
     private AudioSource _audioSource;
 
     [Header("Turret")]
-    [SerializeField] private Vector3 _angle;
+    [SerializeField] private Vector3 _eulerAngle;
+    [SerializeField] private float _zDegrees = 30f;
+
     private void OnEnable()
     {
         EnemyLeader.onCommenceAttack += CommenceFiring;
@@ -34,6 +36,8 @@ public class LaserTurret : MonoBehaviour
         {
             Debug.LogError("AudioSource is null!");
         }
+
+        _eulerAngle = new Vector3(0, 0, _zDegrees);
     }
 
     // Update is called once per frame
@@ -50,7 +54,17 @@ public class LaserTurret : MonoBehaviour
 
     private void Rotate()
     {
-        transform.Rotate(-_angle * Time.deltaTime);
+        CheckRotation();
+        transform.Rotate(_eulerAngle * Time.deltaTime);
+    }
+
+    private void CheckRotation()
+    {
+        if (transform.rotation.eulerAngles.z >= _zDegrees && transform.rotation.eulerAngles.z < 180f ||
+            transform.rotation.eulerAngles.z <= 360f - _zDegrees && transform.rotation.eulerAngles.z > 180f)
+        {
+            _eulerAngle = -_eulerAngle;
+        }
     }
 
     private IEnumerator Fire()
