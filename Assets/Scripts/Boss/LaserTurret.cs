@@ -17,6 +17,7 @@ public class LaserTurret : MonoBehaviour
     [Header("Turret")]
     [SerializeField] private Vector3 _eulerAngle;
     [SerializeField] private float _zDegrees = 30f;
+    [SerializeField] private GameObject _barrelTip;
 
     private void OnEnable()
     {
@@ -75,7 +76,7 @@ public class LaserTurret : MonoBehaviour
 
             // Vector2 laserPosition = transform.position;
             // laserPosition.x += _xLaserOffset;
-            Instantiate(_laser, transform.position, transform.rotation);
+            Instantiate(_laser, _barrelTip.transform.position, transform.rotation);
 
             SetLaserSound();
             _audioSource.Play(); 
