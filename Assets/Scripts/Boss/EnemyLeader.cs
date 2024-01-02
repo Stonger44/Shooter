@@ -37,7 +37,11 @@ public class EnemyLeader : SpaceShip
     [SerializeField] private GameObject _shieldSprite;
     [SerializeField] private int _shields = 100;
 
+    [Header("Health/Damage")]
+    [SerializeField] private GameObject _missilePlayerExplosion;
+
     public static event Action onCommenceAttack;
+    public static event Action onExplosion;
 
     // Start is called before the first frame update
     void Start()
@@ -140,9 +144,12 @@ public class EnemyLeader : SpaceShip
                 {
                     missilePlayer.DetonateMissile();
                 }
+                Instantiate(_missilePlayerExplosion, other.transform.position, Quaternion.identity);
+                onExplosion?.Invoke();
                 Damage(5);
                 break;
             case _blastZoneTag:
+                onExplosion?.Invoke();
                 Damage(10);
                 break;
             default:
@@ -153,5 +160,10 @@ public class EnemyLeader : SpaceShip
     private void Damage(int damage)
     {
         _shields -= damage;
+
+        if (_shields < 0)
+        {
+            _shields = 0;
+        }
     }
 }

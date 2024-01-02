@@ -10,7 +10,7 @@ public class LaserTurret : MonoBehaviour
     private WaitForSeconds _fireDelay = new WaitForSeconds(1f);
     private WaitForSeconds _fireRate = new WaitForSeconds(0.5f);
     private bool _canFire = false;
-    private bool _ceaseFire = false;
+    [SerializeField] private bool _ceaseFire = false;
 
     private AudioSource _audioSource;
 

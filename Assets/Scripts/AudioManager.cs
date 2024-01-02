@@ -5,6 +5,16 @@ public class AudioManager : MonoBehaviour
     private AudioSource _explosionSound;
     private AudioSource _powerUpSound;
 
+    private void OnEnable()
+    {
+        EnemyLeader.onExplosion += PlayExplosionSound;
+    }
+
+    private void OnDisable()
+    {
+        EnemyLeader.onExplosion -= PlayExplosionSound;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

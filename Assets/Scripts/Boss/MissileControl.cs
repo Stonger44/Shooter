@@ -13,7 +13,7 @@ public class MissileControl : MonoBehaviour
     private WaitForSeconds _fireRate = new WaitForSeconds(3f);
     private WaitForSeconds _fireDelay = new WaitForSeconds(0.5f);
     private bool _canFire = false;
-    private bool _ceaseFire = false;
+    [SerializeField] private bool _ceaseFire = false;
 
     private void OnEnable()
     {
@@ -73,7 +73,7 @@ public class MissileControl : MonoBehaviour
 
     private void CommenceFiring()
     {
-        _canFire = true;
+        StartCoroutine(ReadyFire());
     }
 
     private void CeaseFire()
