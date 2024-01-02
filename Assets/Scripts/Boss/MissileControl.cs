@@ -13,15 +13,18 @@ public class MissileControl : MonoBehaviour
     private WaitForSeconds _fireRate = new WaitForSeconds(3f);
     private WaitForSeconds _fireDelay = new WaitForSeconds(0.5f);
     private bool _canFire = false;
+    private bool _ceaseFire = false;
 
     private void OnEnable()
     {
         EnemyLeader.onCommenceAttack += CommenceFiring;
+        Player.onPlayerDeath += CeaseFire;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onCommenceAttack -= CommenceFiring;
+        Player.onPlayerDeath -= CeaseFire;
     }
 
     // Start is called before the first frame update
@@ -62,11 +65,19 @@ public class MissileControl : MonoBehaviour
     private IEnumerator ReadyFire()
     {
         yield return _fireRate;
-        _canFire = true;
+        if (!_ceaseFire)
+        {
+            _canFire = true;
+        }
     }
 
     private void CommenceFiring()
     {
         _canFire = true;
+    }
+
+    private void CeaseFire()
+    {
+        _ceaseFire = true;
     }
 }

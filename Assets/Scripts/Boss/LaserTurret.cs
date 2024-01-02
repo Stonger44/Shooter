@@ -10,6 +10,7 @@ public class LaserTurret : MonoBehaviour
     private WaitForSeconds _fireDelay = new WaitForSeconds(1f);
     private WaitForSeconds _fireRate = new WaitForSeconds(0.5f);
     private bool _canFire = false;
+    private bool _ceaseFire = false;
 
     private AudioSource _audioSource;
 
@@ -21,11 +22,13 @@ public class LaserTurret : MonoBehaviour
     private void OnEnable()
     {
         EnemyLeader.onCommenceAttack += CommenceFiring;
+        Player.onPlayerDeath += CeaseFire;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onCommenceAttack -= CommenceFiring;
+        Player.onPlayerDeath -= CeaseFire;
     }
 
     // Start is called before the first frame update
@@ -83,7 +86,10 @@ public class LaserTurret : MonoBehaviour
     private IEnumerator ReadyFire()
     {
         yield return _fireDelay;
-        _canFire = true;
+        if (!_ceaseFire)
+        {
+            _canFire = true;
+        }
     }
 
     private void SetLaserSound()
@@ -102,5 +108,10 @@ public class LaserTurret : MonoBehaviour
     private void CommenceFiring()
     {
         StartCoroutine(ReadyFire());
+    }
+
+    private void CeaseFire()
+    {
+        _ceaseFire = true;
     }
 }

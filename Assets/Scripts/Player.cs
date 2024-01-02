@@ -114,6 +114,8 @@ public class Player : SpaceShip
     public static event Action<GameObject> onAttractPowerUp;
     public static event Action onStopAttractingPowerUp;
 
+    public static event Action onPlayerDeath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -587,6 +589,7 @@ public class Player : SpaceShip
         _audioManager.PlayExplosionSound();
         _gameManager.PauseBGM();
         this.transform.position = _deathPosition;
+        onPlayerDeath?.Invoke();
     }
 
 }

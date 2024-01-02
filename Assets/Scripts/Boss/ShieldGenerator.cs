@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShieldGenerator : MonoBehaviour
 {
+    [SerializeField] private int _shieldPower = 25;
+
     // Start is called before the first frame update
     void Start()
     {
