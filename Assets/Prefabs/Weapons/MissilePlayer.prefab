@@ -532,3 +532,5 @@ MonoBehaviour:
   _speed: 12
   _rotateSpeed: 200
   _missileActiveTime: 2
+  _missilePlayerExplosion: {fileID: 5998372259099333284, guid: 12ea9361c55b04a46b64fe7204bb564f,
+    type: 3}

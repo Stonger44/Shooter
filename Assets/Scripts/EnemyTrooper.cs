@@ -285,7 +285,7 @@ public class EnemyTrooper : SpaceShip
                 MissilePlayer missilePlayer = other.gameObject.GetComponent<MissilePlayer>();
                 if (missilePlayer != null)
                 {
-                    missilePlayer.DetonateMissile();
+                    missilePlayer.DetonateMissile(this.gameObject);
                 }
                 Damage(_otherTag);
                 break;

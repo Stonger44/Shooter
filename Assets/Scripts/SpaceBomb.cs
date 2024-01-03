@@ -1,13 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class SpaceBomb : MonoBehaviour
 {
-    // -Move
-    // -Detonate if boundary reached
-    // -Detonate triggers Wide Explosion Radius
-    // -VFX?
-    // -Sound?
     private const string _enemyTag = "Enemy";
     private CircleCollider2D _collider;
 
@@ -16,6 +12,8 @@ public class SpaceBomb : MonoBehaviour
     [SerializeField] private GameObject _spaceBombSprite;
     [SerializeField] private GameObject[] _blastRadii;
     [SerializeField] private GameObject _blastZone;
+
+    public static event Action onExplosion;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +57,7 @@ public class SpaceBomb : MonoBehaviour
         _spaceBombSprite.SetActive(false);
         _collider.enabled = false;
         StartCoroutine(SpaceBombBlast());
+        onExplosion?.Invoke();
         Destroy(this.gameObject, 0.15f);
     }
 

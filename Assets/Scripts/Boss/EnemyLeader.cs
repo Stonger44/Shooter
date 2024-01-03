@@ -37,12 +37,8 @@ public class EnemyLeader : SpaceShip
     [SerializeField] private GameObject _shieldSprite;
     [SerializeField] private int _shields = 100;
 
-    [Header("Health/Damage")]
-    [SerializeField] private GameObject _missilePlayerExplosion;
-
     public static event Action onBossApproach;
     public static event Action onCommenceAttack;
-    public static event Action onExplosion;
 
     // Start is called before the first frame update
     void Start()
@@ -145,14 +141,11 @@ public class EnemyLeader : SpaceShip
                 MissilePlayer missilePlayer = other.gameObject.GetComponent<MissilePlayer>();
                 if (missilePlayer != null)
                 {
-                    missilePlayer.DetonateMissile();
+                    missilePlayer.DetonateMissile(this.gameObject);
                 }
-                Instantiate(_missilePlayerExplosion, other.transform.position, Quaternion.identity);
-                onExplosion?.Invoke();
                 Damage(5);
                 break;
             case _blastZoneTag:
-                onExplosion?.Invoke();
                 Damage(10);
                 break;
             default:

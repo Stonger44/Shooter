@@ -348,7 +348,7 @@ MonoBehaviour:
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _ceaseFire: 0
   _eulerAngle: {x: 0, y: 0, z: 0}
-  _zDegrees: 30
+  _zDegrees: 90
   _barrelTip: {fileID: 3432997458544905837}
 --- !u!1 &3036907280270466959
 GameObject:
@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 3036907280662049494}
   m_Layer: 0
   m_Name: ShieldGeneratorL
-  m_TagString: Untagged
+  m_TagString: ShieldGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1028,8 +1028,6 @@ MonoBehaviour:
   _xPowerCoreExposedPosition: -8.4
   _shieldSprite: {fileID: 3036907279421701081}
   _shields: 100
-  _missilePlayerExplosion: {fileID: 5998372259099333284, guid: 12ea9361c55b04a46b64fe7204bb564f,
-    type: 3}
 --- !u!1 &3036907280734034382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1043,7 @@ GameObject:
   - component: {fileID: 3036907280734034371}
   m_Layer: 0
   m_Name: ShieldGeneratorR
-  m_TagString: Untagged
+  m_TagString: ShieldGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

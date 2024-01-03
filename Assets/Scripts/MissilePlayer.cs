@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class MissilePlayer : MonoBehaviour
 {
     private const string _enemyTag = "Enemy";
+    private const string _enemyleaderTag = "EnemyLeader";
+    private const string _shieldGeneratorTag = "ShieldGenerator";
     private string _otherTag = string.Empty;
 
     private GameObject _target;
@@ -12,6 +15,10 @@ public class MissilePlayer : MonoBehaviour
     [SerializeField] private float _speed = 12;
     [SerializeField] private float _rotateSpeed = 125;
     [SerializeField] private float _missileActiveTime = 2f;
+
+    [SerializeField] private GameObject _missilePlayerExplosion;
+
+    public static event Action onExplosion;
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +42,15 @@ public class MissilePlayer : MonoBehaviour
         _target = target;
     }
 
-    public void DetonateMissile()
+    public void DetonateMissile(GameObject gameObject)
     {
+        Vector2 explosionPosition = transform.position;
+        explosionPosition.x += 0.5f;
+        if (gameObject.CompareTag(_enemyleaderTag) || gameObject.CompareTag(_shieldGeneratorTag))
+        {
+            Instantiate(_missilePlayerExplosion, explosionPosition, Quaternion.identity);
+            onExplosion?.Invoke(); 
+        }
         Destroy(this.gameObject);
     }
 
@@ -59,6 +73,6 @@ public class MissilePlayer : MonoBehaviour
     private IEnumerator ArmMissile()
     {
         yield return new WaitForSeconds(_missileActiveTime);
-        DetonateMissile();
+        DetonateMissile(this.gameObject);
     }
 }

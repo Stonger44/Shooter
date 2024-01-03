@@ -7,12 +7,14 @@ public class AudioManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyLeader.onExplosion += PlayExplosionSound;
+        MissilePlayer.onExplosion += PlayExplosionSound;
+        SpaceBomb.onExplosion += PlayExplosionSound;
     }
 
     private void OnDisable()
     {
-        EnemyLeader.onExplosion -= PlayExplosionSound;
+        MissilePlayer.onExplosion -= PlayExplosionSound;
+        SpaceBomb.onExplosion -= PlayExplosionSound;
     }
 
     // Start is called before the first frame update

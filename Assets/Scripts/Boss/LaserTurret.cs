@@ -8,7 +8,7 @@ public class LaserTurret : MonoBehaviour
     [SerializeField] private GameObject _laser;
     [SerializeField] private AudioClip _laserSound;
     private WaitForSeconds _fireDelay = new WaitForSeconds(1f);
-    private WaitForSeconds _fireRate = new WaitForSeconds(0.5f);
+    private WaitForSeconds _fireRate = new WaitForSeconds(0.25f);
     private bool _canFire = false;
     [SerializeField] private bool _ceaseFire = false;
 
@@ -16,7 +16,7 @@ public class LaserTurret : MonoBehaviour
 
     [Header("Turret")]
     [SerializeField] private Vector3 _eulerAngle;
-    [SerializeField] private float _zDegrees = 30f;
+    [SerializeField] private float _zDegrees = 40f;
     [SerializeField] private GameObject _barrelTip;
 
     private void OnEnable()
@@ -72,7 +72,7 @@ public class LaserTurret : MonoBehaviour
 
     private IEnumerator Fire()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             yield return _fireRate;
             Instantiate(_laser, _barrelTip.transform.position, transform.rotation);
