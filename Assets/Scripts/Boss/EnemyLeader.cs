@@ -40,6 +40,7 @@ public class EnemyLeader : SpaceShip
     [Header("Health/Damage")]
     [SerializeField] private GameObject _missilePlayerExplosion;
 
+    public static event Action onBossApproach;
     public static event Action onCommenceAttack;
     public static event Action onExplosion;
 
@@ -53,6 +54,8 @@ public class EnemyLeader : SpaceShip
         }
 
         transform.position = new Vector2(22f, 0f);
+
+        onBossApproach?.Invoke();
     }
 
     // Update is called once per frame

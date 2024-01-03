@@ -111,10 +111,24 @@ public class Player : SpaceShip
     [SerializeField] private int _homingMissileMaxAmmo = 6;
     private bool _canFireHomingMissile = true;
 
+    private bool _holdFire = false;
+
     public static event Action<GameObject> onAttractPowerUp;
     public static event Action onStopAttractingPowerUp;
 
     public static event Action onPlayerDeath;
+
+    private void OnEnable()
+    {
+        EnemyLeader.onBossApproach += HoldFire;
+        EnemyLeader.onCommenceAttack += WeaponsFree;
+    }
+
+    private void OnDisable()
+    {
+        EnemyLeader.onBossApproach -= HoldFire;
+        EnemyLeader.onCommenceAttack -= WeaponsFree;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -161,13 +175,16 @@ public class Player : SpaceShip
         {
             Move();
 
-            Fire();
-
-            FireHomingMissile();
-
-            FireSpaceBomb();
-
             AttractPowerUp();
+
+            if (!_holdFire)
+            {
+                Fire();
+
+                FireHomingMissile();
+
+                FireSpaceBomb(); 
+            }
         }
     }
 
@@ -592,4 +609,13 @@ public class Player : SpaceShip
         onPlayerDeath?.Invoke();
     }
 
+    private void HoldFire()
+    {
+        _holdFire = true;
+    }
+
+    private void WeaponsFree()
+    {
+        _holdFire = false;
+    }
 }
