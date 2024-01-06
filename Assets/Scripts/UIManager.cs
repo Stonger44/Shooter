@@ -51,14 +51,23 @@ public class UIManager : MonoBehaviour
     [Header("SpaceBomb")]
     [SerializeField] private GameObject[] _spaceBombArray;
 
+    [Header("Enemyleader")]
+    [SerializeField] private GameObject _enemyLeaderContainer;
+    [SerializeField] private Image _enemyLeaderShield;
+    [SerializeField] private Image _enemyLeaderHealth;
+
     private void OnEnable()
     {
         SpawnManager.onEnemyLeaderSpawn += DisplayBossUI;
+        EnemyLeader.onCommenceAttack += DisplayEnemyLeaderUI;
+        EnemyLeader.onShieldDamageTaken += UpdateEnemyLeaderShield;
     }
 
     private void OnDisable()
     {
         SpawnManager.onEnemyLeaderSpawn -= DisplayBossUI;
+        EnemyLeader.onCommenceAttack -= DisplayEnemyLeaderUI;
+        EnemyLeader.onShieldDamageTaken -= UpdateEnemyLeaderShield;
     }
 
     // Start is called before the first frame update
@@ -94,6 +103,8 @@ public class UIManager : MonoBehaviour
         {
             missile.SetActive(false);
         }
+
+        _enemyLeaderShield.fillAmount = 1f;
     }
 
     public IEnumerator WaveCleared(int waveNumber)
@@ -283,5 +294,22 @@ public class UIManager : MonoBehaviour
             _displayBoss = !_displayBoss;
             _bossUI.SetActive(_displayBoss);
         }
+    }
+
+    private void DisplayEnemyLeaderUI()
+    {
+        _enemyLeaderContainer.SetActive(true);
+    }
+
+    private void UpdateEnemyLeaderShield(float currentShieldLevel, float maxShieldLevel)
+    {
+        if (currentShieldLevel <= 0)
+        {
+            _enemyLeaderShield.fillAmount = 0f;
+            return;
+        }
+
+        float shieldPercent = currentShieldLevel / maxShieldLevel;
+        _enemyLeaderShield.fillAmount = shieldPercent;
     }
 }

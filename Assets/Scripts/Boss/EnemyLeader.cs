@@ -35,10 +35,13 @@ public class EnemyLeader : SpaceShip
 
     [Header("Shields")]
     [SerializeField] private GameObject _shieldSprite;
+    [SerializeField] private int _maxShields = 100;
     [SerializeField] private int _shields = 100;
+
 
     public static event Action onBossApproach;
     public static event Action onCommenceAttack;
+    public static event Action<float, float> onShieldDamageTaken;
 
     // Start is called before the first frame update
     void Start()
@@ -155,11 +158,25 @@ public class EnemyLeader : SpaceShip
 
     private void Damage(int damage)
     {
+        if (_shields > 0)
+        {
+            DamageShield(damage);
+        }
+    }
+
+    private void DamageShield(int damage)
+    {
         _shields -= damage;
 
         if (_shields < 0)
         {
             _shields = 0;
         }
+        onShieldDamageTaken?.Invoke(_shields, _maxShields);
+    }
+
+    private void DamageHealth()
+    {
+
     }
 }
