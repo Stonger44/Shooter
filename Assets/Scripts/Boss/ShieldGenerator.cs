@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +13,25 @@ public class ShieldGenerator : MonoBehaviour
     private string _otherTag = string.Empty;
 
     private Player _player;
+    private SpriteRenderer _spriteRenderer;
+    private BoxCollider2D _collider;
 
     [SerializeField] private int _shieldPower = 25;
+    [SerializeField] private int _shieldGeneratorPowerLossDamage = 50;
+    [SerializeField] Color _shieldGeneratorActiveColor;
+    [SerializeField] Color _shieldGeneratorInactiveColor;
+
+    public static event Action<int> onShieldGeneratorPowerDepletion;
+
+    private void OnEnable()
+    {
+        EnemyLeader.onShieldDepletion += ShieldGeneratorDepletion;
+    }
+
+    private void OnDisable()
+    {
+        EnemyLeader.onShieldDepletion -= ShieldGeneratorDepletion;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +40,16 @@ public class ShieldGenerator : MonoBehaviour
         if (_player == null)
         {
             Debug.LogError("Player is null!");
+        }
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        if (_spriteRenderer == null)
+        {
+            Debug.Log("SpriteRenderer is null!");
+        }
+        _collider = GetComponent<BoxCollider2D>();
+        if (_collider == null)
+        {
+            Debug.Log("Collider is null!");
         }
     }
 
@@ -68,9 +96,17 @@ public class ShieldGenerator : MonoBehaviour
     {
         _shieldPower -= damage;
 
-        if (_shieldPower < 0)
+        if (_shieldPower <= 0)
         {
             _shieldPower = 0;
+            ShieldGeneratorDepletion();
+            onShieldGeneratorPowerDepletion?.Invoke(_shieldGeneratorPowerLossDamage);
         }
+    }
+
+    private void ShieldGeneratorDepletion()
+    {
+        _collider.enabled = false;
+        _spriteRenderer.color = _shieldGeneratorInactiveColor;
     }
 }
