@@ -183,7 +183,7 @@ public class EnemyLeader : SpaceShip
         {
             _shields = 0;
             onShieldDepletion?.Invoke();
-            _shieldSprite.SetActive(false);
+            StartCoroutine(ShieldFailure(_shieldSprite));
 
         }
         onShieldDamageTaken?.Invoke(_shields, _maxShields);
