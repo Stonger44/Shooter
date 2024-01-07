@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1163173409}
   - component: {fileID: 1163173411}
   - component: {fileID: 1163173410}
+  - component: {fileID: 7093199329193078601}
   - component: {fileID: 6536648948769901996}
   m_Layer: 10
   m_Name: Radar
@@ -80,6 +81,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!255 &7093199329193078601
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163173408}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 4804971160070910264}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_DampingRatio: 0
+  m_Frequency: 0
 --- !u!114 &6536648948769901996
 MonoBehaviour:
   m_ObjectHideFlags: 0

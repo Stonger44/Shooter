@@ -5,7 +5,8 @@ public class Laser : MonoBehaviour
     // 0: Player Laser 
     // 1: Enemy Laser
     [SerializeField] private int _laserId;
-    [SerializeField] private float _boundary;
+    [SerializeField] private float _xBoundary;
+    [SerializeField] private float _yBoundary;
     [SerializeField] private float _speed;
     private Vector2 _laserDirection;
 
@@ -39,7 +40,7 @@ public class Laser : MonoBehaviour
     {
         if (_laserId == 0)
         {
-            if (transform.position.x > _boundary)
+            if (transform.position.x > _xBoundary)
             {
                 if (transform.parent != null)
                 {
@@ -48,9 +49,9 @@ public class Laser : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-        else // _laserId == 1 (Enemy Laser)
+        else if (_laserId == 1)
         {
-            if (transform.position.x < _boundary)
+            if (transform.position.x < _xBoundary || IsLaserOutOf_Y_Bounds())
             {
                 if (transform.parent != null)
                 {
@@ -59,5 +60,10 @@ public class Laser : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+    }
+
+    private bool IsLaserOutOf_Y_Bounds()
+    {
+        return transform.position.y > 0 && transform.position.y > _yBoundary || transform.position.y < 0 && transform.position.y < -_yBoundary;
     }
 }

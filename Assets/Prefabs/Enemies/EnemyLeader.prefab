@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 3036907280662049492}
   - component: {fileID: 3036907280662049493}
   - component: {fileID: 3036907280662049494}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ShieldGeneratorL
   m_TagString: ShieldGenerator
   m_Icon: {fileID: 0}
@@ -638,7 +638,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shieldPower: 25
   _shieldGeneratorPowerLossDamage: 50
-  _spriteRenderer: {fileID: 0}
   _shieldGeneratorActiveColor: {r: 0, g: 1, b: 0.78431374, a: 1}
   _shieldGeneratorInactiveColor: {r: 0, g: 0.24528301, b: 0.19237882, a: 1}
 --- !u!1 &3036907280688114558
@@ -735,7 +734,7 @@ GameObject:
   - component: {fileID: 3036907280719354971}
   - component: {fileID: 3036907280719354970}
   - component: {fileID: 3036907280719354972}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: EnemyLeader
   m_TagString: EnemyLeader
   m_Icon: {fileID: 0}
@@ -1046,7 +1045,7 @@ GameObject:
   - component: {fileID: 3036907280734034370}
   - component: {fileID: 3036907280734034369}
   - component: {fileID: 3036907280734034371}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ShieldGeneratorR
   m_TagString: ShieldGenerator
   m_Icon: {fileID: 0}
@@ -1178,7 +1177,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shieldPower: 25
   _shieldGeneratorPowerLossDamage: 50
-  _spriteRenderer: {fileID: 0}
   _shieldGeneratorActiveColor: {r: 0, g: 1, b: 0.78431374, a: 1}
   _shieldGeneratorInactiveColor: {r: 0, g: 0.24528301, b: 0.19237882, a: 1}
 --- !u!1 &3036907280872475978

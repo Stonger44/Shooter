@@ -46,12 +46,12 @@ public class EnemyLeader : SpaceShip
 
     private void OnEnable()
     {
-        ShieldGenerator.onShieldGeneratorPowerDepletion += DamageShield;
+        ShieldGenerator.onShieldGeneratorDamage += DamageShield;
     }
 
     private void OnDisable()
     {
-        ShieldGenerator.onShieldGeneratorPowerDepletion -= DamageShield;
+        ShieldGenerator.onShieldGeneratorDamage -= DamageShield;
     }
 
     // Start is called before the first frame update

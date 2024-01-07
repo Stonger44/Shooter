@@ -21,7 +21,8 @@ public class ShieldGenerator : MonoBehaviour
     [SerializeField] Color _shieldGeneratorActiveColor;
     [SerializeField] Color _shieldGeneratorInactiveColor;
 
-    public static event Action<int> onShieldGeneratorPowerDepletion;
+    public static event Action<int> onShieldGeneratorDamage;
+    public static event Action onShieldGeneratorPowerDepletion;
 
     private void OnEnable()
     {
@@ -95,18 +96,20 @@ public class ShieldGenerator : MonoBehaviour
     private void Damage(int damage)
     {
         _shieldPower -= damage;
+        onShieldGeneratorDamage?.Invoke(damage);
 
         if (_shieldPower <= 0)
         {
             _shieldPower = 0;
             ShieldGeneratorDepletion();
-            onShieldGeneratorPowerDepletion?.Invoke(_shieldGeneratorPowerLossDamage);
+            onShieldGeneratorDamage?.Invoke(_shieldGeneratorPowerLossDamage);
         }
     }
 
     private void ShieldGeneratorDepletion()
     {
         _collider.enabled = false;
+        onShieldGeneratorPowerDepletion?.Invoke();
         _spriteRenderer.color = _shieldGeneratorInactiveColor;
     }
 }

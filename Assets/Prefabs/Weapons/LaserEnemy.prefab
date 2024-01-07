@@ -122,5 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _laserId: 1
-  _boundary: -10.6
+  _xBoundary: -10.75
+  _yBoundary: 7
   _speed: 10
