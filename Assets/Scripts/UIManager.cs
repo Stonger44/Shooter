@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
         SpawnManager.onEnemyLeaderSpawn += DisplayBossUI;
         EnemyLeader.onCommenceAttack += DisplayEnemyLeaderUI;
         EnemyLeader.onShieldDamageTaken += UpdateEnemyLeaderShield;
+        EnemyLeader.onHealthDamageTaken += UpdateEnemyLeaderHealth;
     }
 
     private void OnDisable()
@@ -68,6 +69,7 @@ public class UIManager : MonoBehaviour
         SpawnManager.onEnemyLeaderSpawn -= DisplayBossUI;
         EnemyLeader.onCommenceAttack -= DisplayEnemyLeaderUI;
         EnemyLeader.onShieldDamageTaken -= UpdateEnemyLeaderShield;
+        EnemyLeader.onHealthDamageTaken -= UpdateEnemyLeaderHealth;
     }
 
     // Start is called before the first frame update
@@ -105,6 +107,7 @@ public class UIManager : MonoBehaviour
         }
 
         _enemyLeaderShield.fillAmount = 1f;
+        _enemyLeaderHealth.fillAmount = 1f;
     }
 
     public IEnumerator WaveCleared(int waveNumber)
@@ -311,5 +314,17 @@ public class UIManager : MonoBehaviour
 
         float shieldPercent = currentShieldLevel / maxShieldLevel;
         _enemyLeaderShield.fillAmount = shieldPercent;
+    }
+
+    private void UpdateEnemyLeaderHealth(float currentHealth, float maxHealth)
+    {
+        if (currentHealth <= 0)
+        {
+            _enemyLeaderHealth.fillAmount = 0f;
+            return;
+        }
+
+        float healthPercent = currentHealth / maxHealth;
+        _enemyLeaderHealth.fillAmount = healthPercent;
     }
 }

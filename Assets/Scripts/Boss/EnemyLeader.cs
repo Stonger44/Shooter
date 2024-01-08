@@ -38,11 +38,16 @@ public class EnemyLeader : SpaceShip
     [SerializeField] private int _maxShields = 100;
     [SerializeField] private int _shields = 100;
 
+    [Header("Health")]
+    [SerializeField] private int _maxHealth = 100;
+    [SerializeField] private int _health = 100;
 
     public static event Action onBossApproach;
     public static event Action onCommenceAttack;
     public static event Action<float, float> onShieldDamageTaken;
     public static event Action onShieldDepletion;
+
+    public static event Action<float, float> onHealthDamageTaken;
 
     private void OnEnable()
     {
@@ -172,25 +177,38 @@ public class EnemyLeader : SpaceShip
         if (_shields > 0)
         {
             DamageShield(damage);
+            return;
         }
+
+        DamageHealth(damage);
     }
 
     private void DamageShield(int damage)
     {
         _shields -= damage;
+        onShieldDamageTaken?.Invoke(_shields, _maxShields);
 
         if (_shields <= 0)
         {
             _shields = 0;
             onShieldDepletion?.Invoke();
             StartCoroutine(ShieldFailure(_shieldSprite));
+            Debug.Log("Power Core is exposing itself!");
+            // Expose Power Core
 
         }
-        onShieldDamageTaken?.Invoke(_shields, _maxShields);
     }
 
-    private void DamageHealth()
+    private void DamageHealth(int damage)
     {
+        _health -= damage;
+        onHealthDamageTaken?.Invoke(_health, _maxHealth);
 
+        if (_health <= 0 )
+        {
+            _health = 0;
+            Debug.Log("You Defeated!");
+            // Trigger death
+        }
     }
 }
