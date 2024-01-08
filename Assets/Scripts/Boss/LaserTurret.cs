@@ -15,8 +15,8 @@ public class LaserTurret : MonoBehaviour
     private AudioSource _audioSource;
 
     [Header("Turret")]
-    [SerializeField] private Vector3 _eulerAngle;
-    [SerializeField] private float _zDegrees = 40f;
+    private Vector3 _eulerAngle;
+    [SerializeField] private float _zDegrees = 90f;
     [SerializeField] private GameObject _barrelTip;
 
     private void OnEnable()
