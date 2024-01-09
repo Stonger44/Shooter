@@ -37,6 +37,16 @@ public class EnemyLeader : SpaceShip
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private int _health = 100;
 
+    [Header("Power Core")]
+    [SerializeField] private GameObject _powerCore;
+    [SerializeField] private float _xPowerCoreInternalPosition = -6.84f;
+    [SerializeField] private float _xPowerCoreExposedPosition = -8.4f;
+    [SerializeField] private float _powerCoreMovementSpeed = 1f;
+    private WaitForSeconds _powerCoreExposureTime = new WaitForSeconds(8f);
+    private Vector2 _powerCoreDirection;
+    private bool _exposePowerCore = false;
+    private bool _retractPowerCore = false;
+
     public static event Action onBossApproach;
     public static event Action onCommenceAttack;
     public static event Action<float, float> onShieldDamageTaken;
@@ -72,6 +82,11 @@ public class EnemyLeader : SpaceShip
     void Update()
     {
         Move();
+
+        if (_exposePowerCore || _retractPowerCore)
+        {
+            MovePowerCore();
+        }
     }
 
     private void Move()
@@ -188,8 +203,7 @@ public class EnemyLeader : SpaceShip
             _shields = 0;
             onShieldDepletion?.Invoke();
             StartCoroutine(ShieldFailure(_shieldSprite));
-            Debug.Log("Power Core is exposing itself!");
-            // Expose Power Core
+            TriggerPowerCoreExposure();
 
         }
     }
@@ -205,5 +219,35 @@ public class EnemyLeader : SpaceShip
             Debug.Log("You Defeated!");
             // Trigger death
         }
+    }
+
+    private void MovePowerCore()
+    {
+        _powerCore.transform.Translate(_powerCoreDirection * _powerCoreMovementSpeed * Time.deltaTime);
+
+        //_powerCore.transform.position = new Vector2(Mathf.Clamp(_powerCore.transform.position.x, _xPowerCoreExposedPosition, _xPowerCoreInternalPosition), _powerCore.transform.position.y);
+
+        if (_exposePowerCore && _powerCore.transform.position.x <= _xPowerCoreExposedPosition)
+        {
+            _exposePowerCore = false;
+        }
+        //if (_retractPowerCore && _powerCore.transform.position.x == _xPowerCoreInternalPosition)
+        //{
+        //    _retractPowerCore = false;
+        //}
+    }
+
+    private IEnumerator PowerCoreExposureCoolDown()
+    {
+        yield return _powerCoreExposureTime;
+        _retractPowerCore = true;
+        _powerCoreDirection = Vector2.down;
+    }
+
+    private void TriggerPowerCoreExposure()
+    {
+        _exposePowerCore = true;
+        _powerCoreDirection = Vector2.up;
+        // StartCoroutine(PowerCoreExposureCoolDown());
     }
 }
