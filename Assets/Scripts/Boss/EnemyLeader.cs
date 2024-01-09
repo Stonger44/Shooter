@@ -28,11 +28,6 @@ public class EnemyLeader : SpaceShip
     [SerializeField] private float _xHoldDirection = -0.05f;
     [SerializeField] private float _yDirection = 0.2f;
 
-    [Header("PowerCore")]
-    [SerializeField] private GameObject _powerCore;
-    [SerializeField] private float _xPowerCoreInternalPosition = -6.84f;
-    [SerializeField] private float _xPowerCoreExposedPosition = -8.4f;
-
     [Header("Shields")]
     [SerializeField] private GameObject _shieldSprite;
     [SerializeField] private int _maxShields = 100;
