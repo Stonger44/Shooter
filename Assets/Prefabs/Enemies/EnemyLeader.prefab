@@ -111,7 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2791232841513969138}
   m_Layer: 0
-  m_Name: PowerCoreExposedPosition
+  m_Name: ExposedPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,6 +522,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc3e69e0f1b47d543925ed61ec4ad2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _internalPosition: {fileID: 7057689624766921415}
+  _exposedPosition: {fileID: 2669631737174515949}
+  _movementSpeed: 1
 --- !u!1 &3036907280662049489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,6 +1054,7 @@ MonoBehaviour:
   _rightBoundary: 11
   _upperBoundary: 1
   _lowerBoundary: -1.5
+  _spawnPosition: {x: 22, y: 0}
   _speed: 2
   _xHoldDirection: -0.05
   _yDirection: 0.2
@@ -1059,10 +1063,6 @@ MonoBehaviour:
   _shields: 100
   _maxHealth: 100
   _health: 100
-  _powerCore: {fileID: 3036907280270466959}
-  _powerCoreInternalPosition: {fileID: 7057689624766921415}
-  _powerCoreExposedPosition: {fileID: 2669631737174515949}
-  _powerCoreMovementSpeed: 1
 --- !u!1 &3036907280734034382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,7 +1494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5322940302751342091}
   m_Layer: 0
-  m_Name: PowerCoreInternalPosition
+  m_Name: InternalPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
