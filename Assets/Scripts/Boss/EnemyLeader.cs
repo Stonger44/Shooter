@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class EnemyLeader : SpaceShip
 {
@@ -21,10 +22,10 @@ public class EnemyLeader : SpaceShip
     [SerializeField] private float _lowerBoundary = -1f;
 
     [Header("Movement")]
+    [SerializeField] private Vector2 _spawnPosition = new Vector2(22f, 0f);
     [SerializeField] private float _speed = 2f;
     private Vector2 _direction = Vector2.left;
     private bool _holdPosition = false;
-    [SerializeField] private float _xDirection = -1f;
     [SerializeField] private float _xHoldDirection = -0.05f;
     [SerializeField] private float _yDirection = 0.2f;
 
@@ -39,11 +40,10 @@ public class EnemyLeader : SpaceShip
 
     [Header("Power Core")]
     [SerializeField] private GameObject _powerCore;
-    [SerializeField] private float _xPowerCoreInternalPosition = -6.84f;
-    [SerializeField] private float _xPowerCoreExposedPosition = -8.4f;
+    [SerializeField] private GameObject _powerCoreInternalPosition;
+    [SerializeField] private GameObject _powerCoreExposedPosition;
     [SerializeField] private float _powerCoreMovementSpeed = 1f;
     private WaitForSeconds _powerCoreExposureTime = new WaitForSeconds(8f);
-    private Vector2 _powerCoreDirection;
     private bool _exposePowerCore = false;
     private bool _retractPowerCore = false;
 
@@ -73,7 +73,8 @@ public class EnemyLeader : SpaceShip
             Debug.LogError("Player is null!");
         }
 
-        transform.position = new Vector2(22f, 0f);
+        transform.position = _spawnPosition;
+        _powerCore.transform.position = _powerCoreInternalPosition.transform.position;
 
         onBossApproach?.Invoke();
     }
@@ -223,31 +224,36 @@ public class EnemyLeader : SpaceShip
 
     private void MovePowerCore()
     {
-        _powerCore.transform.Translate(_powerCoreDirection * _powerCoreMovementSpeed * Time.deltaTime);
-
-        //_powerCore.transform.position = new Vector2(Mathf.Clamp(_powerCore.transform.position.x, _xPowerCoreExposedPosition, _xPowerCoreInternalPosition), _powerCore.transform.position.y);
-
-        if (_exposePowerCore && _powerCore.transform.position.x <= _xPowerCoreExposedPosition)
+        if (_exposePowerCore)
         {
-            _exposePowerCore = false;
+            _powerCore.transform.position = Vector2.MoveTowards(_powerCore.transform.position, _powerCoreExposedPosition.transform.position, _powerCoreMovementSpeed * Time.deltaTime);
+
+            if (_powerCore.transform.position == _powerCoreExposedPosition.transform.position)
+            {
+                _exposePowerCore = false;
+            }
         }
-        //if (_retractPowerCore && _powerCore.transform.position.x == _xPowerCoreInternalPosition)
-        //{
-        //    _retractPowerCore = false;
-        //}
+
+        if (_retractPowerCore)
+        {
+            _powerCore.transform.position = Vector2.MoveTowards(_powerCore.transform.position, _powerCoreInternalPosition.transform.position, _powerCoreMovementSpeed * Time.deltaTime);
+
+            if (_powerCore.transform.position == _powerCoreInternalPosition.transform.position)
+            {
+                _retractPowerCore = false;
+            }
+        }
     }
 
     private IEnumerator PowerCoreExposureCoolDown()
     {
         yield return _powerCoreExposureTime;
         _retractPowerCore = true;
-        _powerCoreDirection = Vector2.down;
     }
 
     private void TriggerPowerCoreExposure()
     {
         _exposePowerCore = true;
-        _powerCoreDirection = Vector2.up;
-        // StartCoroutine(PowerCoreExposureCoolDown());
+        StartCoroutine(PowerCoreExposureCoolDown());
     }
 }
