@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShieldGenerator : MonoBehaviour
@@ -28,13 +26,13 @@ public class ShieldGenerator : MonoBehaviour
     private void OnEnable()
     {
         EnemyLeader.onShieldDepletion += ShieldGeneratorDepletion;
-        PowerCore.onPowerCoreRetraction += PowerUpShieldGenerators;
+        PowerCore.onPowerCoreRetracted += PowerUpShieldGenerators;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onShieldDepletion -= ShieldGeneratorDepletion;
-        PowerCore.onPowerCoreRetraction -= PowerUpShieldGenerators;
+        PowerCore.onPowerCoreRetracted -= PowerUpShieldGenerators;
     }
 
     // Start is called before the first frame update

@@ -5,19 +5,24 @@ public class AudioManager : MonoBehaviour
     private AudioSource _explosionSound;
     private AudioSource _powerUpSound;
     private AudioSource _powerDownSound;
+    private AudioSource _powerCoreMovementSound;
 
     private void OnEnable()
     {
         MissilePlayer.onExplosion += PlayExplosionSound;
         SpaceBomb.onExplosion += PlayExplosionSound;
         ShieldGenerator.onShieldGeneratorPowerDepletion += PlayPowerDownSound;
+        PowerCore.onPowerCoreStartMovement += PlayPowerCoreMovementSound;
+        PowerCore.onPowerCoreStopMovement += StopPowerCoreMovementSound;
     }
 
     private void OnDisable()
     {
         MissilePlayer.onExplosion -= PlayExplosionSound;
         SpaceBomb.onExplosion -= PlayExplosionSound;
-        ShieldGenerator.onShieldGeneratorPowerDepletion += PlayPowerDownSound;
+        ShieldGenerator.onShieldGeneratorPowerDepletion -= PlayPowerDownSound;
+        PowerCore.onPowerCoreStartMovement -= PlayPowerCoreMovementSound;
+        PowerCore.onPowerCoreStopMovement -= StopPowerCoreMovementSound;
     }
 
     // Start is called before the first frame update
@@ -26,17 +31,22 @@ public class AudioManager : MonoBehaviour
         _explosionSound = GameObject.Find("ExplosionSound").GetComponent<AudioSource>();
         if (_explosionSound == null)
         {
-            Debug.LogError("Explosion Sound is null!");
+            Debug.LogError("ExplosionSound is null!");
         }
         _powerUpSound = GameObject.Find("PowerUpSound").GetComponent<AudioSource>();
         if (_powerUpSound == null)
         {
-            Debug.LogError("PowerUp Sound is null!");
+            Debug.LogError("PowerUpSound is null!");
         }
         _powerDownSound = GameObject.Find("PowerDownSound").GetComponent<AudioSource>();
         if (_powerDownSound == null)
         {
-            Debug.LogError("PowerDown Sound is null!");
+            Debug.LogError("PowerDownSound is null!");
+        }
+        _powerCoreMovementSound = GameObject.Find("PowerCoreMovementSound").GetComponent<AudioSource>();
+        if (_powerCoreMovementSound == null)
+        {
+            Debug.LogError("PowerCoreMovementSound is null!");
         }
 
         AudioListener.volume = 0.5f;
@@ -65,5 +75,17 @@ public class AudioManager : MonoBehaviour
     {
         _powerDownSound.pitch = Time.timeScale / 2;
         _powerDownSound.Play();
+    }
+
+    private void PlayPowerCoreMovementSound()
+    {
+        _powerCoreMovementSound.pitch = Time.timeScale;
+        _powerCoreMovementSound.Play();
+    }
+
+    private void StopPowerCoreMovementSound()
+    {
+        _powerCoreMovementSound.pitch = Time.timeScale;
+        _powerCoreMovementSound.Stop();
     }
 }

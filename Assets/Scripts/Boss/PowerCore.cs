@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerCore : MonoBehaviour
@@ -12,7 +11,9 @@ public class PowerCore : MonoBehaviour
     private bool _exposePowerCore = false;
     private bool _retractPowerCore = false;
 
-    public static event Action onPowerCoreRetraction;
+    public static event Action onPowerCoreRetracted;
+    public static event Action onPowerCoreStartMovement;
+    public static event Action onPowerCoreStopMovement;
 
     private void OnEnable()
     {
@@ -48,12 +49,14 @@ public class PowerCore : MonoBehaviour
     {
         yield return _powerCoreExposureTime;
         _retractPowerCore = true;
+        onPowerCoreStartMovement?.Invoke();
     }
 
     private void TriggerPowerCoreExposure()
     {
         _exposePowerCore = true;
         StartCoroutine(PowerCoreExposureCoolDown());
+        onPowerCoreStartMovement?.Invoke();
     }
 
     private void ExposePowerCore()
@@ -63,6 +66,7 @@ public class PowerCore : MonoBehaviour
         if (transform.position == _exposedPosition.transform.position)
         {
             _exposePowerCore = false;
+            onPowerCoreStopMovement?.Invoke();
         }
     }
 
@@ -73,7 +77,8 @@ public class PowerCore : MonoBehaviour
         if (transform.position == _internalPosition.transform.position)
         {
             _retractPowerCore = false;
-            onPowerCoreRetraction?.Invoke();
+            onPowerCoreRetracted?.Invoke();
+            onPowerCoreStopMovement?.Invoke();
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class EnemyLeader : SpaceShip
 {
@@ -48,13 +45,13 @@ public class EnemyLeader : SpaceShip
     private void OnEnable()
     {
         ShieldGenerator.onShieldGeneratorDamage += DamageShield;
-        PowerCore.onPowerCoreRetraction += RaiseShields;
+        PowerCore.onPowerCoreRetracted += RaiseShields;
     }
 
     private void OnDisable()
     {
         ShieldGenerator.onShieldGeneratorDamage -= DamageShield;
-        PowerCore.onPowerCoreRetraction -= RaiseShields;
+        PowerCore.onPowerCoreRetracted -= RaiseShields;
     }
 
     // Start is called before the first frame update
