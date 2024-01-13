@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class PowerCore : MonoBehaviour
     private WaitForSeconds _powerCoreExposureTime = new WaitForSeconds(8f);
     private bool _exposePowerCore = false;
     private bool _retractPowerCore = false;
+
+    public static event Action onPowerCoreRetraction;
 
     private void OnEnable()
     {
@@ -30,32 +33,14 @@ public class PowerCore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_exposePowerCore || _retractPowerCore)
-        {
-            ChangePosition();
-        }
-    }
-
-    private void ChangePosition()
-    {
         if (_exposePowerCore)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _exposedPosition.transform.position, _movementSpeed * Time.deltaTime);
-
-            if (transform.position == _exposedPosition.transform.position)
-            {
-                _exposePowerCore = false;
-            }
+            ExposePowerCore();
         }
 
         if (_retractPowerCore)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _internalPosition.transform.position, _movementSpeed * Time.deltaTime);
-
-            if (transform.position == _internalPosition.transform.position)
-            {
-                _retractPowerCore = false;
-            }
+            RetractPowerCore();
         }
     }
 
@@ -69,5 +54,26 @@ public class PowerCore : MonoBehaviour
     {
         _exposePowerCore = true;
         StartCoroutine(PowerCoreExposureCoolDown());
+    }
+
+    private void ExposePowerCore()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, _exposedPosition.transform.position, _movementSpeed * Time.deltaTime);
+
+        if (transform.position == _exposedPosition.transform.position)
+        {
+            _exposePowerCore = false;
+        }
+    }
+
+    private void RetractPowerCore()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, _internalPosition.transform.position, _movementSpeed * Time.deltaTime);
+
+        if (transform.position == _internalPosition.transform.position)
+        {
+            _retractPowerCore = false;
+            onPowerCoreRetraction?.Invoke();
+        }
     }
 }

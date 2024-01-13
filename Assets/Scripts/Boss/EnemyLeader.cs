@@ -48,11 +48,13 @@ public class EnemyLeader : SpaceShip
     private void OnEnable()
     {
         ShieldGenerator.onShieldGeneratorDamage += DamageShield;
+        PowerCore.onPowerCoreRetraction += RaiseShields;
     }
 
     private void OnDisable()
     {
         ShieldGenerator.onShieldGeneratorDamage -= DamageShield;
+        PowerCore.onPowerCoreRetraction -= RaiseShields;
     }
 
     // Start is called before the first frame update
@@ -203,5 +205,11 @@ public class EnemyLeader : SpaceShip
             Debug.Log("You Defeated!");
             // Trigger death
         }
+    }
+
+    private void RaiseShields()
+    {
+        _shieldSprite.SetActive(true);
+        _shields = _maxShields;
     }
 }

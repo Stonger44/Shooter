@@ -16,6 +16,7 @@ public class ShieldGenerator : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _collider;
 
+    [SerializeField] private int _maxShieldPower = 25;
     [SerializeField] private int _shieldPower = 25;
     [SerializeField] private int _shieldGeneratorPowerLossDamage = 50;
     [SerializeField] Color _shieldGeneratorActiveColor;
@@ -27,11 +28,13 @@ public class ShieldGenerator : MonoBehaviour
     private void OnEnable()
     {
         EnemyLeader.onShieldDepletion += ShieldGeneratorDepletion;
+        PowerCore.onPowerCoreRetraction += PowerUpShieldGenerators;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onShieldDepletion -= ShieldGeneratorDepletion;
+        PowerCore.onPowerCoreRetraction -= PowerUpShieldGenerators;
     }
 
     // Start is called before the first frame update
@@ -111,5 +114,12 @@ public class ShieldGenerator : MonoBehaviour
         _collider.enabled = false;
         onShieldGeneratorPowerDepletion?.Invoke();
         _spriteRenderer.color = _shieldGeneratorInactiveColor;
+    }
+
+    private void PowerUpShieldGenerators()
+    {
+        _spriteRenderer.color = _shieldGeneratorActiveColor;
+        _shieldPower = _maxShieldPower;
+        _collider.enabled = true;
     }
 }
