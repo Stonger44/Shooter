@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
         ShieldGenerator.onShieldGeneratorPowerDepletion += PlayPowerDownSound;
         PowerCore.onPowerCoreStartMovement += PlayPowerCoreMovementSound;
         PowerCore.onPowerCoreStopMovement += StopPowerCoreMovementSound;
+        PowerCore.onPowerCoreRetracted += PlayPowerUpSound;
     }
 
     private void OnDisable()
@@ -23,6 +24,7 @@ public class AudioManager : MonoBehaviour
         ShieldGenerator.onShieldGeneratorPowerDepletion -= PlayPowerDownSound;
         PowerCore.onPowerCoreStartMovement -= PlayPowerCoreMovementSound;
         PowerCore.onPowerCoreStopMovement -= StopPowerCoreMovementSound;
+        PowerCore.onPowerCoreRetracted -= PlayPowerUpSound;
     }
 
     // Start is called before the first frame update
