@@ -749,12 +749,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOver: 0
   _gamePaused: 0
-  _isTesting: 1
-  _currentWave: 2
+  _isTesting: 0
+  _currentWave: 1
   _waveEnemyMultiplier: 1
   _waveEnemyTotalCount: 0
   _enemiesRemaining: 0
-  _bossWaveMultiplier: 2
+  _bossWave: 5
 --- !u!1 &325802743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,6 +1022,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUp_SpaceBomb (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112303, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff87ce208317d5147a6ddfa3bfe13c10, type: 3}
 --- !u!1 &371283176
@@ -1212,6 +1217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PowerUp_SpaceBomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112303, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff87ce208317d5147a6ddfa3bfe13c10, type: 3}
@@ -1874,6 +1884,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PowerUp_Shield (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7901436498946432813, guid: e97bc8928e13b6141868e9984c25bf6a,
         type: 3}
@@ -2980,6 +2995,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUp_SpaceBomb (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3496811457575112303, guid: ff87ce208317d5147a6ddfa3bfe13c10,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff87ce208317d5147a6ddfa3bfe13c10, type: 3}
 --- !u!1 &915422022
@@ -3547,6 +3567,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUp_Shield (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7901436498946432813, guid: e97bc8928e13b6141868e9984c25bf6a,
         type: 3}
       propertyPath: m_RootOrder
@@ -3757,85 +3782,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069760956}
   m_CullTransparentMesh: 0
---- !u!1001 &1091468968
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3036907280719354951, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_Name
-      value: EnemyLeader
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354969, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354972, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: _shields
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3036907280719354972, guid: c575d8ded422d024f8cd2031e4bef721,
-        type: 3}
-      propertyPath: _maxShields
-      value: 15
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c575d8ded422d024f8cd2031e4bef721, type: 3}
 --- !u!1 &1117832676
 GameObject:
   m_ObjectHideFlags: 0
@@ -4286,6 +4232,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUp_TripleShot
       objectReference: {fileID: 0}
+    - target: {fileID: 7875646962571878835, guid: e982d6e820c2f04478452ddc816f8d7e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e982d6e820c2f04478452ddc816f8d7e, type: 3}
 --- !u!1001 &1250381991
@@ -4648,6 +4599,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PowerUp_HomingMissile
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319432523490945080, guid: 79a3cac3e5862384fb336eb6e2bac8ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7319432523490945082, guid: 79a3cac3e5862384fb336eb6e2bac8ae,
         type: 3}
@@ -6422,6 +6378,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PowerUp_Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901436498946432809, guid: e97bc8928e13b6141868e9984c25bf6a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7901436498946432813, guid: e97bc8928e13b6141868e9984c25bf6a,
         type: 3}

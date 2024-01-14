@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _waveEnemyMultiplier = 5;
     [SerializeField] private int _waveEnemyTotalCount;
     [SerializeField] private int _enemiesRemaining;
-    [SerializeField] private int _bossWaveMultiplier = 5;
+    [SerializeField] private int _bossWave = 5;
 
     public static event Action onBossWaveFinalEnemy;
 
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
         if (!_isTesting)
         {
-            _waveEnemyTotalCount = CalculateEnemyWaveCount();
+            _waveEnemyTotalCount = CalculateWaveEnemyCount();
             _enemiesRemaining = _waveEnemyTotalCount;
             StartCoroutine(Startwave()); 
         }
@@ -120,13 +120,16 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(WaveCleared());
+            if (_enemiesRemaining == 0)
+            {
+                StartCoroutine(WaveCleared()); 
+            }
         }
     }
 
     public bool IsBossWave()
     {
-        return _currentWave % _bossWaveMultiplier == 0;
+        return _currentWave == _bossWave;
     }
 
     public int GetCurrentWave()
@@ -170,13 +173,13 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(_uiManager.WaveCleared(_currentWave));
         _currentWave++;
-        _waveEnemyTotalCount = CalculateEnemyWaveCount();
+        _waveEnemyTotalCount = CalculateWaveEnemyCount();
         _enemiesRemaining = _waveEnemyTotalCount;
         yield return new WaitForSeconds(2f);
         StartCoroutine(Startwave());
     }
 
-    private int CalculateEnemyWaveCount()
+    private int CalculateWaveEnemyCount()
     {
         return _currentWave * _waveEnemyMultiplier;
     }
