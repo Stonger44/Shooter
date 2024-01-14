@@ -52,11 +52,13 @@ public class SpawnManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onBossWaveFinalEnemy += CallEnemyleader;
+        PowerCore.onPowerCorePowerUpDrop += SpawnPowerUp;
     }
 
     private void OnDisable()
     {
         GameManager.onBossWaveFinalEnemy -= CallEnemyleader;
+        PowerCore.onPowerCorePowerUpDrop -= SpawnPowerUp;
     }
 
     // Start is called before the first frame update

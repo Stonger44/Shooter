@@ -26,6 +26,8 @@ public class PowerCore : MonoBehaviour
     [SerializeField] private int _maxHealth = 15;
     [SerializeField] private int _health = 15;
     [SerializeField] private int _powerCoreDepletionDamage = 20;
+    [SerializeField] private GameObject _explosion;
+    private WaitForSeconds _powerUpDropDelay = new WaitForSeconds(0.2f);
 
     public static event Action onPowerCoreRetracted;
     public static event Action onPowerCoreStartMovement;
@@ -33,6 +35,7 @@ public class PowerCore : MonoBehaviour
 
     public static event Action<int> onPowerCoreDamage;
     public static event Action onPowerCoreDepletion;
+    public static event Action<Vector2> onPowerCorePowerUpDrop;
 
     private void OnEnable()
     {
@@ -168,12 +171,24 @@ public class PowerCore : MonoBehaviour
 
     private void PowerCoreDepletion()
     {
-        // Explosion
-        // Drop Powerup
-        // Retract PowerCore
+        Instantiate(_explosion, transform.position, Quaternion.identity);
         _collider.enabled = false;
         _powerCoreRetractionReadyTime = Time.time;
         onPowerCoreDepletion?.Invoke();
-        Debug.Log("PowerCore damaged, initiating retraction!");
+
+        if (true)
+        {
+            StartCoroutine(DropPowerup());
+        }
+        else
+        {
+            // deactivate PowerCore GameObject
+        }
+    }
+
+    private IEnumerator DropPowerup()
+    {
+        yield return _powerUpDropDelay;
+        onPowerCorePowerUpDrop?.Invoke(transform.position);
     }
 }

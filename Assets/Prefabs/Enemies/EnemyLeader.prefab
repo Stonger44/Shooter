@@ -528,6 +528,8 @@ MonoBehaviour:
   _maxHealth: 15
   _health: 15
   _powerCoreDepletionDamage: 20
+  _explosion: {fileID: 8454611186618823227, guid: a28b749aa1683f349a5226a9e22bb723,
+    type: 3}
 --- !u!1 &3036907280662049489
 GameObject:
   m_ObjectHideFlags: 0

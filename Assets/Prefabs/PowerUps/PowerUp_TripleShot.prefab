@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _powerUpId: 1
   _powerUpLeftBoundary: -11
-  _powerUpAvailableTime: 3
+  _powerUpAvailableTime: 4
   _standardSpeed: 0.5
   _collectionSpeed: 4
   _explosion: {fileID: 8998844228626226091}
