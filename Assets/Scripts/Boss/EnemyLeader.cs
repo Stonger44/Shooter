@@ -37,21 +37,23 @@ public class EnemyLeader : SpaceShip
 
     public static event Action onBossApproach;
     public static event Action onCommenceAttack;
-    public static event Action<float, float> onShieldDamageTaken;
+    public static event Action<float, float> onShieldDamage;
     public static event Action onShieldDepletion;
 
-    public static event Action<float, float> onHealthDamageTaken;
+    public static event Action<float, float> onHealthDamage;
 
     private void OnEnable()
     {
         ShieldGenerator.onShieldGeneratorDamage += DamageShield;
         PowerCore.onPowerCoreRetracted += RaiseShields;
+        PowerCore.onPowerCoreDamage += DamageHealth;
     }
 
     private void OnDisable()
     {
         ShieldGenerator.onShieldGeneratorDamage -= DamageShield;
         PowerCore.onPowerCoreRetracted -= RaiseShields;
+        PowerCore.onPowerCoreDamage -= DamageHealth;
     }
 
     // Start is called before the first frame update
@@ -181,7 +183,7 @@ public class EnemyLeader : SpaceShip
     private void DamageShield(int damage)
     {
         _shields -= damage;
-        onShieldDamageTaken?.Invoke(_shields, _maxShields);
+        onShieldDamage?.Invoke(_shields, _maxShields);
 
         if (_shields <= 0)
         {
@@ -194,7 +196,7 @@ public class EnemyLeader : SpaceShip
     private void DamageHealth(int damage)
     {
         _health -= damage;
-        onHealthDamageTaken?.Invoke(_health, _maxHealth);
+        onHealthDamage?.Invoke(_health, _maxHealth);
 
         if (_health <= 0 )
         {

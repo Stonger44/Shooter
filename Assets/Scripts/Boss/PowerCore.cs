@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class PowerCore : MonoBehaviour
 {
+    private const string _playerTag = "Player";
+    private const string _laserTag = "Laser";
+    private const string _tripleShotTag = "TripleShot";
+    private const string _blastZoneTag = "BlastZone";
+    private const string _missileTag = "Missile";
+    private string _otherTag = string.Empty;
+
+    private Player _player;
+
     [SerializeField] private GameObject _internalPosition;
     [SerializeField] private GameObject _exposedPosition;
     [SerializeField] private float _movementSpeed = 1f;
@@ -11,9 +20,16 @@ public class PowerCore : MonoBehaviour
     private bool _exposePowerCore = false;
     private bool _retractPowerCore = false;
 
+    [Header("Health")]
+    [SerializeField] private int _maxHealth = 25;
+    [SerializeField] private int _health = 25;
+    [SerializeField] private int _powerCoreDepletionDamage = 30;
+
     public static event Action onPowerCoreRetracted;
     public static event Action onPowerCoreStartMovement;
     public static event Action onPowerCoreStopMovement;
+
+    public static event Action<int> onPowerCoreDamage;
 
     private void OnEnable()
     {
@@ -28,6 +44,12 @@ public class PowerCore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _player = GameObject.Find("Player").GetComponent<Player>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is null!");
+        }
+
         transform.position = _internalPosition.transform.position;
     }
 
@@ -45,7 +67,7 @@ public class PowerCore : MonoBehaviour
         }
     }
 
-    private IEnumerator PowerCoreExposureCoolDown()
+    private IEnumerator PowerCoreExposureTime()
     {
         yield return _powerCoreExposureTime;
         _retractPowerCore = true;
@@ -55,7 +77,7 @@ public class PowerCore : MonoBehaviour
     private void TriggerPowerCoreExposure()
     {
         _exposePowerCore = true;
-        StartCoroutine(PowerCoreExposureCoolDown());
+        StartCoroutine(PowerCoreExposureTime());
         onPowerCoreStartMovement?.Invoke();
     }
 
@@ -79,6 +101,61 @@ public class PowerCore : MonoBehaviour
             _retractPowerCore = false;
             onPowerCoreRetracted?.Invoke();
             onPowerCoreStopMovement?.Invoke();
+            _health = _maxHealth;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        _otherTag = other.tag;
+        switch (_otherTag)
+        {
+            case _playerTag:
+                _player.Damage();
+                Damage(5);
+                break;
+            case _laserTag:
+                Destroy(other.gameObject);
+                Damage(1);
+                break;
+            case _tripleShotTag:
+                Destroy(other.gameObject);
+                Damage(3);
+                break;
+            case _missileTag:
+                MissilePlayer missilePlayer = other.gameObject.GetComponent<MissilePlayer>();
+                if (missilePlayer != null)
+                {
+                    missilePlayer.DetonateMissile(this.gameObject);
+                }
+                Damage(5);
+                break;
+            case _blastZoneTag:
+                Damage(10);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void Damage(int damage)
+    {
+        _health -= damage;
+        onPowerCoreDamage?.Invoke(damage);
+
+        if (_health <= 0)
+        {
+            _health = 0;
+            PowerCoreDepletion();
+            onPowerCoreDamage?.Invoke(_powerCoreDepletionDamage);
+        }
+    }
+
+    private void PowerCoreDepletion()
+    {
+        // Explosion
+        // Drop Powerup
+        // Retract PowerCore
+        Debug.Log("PowerCore damaged and retracting!");
     }
 }

@@ -60,16 +60,16 @@ public class UIManager : MonoBehaviour
     {
         SpawnManager.onEnemyLeaderSpawn += DisplayBossUI;
         EnemyLeader.onCommenceAttack += DisplayEnemyLeaderUI;
-        EnemyLeader.onShieldDamageTaken += UpdateEnemyLeaderShield;
-        EnemyLeader.onHealthDamageTaken += UpdateEnemyLeaderHealth;
+        EnemyLeader.onShieldDamage += UpdateEnemyLeaderShield;
+        EnemyLeader.onHealthDamage += UpdateEnemyLeaderHealth;
     }
 
     private void OnDisable()
     {
         SpawnManager.onEnemyLeaderSpawn -= DisplayBossUI;
         EnemyLeader.onCommenceAttack -= DisplayEnemyLeaderUI;
-        EnemyLeader.onShieldDamageTaken -= UpdateEnemyLeaderShield;
-        EnemyLeader.onHealthDamageTaken -= UpdateEnemyLeaderHealth;
+        EnemyLeader.onShieldDamage -= UpdateEnemyLeaderShield;
+        EnemyLeader.onHealthDamage -= UpdateEnemyLeaderHealth;
     }
 
     // Start is called before the first frame update
