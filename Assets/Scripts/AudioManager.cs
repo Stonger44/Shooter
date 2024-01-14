@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnEnable()
     {
+        Player.onShieldDepletion += PlayPowerDownSound;
         MissilePlayer.onExplosion += PlayExplosionSound;
         SpaceBomb.onExplosion += PlayExplosionSound;
         ShieldGenerator.onShieldGeneratorPowerDepletion += PlayPowerDownSound;
@@ -20,6 +21,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnDisable()
     {
+        Player.onShieldDepletion -= PlayPowerDownSound;
         MissilePlayer.onExplosion -= PlayExplosionSound;
         SpaceBomb.onExplosion -= PlayExplosionSound;
         ShieldGenerator.onShieldGeneratorPowerDepletion -= PlayPowerDownSound;

@@ -115,7 +115,7 @@ public class Player : SpaceShip
 
     public static event Action<GameObject> onAttractPowerUp;
     public static event Action onStopAttractingPowerUp;
-
+    public static event Action onShieldDepletion;
     public static event Action onPlayerDeath;
 
     private void OnEnable()
@@ -213,6 +213,7 @@ public class Player : SpaceShip
             if (_shieldLevel < 1)
             {
                 StartCoroutine(ShieldFailure(_shield));
+                onShieldDepletion?.Invoke();
             }
             _uiManager.UpdateShieldsUI(_shieldLevel);
 
