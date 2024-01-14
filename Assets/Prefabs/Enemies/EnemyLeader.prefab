@@ -525,9 +525,9 @@ MonoBehaviour:
   _internalPosition: {fileID: 7057689624766921415}
   _exposedPosition: {fileID: 2669631737174515949}
   _movementSpeed: 2
-  _maxHealth: 25
-  _health: 25
-  _powerCoreDepletionDamage: 25
+  _maxHealth: 15
+  _health: 15
+  _powerCoreDepletionDamage: 20
 --- !u!1 &3036907280662049489
 GameObject:
   m_ObjectHideFlags: 0

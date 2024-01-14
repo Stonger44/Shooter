@@ -308,24 +308,12 @@ public class UIManager : MonoBehaviour
 
     private void UpdateEnemyLeaderShield(float currentShieldLevel, float maxShieldLevel)
     {
-        //if (currentShieldLevel <= 0)
-        //{
-        //    _enemyLeaderShield.fillAmount = 0f;
-        //    return;
-        //}
-
         float shieldPercent = currentShieldLevel / maxShieldLevel;
         _enemyLeaderShield.fillAmount = shieldPercent;
     }
 
     private void UpdateEnemyLeaderHealth(float currentHealth, float maxHealth)
     {
-        //if (currentHealth <= 0)
-        //{
-        //    _enemyLeaderHealth.fillAmount = 0f;
-        //    return;
-        //}
-
         float healthPercent = currentHealth / maxHealth;
         _enemyLeaderHealth.fillAmount = healthPercent;
     }

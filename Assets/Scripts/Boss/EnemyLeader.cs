@@ -144,7 +144,7 @@ public class EnemyLeader : SpaceShip
         {
             case _playerTag:
                 _player.Damage();
-                Damage(5);
+                Damage(2);
                 break;
             case _laserTag:
                 Destroy(other.gameObject);
@@ -160,10 +160,10 @@ public class EnemyLeader : SpaceShip
                 {
                     missilePlayer.DetonateMissile(this.gameObject);
                 }
-                Damage(5);
+                Damage(4);
                 break;
             case _blastZoneTag:
-                Damage(10);
+                Damage(4);
                 break;
             default:
                 break;
@@ -203,10 +203,9 @@ public class EnemyLeader : SpaceShip
     {
         _health -= damage;
 
-        if (_health <= 0 )
+        if (_health <= 0)
         {
             _health = 0;
-            
         }
 
         onHealthDamage?.Invoke(_health, _maxHealth);

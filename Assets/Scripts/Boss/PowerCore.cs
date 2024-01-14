@@ -23,9 +23,9 @@ public class PowerCore : MonoBehaviour
     private bool _retractPowerCore = false;
 
     [Header("Health")]
-    [SerializeField] private int _maxHealth = 25;
-    [SerializeField] private int _health = 25;
-    [SerializeField] private int _powerCoreDepletionDamage = 25;
+    [SerializeField] private int _maxHealth = 15;
+    [SerializeField] private int _health = 15;
+    [SerializeField] private int _powerCoreDepletionDamage = 20;
 
     public static event Action onPowerCoreRetracted;
     public static event Action onPowerCoreStartMovement;
@@ -161,10 +161,6 @@ public class PowerCore : MonoBehaviour
         if (_health <= 0)
         {
             _health = 0;
-        }
-
-        if (_health == 0)
-        {
             PowerCoreDepletion();
             onPowerCoreDamage?.Invoke(_powerCoreDepletionDamage);
         }
