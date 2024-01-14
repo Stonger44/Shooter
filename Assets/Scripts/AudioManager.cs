@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
         PowerCore.onPowerCoreStartMovement += PlayPowerCoreMovementSound;
         PowerCore.onPowerCoreStopMovement += StopPowerCoreMovementSound;
         PowerCore.onPowerCoreRetracted += PlayPowerUpSound;
+        PowerCore.onPowerCoreDepletion += PlayExplosionSound;
     }
 
     private void OnDisable()
@@ -25,6 +26,7 @@ public class AudioManager : MonoBehaviour
         PowerCore.onPowerCoreStartMovement -= PlayPowerCoreMovementSound;
         PowerCore.onPowerCoreStopMovement -= StopPowerCoreMovementSound;
         PowerCore.onPowerCoreRetracted -= PlayPowerUpSound;
+        PowerCore.onPowerCoreDepletion -= PlayExplosionSound;
     }
 
     // Start is called before the first frame update

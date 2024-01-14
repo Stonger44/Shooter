@@ -16,7 +16,7 @@ public class ShieldGenerator : MonoBehaviour
 
     [SerializeField] private int _maxShieldPower = 25;
     [SerializeField] private int _shieldPower = 25;
-    [SerializeField] private int _shieldGeneratorPowerLossDamage = 50;
+    [SerializeField] private int _shieldGeneratorPowerLossDamage = 25;
     [SerializeField] Color _shieldGeneratorActiveColor;
     [SerializeField] Color _shieldGeneratorInactiveColor;
 

@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
         SpawnManager.onEnemyLeaderSpawn += DisplayBossUI;
         EnemyLeader.onCommenceAttack += DisplayEnemyLeaderUI;
         EnemyLeader.onShieldDamage += UpdateEnemyLeaderShield;
+        EnemyLeader.onShieldCharge += UpdateEnemyLeaderShield;
         EnemyLeader.onHealthDamage += UpdateEnemyLeaderHealth;
     }
 
@@ -69,6 +70,7 @@ public class UIManager : MonoBehaviour
         SpawnManager.onEnemyLeaderSpawn -= DisplayBossUI;
         EnemyLeader.onCommenceAttack -= DisplayEnemyLeaderUI;
         EnemyLeader.onShieldDamage -= UpdateEnemyLeaderShield;
+        EnemyLeader.onShieldCharge -= UpdateEnemyLeaderShield;
         EnemyLeader.onHealthDamage -= UpdateEnemyLeaderHealth;
     }
 
@@ -306,11 +308,11 @@ public class UIManager : MonoBehaviour
 
     private void UpdateEnemyLeaderShield(float currentShieldLevel, float maxShieldLevel)
     {
-        if (currentShieldLevel <= 0)
-        {
-            _enemyLeaderShield.fillAmount = 0f;
-            return;
-        }
+        //if (currentShieldLevel <= 0)
+        //{
+        //    _enemyLeaderShield.fillAmount = 0f;
+        //    return;
+        //}
 
         float shieldPercent = currentShieldLevel / maxShieldLevel;
         _enemyLeaderShield.fillAmount = shieldPercent;
@@ -318,11 +320,11 @@ public class UIManager : MonoBehaviour
 
     private void UpdateEnemyLeaderHealth(float currentHealth, float maxHealth)
     {
-        if (currentHealth <= 0)
-        {
-            _enemyLeaderHealth.fillAmount = 0f;
-            return;
-        }
+        //if (currentHealth <= 0)
+        //{
+        //    _enemyLeaderHealth.fillAmount = 0f;
+        //    return;
+        //}
 
         float healthPercent = currentHealth / maxHealth;
         _enemyLeaderHealth.fillAmount = healthPercent;

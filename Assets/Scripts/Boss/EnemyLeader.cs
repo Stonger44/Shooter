@@ -38,6 +38,7 @@ public class EnemyLeader : SpaceShip
     public static event Action onBossApproach;
     public static event Action onCommenceAttack;
     public static event Action<float, float> onShieldDamage;
+    public static event Action<float, float> onShieldCharge;
     public static event Action onShieldDepletion;
 
     public static event Action<float, float> onHealthDamage;
@@ -183,11 +184,16 @@ public class EnemyLeader : SpaceShip
     private void DamageShield(int damage)
     {
         _shields -= damage;
-        onShieldDamage?.Invoke(_shields, _maxShields);
 
         if (_shields <= 0)
         {
             _shields = 0;
+        }
+
+        onShieldDamage?.Invoke(_shields, _maxShields);
+
+        if (_shields == 0)
+        {
             onShieldDepletion?.Invoke();
             StartCoroutine(ShieldFailure(_shieldSprite));
         }
@@ -196,11 +202,17 @@ public class EnemyLeader : SpaceShip
     private void DamageHealth(int damage)
     {
         _health -= damage;
-        onHealthDamage?.Invoke(_health, _maxHealth);
 
         if (_health <= 0 )
         {
             _health = 0;
+            
+        }
+
+        onHealthDamage?.Invoke(_health, _maxHealth);
+
+        if (_health == 0)
+        {
             Debug.Log("You Defeated!");
             // Trigger death
         }
@@ -210,5 +222,6 @@ public class EnemyLeader : SpaceShip
     {
         _shieldSprite.SetActive(true);
         _shields = _maxShields;
+        onShieldCharge?.Invoke(_shields, _maxShields);
     }
 }

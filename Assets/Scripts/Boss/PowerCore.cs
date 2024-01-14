@@ -12,10 +12,11 @@ public class PowerCore : MonoBehaviour
     private string _otherTag = string.Empty;
 
     private Player _player;
+    private BoxCollider2D _collider;
 
     [SerializeField] private GameObject _internalPosition;
     [SerializeField] private GameObject _exposedPosition;
-    [SerializeField] private float _movementSpeed = 1f;
+    [SerializeField] private float _movementSpeed = 1.5f;
     private float _powerCoreExposureTime = 8f;
     private float _powerCoreRetractionReadyTime;
     private bool _exposePowerCore = false;
@@ -24,13 +25,14 @@ public class PowerCore : MonoBehaviour
     [Header("Health")]
     [SerializeField] private int _maxHealth = 25;
     [SerializeField] private int _health = 25;
-    [SerializeField] private int _powerCoreDepletionDamage = 30;
+    [SerializeField] private int _powerCoreDepletionDamage = 25;
 
     public static event Action onPowerCoreRetracted;
     public static event Action onPowerCoreStartMovement;
     public static event Action onPowerCoreStopMovement;
 
     public static event Action<int> onPowerCoreDamage;
+    public static event Action onPowerCoreDepletion;
 
     private void OnEnable()
     {
@@ -50,8 +52,14 @@ public class PowerCore : MonoBehaviour
         {
             Debug.LogError("Player is null!");
         }
+        _collider = GetComponent<BoxCollider2D>();
+        if (_collider == null)
+        {
+            Debug.Log("Collider is null!");
+        }
 
         transform.position = _internalPosition.transform.position;
+        _collider.enabled = false;
     }
 
     // Update is called once per frame
@@ -94,6 +102,7 @@ public class PowerCore : MonoBehaviour
         if (transform.position == _exposedPosition.transform.position)
         {
             _exposePowerCore = false;
+            _collider.enabled = true;
             onPowerCoreStopMovement?.Invoke();
         }
     }
@@ -152,6 +161,10 @@ public class PowerCore : MonoBehaviour
         if (_health <= 0)
         {
             _health = 0;
+        }
+
+        if (_health == 0)
+        {
             PowerCoreDepletion();
             onPowerCoreDamage?.Invoke(_powerCoreDepletionDamage);
         }
@@ -162,7 +175,9 @@ public class PowerCore : MonoBehaviour
         // Explosion
         // Drop Powerup
         // Retract PowerCore
+        _collider.enabled = false;
         _powerCoreRetractionReadyTime = Time.time;
+        onPowerCoreDepletion?.Invoke();
         Debug.Log("PowerCore damaged, initiating retraction!");
     }
 }

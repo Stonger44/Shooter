@@ -524,10 +524,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _internalPosition: {fileID: 7057689624766921415}
   _exposedPosition: {fileID: 2669631737174515949}
-  _movementSpeed: 1
+  _movementSpeed: 2
   _maxHealth: 25
   _health: 25
-  _powerCoreDepletionDamage: 30
+  _powerCoreDepletionDamage: 25
 --- !u!1 &3036907280662049489
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxShieldPower: 25
   _shieldPower: 25
-  _shieldGeneratorPowerLossDamage: 50
+  _shieldGeneratorPowerLossDamage: 25
   _shieldGeneratorActiveColor: {r: 0, g: 1, b: 0.78431374, a: 1}
   _shieldGeneratorInactiveColor: {r: 0, g: 0.24528301, b: 0.19237882, a: 1}
 --- !u!1 &3036907280688114558
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxShieldPower: 25
   _shieldPower: 25
-  _shieldGeneratorPowerLossDamage: 50
+  _shieldGeneratorPowerLossDamage: 25
   _shieldGeneratorActiveColor: {r: 0, g: 1, b: 0.78431374, a: 1}
   _shieldGeneratorInactiveColor: {r: 0, g: 0.24528301, b: 0.19237882, a: 1}
 --- !u!1 &3036907280872475978
