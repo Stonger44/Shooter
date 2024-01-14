@@ -392,9 +392,9 @@ GameObject:
   - component: {fileID: 3036907280270466946}
   - component: {fileID: 3036907280270466947}
   - component: {fileID: 3036907280270466948}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PowerCore
-  m_TagString: Untagged
+  m_TagString: PowerCore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -525,6 +525,9 @@ MonoBehaviour:
   _internalPosition: {fileID: 7057689624766921415}
   _exposedPosition: {fileID: 2669631737174515949}
   _movementSpeed: 1
+  _maxHealth: 25
+  _health: 25
+  _powerCoreDepletionDamage: 30
 --- !u!1 &3036907280662049489
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9709e971cfaecb848aa436ae262503eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxShieldPower: 25
   _shieldPower: 25
   _shieldGeneratorPowerLossDamage: 50
   _shieldGeneratorActiveColor: {r: 0, g: 1, b: 0.78431374, a: 1}
@@ -1206,6 +1210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9709e971cfaecb848aa436ae262503eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxShieldPower: 25
   _shieldPower: 25
   _shieldGeneratorPowerLossDamage: 50
   _shieldGeneratorActiveColor: {r: 0, g: 1, b: 0.78431374, a: 1}

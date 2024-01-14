@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class MissilePlayer : MonoBehaviour
 {
-    private const string _enemyTag = "Enemy";
-    private const string _enemyleaderTag = "EnemyLeader";
     private const string _shieldGeneratorTag = "ShieldGenerator";
-    private string _otherTag = string.Empty;
+    private const string _powerCoreTag = "PowerCore";
 
     private GameObject _target;
     private Rigidbody2D _rigidBody;
@@ -46,7 +44,7 @@ public class MissilePlayer : MonoBehaviour
     {
         Vector2 explosionPosition = transform.position;
         explosionPosition.x += 0.5f;
-        if (gameObject.CompareTag(_enemyleaderTag) || gameObject.CompareTag(_shieldGeneratorTag))
+        if (gameObject.CompareTag(_powerCoreTag) || gameObject.CompareTag(_shieldGeneratorTag))
         {
             Instantiate(_missilePlayerExplosion, explosionPosition, Quaternion.identity);
             onExplosion?.Invoke(); 
