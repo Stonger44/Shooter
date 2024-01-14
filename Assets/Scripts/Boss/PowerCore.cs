@@ -16,7 +16,8 @@ public class PowerCore : MonoBehaviour
     [SerializeField] private GameObject _internalPosition;
     [SerializeField] private GameObject _exposedPosition;
     [SerializeField] private float _movementSpeed = 1f;
-    private WaitForSeconds _powerCoreExposureTime = new WaitForSeconds(8f);
+    private float _powerCoreExposureTime = 8f;
+    private float _powerCoreRetractionReadyTime;
     private bool _exposePowerCore = false;
     private bool _retractPowerCore = false;
 
@@ -65,19 +66,24 @@ public class PowerCore : MonoBehaviour
         {
             RetractPowerCore();
         }
+
+        if (_powerCoreRetractionReadyTime > 0 && Time.time > _powerCoreRetractionReadyTime)
+        {
+            TriggerPowerCoreRetraction();
+        }
     }
 
-    private IEnumerator PowerCoreExposureTime()
+    private void TriggerPowerCoreRetraction()
     {
-        yield return _powerCoreExposureTime;
         _retractPowerCore = true;
+        _powerCoreRetractionReadyTime = 0;
         onPowerCoreStartMovement?.Invoke();
     }
 
     private void TriggerPowerCoreExposure()
     {
         _exposePowerCore = true;
-        StartCoroutine(PowerCoreExposureTime());
+        _powerCoreRetractionReadyTime = Time.time + _powerCoreExposureTime;
         onPowerCoreStartMovement?.Invoke();
     }
 
@@ -156,6 +162,7 @@ public class PowerCore : MonoBehaviour
         // Explosion
         // Drop Powerup
         // Retract PowerCore
-        Debug.Log("PowerCore damaged and retracting!");
+        _powerCoreRetractionReadyTime = Time.time;
+        Debug.Log("PowerCore damaged, initiating retraction!");
     }
 }
