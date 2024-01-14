@@ -147,7 +147,7 @@ MonoBehaviour:
   _powerUpId: 5
   _powerUpLeftBoundary: -11
   _powerUpAvailableTime: 4
-  _standardSpeed: 0.5
+  _standardSpeed: 1
   _collectionSpeed: 4
   _explosion: {fileID: 8454611185561557971}
   _collider: {fileID: 3307707736284804537}

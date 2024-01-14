@@ -175,15 +175,7 @@ public class PowerCore : MonoBehaviour
         _collider.enabled = false;
         _powerCoreRetractionReadyTime = Time.time;
         onPowerCoreDepletion?.Invoke();
-
-        if (true)
-        {
-            StartCoroutine(DropPowerup());
-        }
-        else
-        {
-            // deactivate PowerCore GameObject
-        }
+        StartCoroutine(DropPowerup());
     }
 
     private IEnumerator DropPowerup()

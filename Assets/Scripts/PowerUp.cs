@@ -22,8 +22,8 @@ public class PowerUp : MonoBehaviour
     \*-----PowerUp Ids-----*/
     [SerializeField] private int _powerUpId;
     [SerializeField] private float _powerUpLeftBoundary = -11f;
-    [SerializeField] private float _powerUpAvailableTime = 3f;
-    [SerializeField] private float _standardSpeed = 0.5f;
+    [SerializeField] private float _powerUpAvailableTime = 4f;
+    [SerializeField] private float _standardSpeed = 1f;
     [SerializeField] private float _collectionSpeed = 4f;
     private float _speed;
     private Vector2 _direction = Vector2.left;
