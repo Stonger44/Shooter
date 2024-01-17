@@ -11,6 +11,7 @@ public class EnemyLeader : SpaceShip
     private string _otherTag = string.Empty;
 
     private Player _player;
+    private PolygonCollider2D _collider;
 
     [Header("Boundaries")]
     [SerializeField] private float _leftBoundary = 10.75f;
@@ -42,6 +43,7 @@ public class EnemyLeader : SpaceShip
     public static event Action onShieldDepletion;
 
     public static event Action<float, float> onHealthDamage;
+    public static event Action onEnemyLeaderDefeat;
 
     private void OnEnable()
     {
@@ -64,6 +66,11 @@ public class EnemyLeader : SpaceShip
         if (_player == null)
         {
             Debug.LogError("Player is null!");
+        }
+        _collider = GetComponent<PolygonCollider2D>();
+        if (_collider == null)
+        {
+            Debug.LogError("Collider is null!");
         }
 
         transform.position = _spawnPosition;
@@ -212,8 +219,7 @@ public class EnemyLeader : SpaceShip
 
         if (_health == 0)
         {
-            Debug.Log("You Defeated!");
-            // Trigger death
+            EnemyLeaderDefeated();
         }
     }
 
@@ -222,5 +228,11 @@ public class EnemyLeader : SpaceShip
         _shieldSprite.SetActive(true);
         _shields = _maxShields;
         onShieldCharge?.Invoke(_shields, _maxShields);
+    }
+
+    private void EnemyLeaderDefeated()
+    {
+        _collider.enabled = false;
+        onEnemyLeaderDefeat?.Invoke();
     }
 }

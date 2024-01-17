@@ -27,7 +27,8 @@ public class PowerCore : MonoBehaviour
     [SerializeField] private int _health = 15;
     [SerializeField] private int _powerCoreDepletionDamage = 20;
     [SerializeField] private GameObject _explosion;
-    private WaitForSeconds _powerUpDropDelay = new WaitForSeconds(0.2f);
+    [SerializeField] private float _midExplosionTime = 0.5f;
+    private WaitForSeconds _midExplosionWaitForSeconds;
 
     public static event Action onPowerCoreRetracted;
     public static event Action onPowerCoreStartMovement;
@@ -35,16 +36,19 @@ public class PowerCore : MonoBehaviour
 
     public static event Action<int> onPowerCoreDamage;
     public static event Action onPowerCoreDepletion;
+    public static event Action onPowerCoreDestruction;
     public static event Action<Vector2> onPowerCorePowerUpDrop;
 
     private void OnEnable()
     {
         EnemyLeader.onShieldDepletion += TriggerPowerCoreExposure;
+        EnemyLeader.onEnemyLeaderDefeat += DestroyPowerCore;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onShieldDepletion -= TriggerPowerCoreExposure;
+        EnemyLeader.onEnemyLeaderDefeat -= DestroyPowerCore;
     }
 
     // Start is called before the first frame update
@@ -63,6 +67,7 @@ public class PowerCore : MonoBehaviour
 
         transform.position = _internalPosition.transform.position;
         _collider.enabled = false;
+        _midExplosionWaitForSeconds = new WaitForSeconds(_midExplosionTime);
     }
 
     // Update is called once per frame
@@ -171,8 +176,8 @@ public class PowerCore : MonoBehaviour
 
     private void PowerCoreDepletion()
     {
-        Instantiate(_explosion, transform.position, Quaternion.identity);
         _collider.enabled = false;
+        Instantiate(_explosion, transform.position, Quaternion.identity);
         _powerCoreRetractionReadyTime = Time.time;
         onPowerCoreDepletion?.Invoke();
         StartCoroutine(DropPowerup());
@@ -180,7 +185,21 @@ public class PowerCore : MonoBehaviour
 
     private IEnumerator DropPowerup()
     {
-        yield return _powerUpDropDelay;
+        yield return _midExplosionWaitForSeconds;
         onPowerCorePowerUpDrop?.Invoke(transform.position);
+    }
+
+    private void DestroyPowerCore()
+    {
+        StartCoroutine(PowerCoreExplosion());
+    }
+
+    private IEnumerator PowerCoreExplosion()
+    {
+        _collider.enabled = false;
+        Instantiate(_explosion, transform.position, Quaternion.identity);
+        onPowerCoreDestruction?.Invoke();
+        yield return _midExplosionWaitForSeconds;
+        this.gameObject.SetActive(false);
     }
 }

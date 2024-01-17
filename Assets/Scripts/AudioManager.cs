@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class AudioManager : MonoBehaviour
         PowerCore.onPowerCoreRetracted += PlayPowerUpSound;
         PowerCore.onPowerCoreDepletion += PlayExplosionSound;
         PowerCore.onPowerCoreDepletion += PlayPowerDownSound;
+        PowerCore.onPowerCoreDestruction += PlayExplosionSound;
+        EnemyLeader.onEnemyLeaderDefeat += StopPowerCoreMovementSound;
     }
 
     private void OnDisable()
@@ -31,6 +34,8 @@ public class AudioManager : MonoBehaviour
         PowerCore.onPowerCoreRetracted -= PlayPowerUpSound;
         PowerCore.onPowerCoreDepletion -= PlayExplosionSound;
         PowerCore.onPowerCoreDepletion -= PlayPowerDownSound;
+        PowerCore.onPowerCoreDestruction -= PlayExplosionSound;
+        EnemyLeader.onEnemyLeaderDefeat -= StopPowerCoreMovementSound;
     }
 
     // Start is called before the first frame update
@@ -95,5 +100,16 @@ public class AudioManager : MonoBehaviour
     {
         _powerCoreMovementSound.pitch = Time.timeScale;
         _powerCoreMovementSound.Stop();
+    }
+
+    private void TriggerStopPowerCoreMovementSound()
+    {
+        StartCoroutine(DelayStopPowerCoreMovementSound());
+    }
+
+    private IEnumerator DelayStopPowerCoreMovementSound()
+    {
+        yield return new WaitForSeconds(0.5f);
+        StopPowerCoreMovementSound();
     }
 }

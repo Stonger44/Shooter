@@ -10,23 +10,27 @@ public class LaserTurret : MonoBehaviour
     private WaitForSeconds _fireRate = new WaitForSeconds(0.25f);
     private bool _canFire = false;
     [SerializeField] private bool _ceaseFire = false;
+    private bool _turretDisabled = false;
 
     private AudioSource _audioSource;
 
     [Header("Turret")]
     private Vector3 _eulerAngle;
     [SerializeField] private float _zDegrees = 90f;
+    [SerializeField] private float _turretSpeed = 0.5f;
     [SerializeField] private GameObject _barrelTip;
 
     private void OnEnable()
     {
         EnemyLeader.onCommenceAttack += CommenceFiring;
+        EnemyLeader.onEnemyLeaderDefeat += DisableTurret;
         Player.onPlayerDeath += CeaseFire;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onCommenceAttack -= CommenceFiring;
+        EnemyLeader.onEnemyLeaderDefeat -= DisableTurret;
         Player.onPlayerDeath -= CeaseFire;
     }
 
@@ -40,6 +44,7 @@ public class LaserTurret : MonoBehaviour
         }
 
         _eulerAngle = new Vector3(0, 0, _zDegrees);
+        _turretDisabled = false;
     }
 
     // Update is called once per frame
@@ -51,13 +56,16 @@ public class LaserTurret : MonoBehaviour
             StartCoroutine(Fire());
         }
 
-        Rotate();
+        if (!_turretDisabled)
+        {
+            Rotate(); 
+        }
     }
 
     private void Rotate()
     {
         CheckRotation();
-        transform.Rotate(_eulerAngle * Time.deltaTime);
+        transform.Rotate(_eulerAngle * _turretSpeed * Time.deltaTime);
     }
 
     private void CheckRotation()
@@ -112,5 +120,17 @@ public class LaserTurret : MonoBehaviour
     private void CeaseFire()
     {
         _ceaseFire = true;
+    }
+
+    private void DisableTurret()
+    {
+        _ceaseFire = true;
+        StartCoroutine(TurretPowerLoss());
+    }
+
+    private IEnumerator TurretPowerLoss()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _turretDisabled = true;
     }
 }
