@@ -378,7 +378,7 @@ MonoBehaviour:
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _ceaseFire: 0
   _zDegrees: 90
-  _turretSpeed: 0.3
+  _turretSpeed: 0.5
   _barrelTip: {fileID: 3432997458544905837}
 --- !u!1 &3036907280270466959
 GameObject:

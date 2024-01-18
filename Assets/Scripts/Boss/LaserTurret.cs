@@ -17,7 +17,7 @@ public class LaserTurret : MonoBehaviour
     [Header("Turret")]
     private Vector3 _eulerAngle;
     [SerializeField] private float _zDegrees = 90f;
-    [SerializeField] private float _turretSpeed = 0.5f;
+    [SerializeField] private float _turretSpeed = 0.4f;
     [SerializeField] private GameObject _barrelTip;
 
     private void OnEnable()
