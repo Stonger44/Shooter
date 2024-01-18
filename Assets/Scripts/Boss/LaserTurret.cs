@@ -81,6 +81,11 @@ public class LaserTurret : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
+            if (_ceaseFire)
+            {
+                break;
+            }
+
             yield return _fireRate;
             Instantiate(_laser, _barrelTip.transform.position, transform.rotation);
             SetLaserSound();

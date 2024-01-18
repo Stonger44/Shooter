@@ -43,7 +43,7 @@ public class SpaceBomb : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == _enemyTag)
         {
@@ -58,7 +58,7 @@ public class SpaceBomb : MonoBehaviour
         _collider.enabled = false;
         StartCoroutine(SpaceBombBlast());
         onExplosion?.Invoke();
-        Destroy(this.gameObject, 0.15f);
+        Destroy(this.gameObject, 0.25f);
     }
 
     private IEnumerator SpaceBombBlast()
