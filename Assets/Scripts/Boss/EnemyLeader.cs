@@ -225,9 +225,12 @@ public class EnemyLeader : SpaceShip
 
     private void RaiseShields()
     {
-        _shieldSprite.SetActive(true);
-        _shields = _maxShields;
-        onShieldCharge?.Invoke(_shields, _maxShields);
+        if (_health > 0)
+        {
+            _shieldSprite.SetActive(true);
+            _shields = _maxShields;
+            onShieldCharge?.Invoke(_shields, _maxShields); 
+        }
     }
 
     private void EnemyLeaderDefeated()

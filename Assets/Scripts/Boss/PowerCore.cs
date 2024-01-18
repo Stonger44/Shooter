@@ -21,6 +21,7 @@ public class PowerCore : MonoBehaviour
     private float _powerCoreRetractionReadyTime;
     private bool _exposePowerCore = false;
     private bool _retractPowerCore = false;
+    private bool _noPower = false;
 
     [Header("Health")]
     [SerializeField] private int _maxHealth = 15;
@@ -119,7 +120,7 @@ public class PowerCore : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, _internalPosition.transform.position, _movementSpeed * Time.deltaTime);
 
-        if (transform.position == _internalPosition.transform.position)
+        if (!_noPower && transform.position == _internalPosition.transform.position)
         {
             _retractPowerCore = false;
             onPowerCoreRetracted?.Invoke();
@@ -191,6 +192,7 @@ public class PowerCore : MonoBehaviour
 
     private void DestroyPowerCore()
     {
+        _noPower = true;
         StartCoroutine(PowerCoreExplosion());
     }
 

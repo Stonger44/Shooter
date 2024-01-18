@@ -9,6 +9,7 @@ public class ShieldGenerator : MonoBehaviour
     private const string _blastZoneTag = "BlastZone";
     private const string _missileTag = "Missile";
     private string _otherTag = string.Empty;
+    private bool _noPower = false;
 
     private Player _player;
     private SpriteRenderer _spriteRenderer;
@@ -26,12 +27,14 @@ public class ShieldGenerator : MonoBehaviour
     private void OnEnable()
     {
         EnemyLeader.onShieldDepletion += ShieldGeneratorDepletion;
+        EnemyLeader.onEnemyLeaderDefeat += NoPower;
         PowerCore.onPowerCoreRetracted += PowerUpShieldGenerators;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onShieldDepletion -= ShieldGeneratorDepletion;
+        EnemyLeader.onEnemyLeaderDefeat -= NoPower;
         PowerCore.onPowerCoreRetracted -= PowerUpShieldGenerators;
     }
 
@@ -53,12 +56,6 @@ public class ShieldGenerator : MonoBehaviour
         {
             Debug.Log("Collider is null!");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -116,8 +113,16 @@ public class ShieldGenerator : MonoBehaviour
 
     private void PowerUpShieldGenerators()
     {
-        _spriteRenderer.color = _shieldGeneratorActiveColor;
-        _shieldPower = _maxShieldPower;
-        _collider.enabled = true;
+        if (!_noPower)
+        {
+            _spriteRenderer.color = _shieldGeneratorActiveColor;
+            _shieldPower = _maxShieldPower;
+            _collider.enabled = true; 
+        }
+    }
+
+    private void NoPower()
+    {
+        _noPower = true;
     }
 }
