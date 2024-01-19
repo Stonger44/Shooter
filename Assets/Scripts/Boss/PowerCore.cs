@@ -79,14 +79,14 @@ public class PowerCore : MonoBehaviour
             ExposePowerCore();
         }
 
-        if (_retractPowerCore)
-        {
-            RetractPowerCore();
-        }
-
         if (_powerCoreRetractionReadyTime > 0 && Time.time > _powerCoreRetractionReadyTime)
         {
             TriggerPowerCoreRetraction();
+        }
+
+        if (_retractPowerCore)
+        {
+            RetractPowerCore();
         }
     }
 
