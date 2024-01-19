@@ -123,9 +123,10 @@ public class PowerCore : MonoBehaviour
         if (!_noPower && transform.position == _internalPosition.transform.position)
         {
             _retractPowerCore = false;
+            _collider.enabled = false;
+            _health = _maxHealth;
             onPowerCoreRetracted?.Invoke();
             onPowerCoreStopMovement?.Invoke();
-            _health = _maxHealth;
         }
     }
 
