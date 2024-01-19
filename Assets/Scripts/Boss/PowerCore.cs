@@ -90,17 +90,17 @@ public class PowerCore : MonoBehaviour
         }
     }
 
-    private void TriggerPowerCoreRetraction()
-    {
-        _retractPowerCore = true;
-        _powerCoreRetractionReadyTime = 0;
-        onPowerCoreStartMovement?.Invoke();
-    }
-
     private void TriggerPowerCoreExposure()
     {
         _exposePowerCore = true;
         _powerCoreRetractionReadyTime = Time.time + _powerCoreExposureTime;
+        onPowerCoreStartMovement?.Invoke();
+    }
+
+    private void TriggerPowerCoreRetraction()
+    {
+        _retractPowerCore = true;
+        _powerCoreRetractionReadyTime = 0;
         onPowerCoreStartMovement?.Invoke();
     }
 
