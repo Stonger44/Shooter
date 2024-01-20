@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyLeader : SpaceShip
@@ -32,9 +33,12 @@ public class EnemyLeader : SpaceShip
     [SerializeField] private int _maxShields = 100;
     [SerializeField] private int _shields = 100;
 
-    [Header("Health")]
+    [Header("Health/Damage")]
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private int _health = 100;
+    [SerializeField] private GameObject _explosion;
+    [SerializeField] private List<GameObject> _damageEffectList;
+    private Vector2 _explosionPosition;
 
     public static event Action onBossApproach;
     public static event Action onCommenceAttack;
