@@ -120,13 +120,13 @@ public class Player : SpaceShip
 
     private void OnEnable()
     {
-        EnemyLeader.onBossApproach += HoldFire;
+        EnemyLeader.onApproach += HoldFire;
         EnemyLeader.onCommenceAttack += WeaponsFree;
     }
 
     private void OnDisable()
     {
-        EnemyLeader.onBossApproach -= HoldFire;
+        EnemyLeader.onApproach -= HoldFire;
         EnemyLeader.onCommenceAttack -= WeaponsFree;
     }
 

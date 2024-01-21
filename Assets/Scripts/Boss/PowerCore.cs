@@ -43,13 +43,13 @@ public class PowerCore : MonoBehaviour
     private void OnEnable()
     {
         EnemyLeader.onShieldDepletion += TriggerPowerCoreExposure;
-        EnemyLeader.onEnemyLeaderDefeat += DestroyPowerCore;
+        EnemyLeader.onDefeat += DestroyPowerCore;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onShieldDepletion -= TriggerPowerCoreExposure;
-        EnemyLeader.onEnemyLeaderDefeat -= DestroyPowerCore;
+        EnemyLeader.onDefeat -= DestroyPowerCore;
     }
 
     // Start is called before the first frame update

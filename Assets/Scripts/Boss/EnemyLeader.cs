@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,16 +39,17 @@ public class EnemyLeader : SpaceShip
     [SerializeField] private int _health = 100;
     [SerializeField] private GameObject _explosion;
     [SerializeField] private List<GameObject> _damageEffectList;
-    private Vector2 _explosionPosition;
+    private WaitForSeconds _damageEffectWaitForSeconds = new WaitForSeconds(1f);
+    private WaitForSeconds _midExplosionWaitForSeconds = new WaitForSeconds(0.5f);
 
-    public static event Action onBossApproach;
+    public static event Action onApproach;
     public static event Action onCommenceAttack;
     public static event Action<float, float> onShieldDamage;
     public static event Action<float, float> onShieldCharge;
     public static event Action onShieldDepletion;
 
     public static event Action<float, float> onHealthDamage;
-    public static event Action onEnemyLeaderDefeat;
+    public static event Action onDefeat;
 
     private void OnEnable()
     {
@@ -79,7 +81,7 @@ public class EnemyLeader : SpaceShip
 
         transform.position = _spawnPosition;
 
-        onBossApproach?.Invoke();
+        onApproach?.Invoke();
     }
 
     // Update is called once per frame
@@ -240,6 +242,28 @@ public class EnemyLeader : SpaceShip
     private void EnemyLeaderDefeated()
     {
         _collider.enabled = false;
-        onEnemyLeaderDefeat?.Invoke();
+        onDefeat?.Invoke();
+        StartCoroutine(DestructionExplosions());
+    }
+
+    private IEnumerator DestructionExplosions()
+    {
+        int damageEffectCount = _damageEffectList.Count;
+
+        for (int i = 0; i < damageEffectCount; i++)
+        {
+            yield return _damageEffectWaitForSeconds;
+
+            int randomIndex = UnityEngine.Random.Range(0, _damageEffectList.Count);
+            Instantiate(_explosion, _damageEffectList[randomIndex].transform.position, Quaternion.identity);
+            StartCoroutine(DisplayDamageEffect(randomIndex));
+        }
+    }
+
+    private IEnumerator DisplayDamageEffect(int index)
+    {
+        yield return _midExplosionWaitForSeconds;
+        _damageEffectList[index].SetActive(true);
+        _damageEffectList.RemoveAt(index);
     }
 }

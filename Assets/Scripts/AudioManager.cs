@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
         PowerCore.onPowerCoreDepletion += PlayExplosionSound;
         PowerCore.onPowerCoreDepletion += PlayPowerDownSound;
         PowerCore.onPowerCoreDestruction += PlayExplosionSound;
-        EnemyLeader.onEnemyLeaderDefeat += TriggerStopPowerCoreMovementSound;
+        EnemyLeader.onDefeat += TriggerStopPowerCoreMovementSound;
     }
 
     private void OnDisable()
@@ -35,7 +35,7 @@ public class AudioManager : MonoBehaviour
         PowerCore.onPowerCoreDepletion -= PlayExplosionSound;
         PowerCore.onPowerCoreDepletion -= PlayPowerDownSound;
         PowerCore.onPowerCoreDestruction -= PlayExplosionSound;
-        EnemyLeader.onEnemyLeaderDefeat -= TriggerStopPowerCoreMovementSound;
+        EnemyLeader.onDefeat -= TriggerStopPowerCoreMovementSound;
     }
 
     // Start is called before the first frame update

@@ -529,7 +529,7 @@ MonoBehaviour:
   _maxHealth: 15
   _health: 15
   _powerCoreDepletionDamage: 20
-  _explosion: {fileID: 8454611186618823227, guid: a28b749aa1683f349a5226a9e22bb723,
+  _explosion: {fileID: 3718568161180189366, guid: a75b5765041ffae40b5dab78bf1c591e,
     type: 3}
   _midExplosionTime: 0.5
 --- !u!1 &3036907280662049489
@@ -1072,7 +1072,7 @@ MonoBehaviour:
   _shields: 100
   _maxHealth: 100
   _health: 100
-  _explosion: {fileID: 8454611186618823227, guid: a28b749aa1683f349a5226a9e22bb723,
+  _explosion: {fileID: 3718568161180189366, guid: a75b5765041ffae40b5dab78bf1c591e,
     type: 3}
   _damageEffectList:
   - {fileID: 3738138168211034655}
@@ -1438,7 +1438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6643870669740375654
 Transform:
   m_ObjectHideFlags: 0
@@ -1539,7 +1539,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6121863048723573167
 Transform:
   m_ObjectHideFlags: 0
@@ -1690,7 +1690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4306311669105582372
 Transform:
   m_ObjectHideFlags: 0
@@ -1791,7 +1791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7694914452885029855
 Transform:
   m_ObjectHideFlags: 0
@@ -1960,7 +1960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3796556502963978957
 Transform:
   m_ObjectHideFlags: 0
@@ -2124,7 +2124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5641697876803593527
 Transform:
   m_ObjectHideFlags: 0

@@ -27,14 +27,14 @@ public class ShieldGenerator : MonoBehaviour
     private void OnEnable()
     {
         EnemyLeader.onShieldDepletion += ShieldGeneratorDepletion;
-        EnemyLeader.onEnemyLeaderDefeat += NoPower;
+        EnemyLeader.onDefeat += NoPower;
         PowerCore.onPowerCoreRetracted += PowerUpShieldGenerators;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onShieldDepletion -= ShieldGeneratorDepletion;
-        EnemyLeader.onEnemyLeaderDefeat -= NoPower;
+        EnemyLeader.onDefeat -= NoPower;
         PowerCore.onPowerCoreRetracted -= PowerUpShieldGenerators;
     }
 

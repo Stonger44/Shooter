@@ -23,14 +23,14 @@ public class LaserTurret : MonoBehaviour
     private void OnEnable()
     {
         EnemyLeader.onCommenceAttack += CommenceFiring;
-        EnemyLeader.onEnemyLeaderDefeat += DisableTurret;
+        EnemyLeader.onDefeat += DisableTurret;
         Player.onPlayerDeath += CeaseFire;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onCommenceAttack -= CommenceFiring;
-        EnemyLeader.onEnemyLeaderDefeat -= DisableTurret;
+        EnemyLeader.onDefeat -= DisableTurret;
         Player.onPlayerDeath -= CeaseFire;
     }
 

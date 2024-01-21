@@ -17,14 +17,14 @@ public class MissileControl : MonoBehaviour
     private void OnEnable()
     {
         EnemyLeader.onCommenceAttack += CommenceFiring;
-        EnemyLeader.onEnemyLeaderDefeat += CeaseFire;
+        EnemyLeader.onDefeat += CeaseFire;
         Player.onPlayerDeath += CeaseFire;
     }
 
     private void OnDisable()
     {
         EnemyLeader.onCommenceAttack -= CommenceFiring;
-        EnemyLeader.onEnemyLeaderDefeat -= CeaseFire;
+        EnemyLeader.onDefeat -= CeaseFire;
         Player.onPlayerDeath -= CeaseFire;
     }
 
