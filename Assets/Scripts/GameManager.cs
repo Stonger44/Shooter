@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [Header("Game State")]
     [SerializeField] private bool _gameOver = false;
     [SerializeField] private bool _gamePaused = false;
+    [SerializeField] private bool _gameClear = false;
     [SerializeField] private bool _isTesting = false;
 
     private int _score = 0;
@@ -25,6 +26,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _bossWave = 5;
 
     public static event Action onBossWaveFinalEnemy;
+
+    private void OnEnable()
+    {
+        UIManager.onGameClear += SetGameClear;
+    }
+
+    private void OnDisable()
+    {
+        UIManager.onGameClear -= SetGameClear;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +80,7 @@ public class GameManager : MonoBehaviour
             QuitApplication();
         }
 
-        if (_gamePaused || _gameOver)
+        if (_gamePaused || _gameOver || _gameClear)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -155,6 +166,11 @@ public class GameManager : MonoBehaviour
     public void PauseBGM()
     {
         _bgmAudio.Pause();
+    }
+
+    private void SetGameClear()
+    {
+        _gameClear = true;
     }
 
     private void QuitApplication()

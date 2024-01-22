@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _waveBannerText;
     [SerializeField] private Text _waveCount;
     [SerializeField] private Text _enemyCount;
+    [SerializeField] private GameObject _youDefeated;
+    [SerializeField] private GameObject _theBoss;
 
     [Header("Boss")]
     [SerializeField] private GameObject _bossUI;
@@ -56,6 +59,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image _enemyLeaderShield;
     [SerializeField] private Image _enemyLeaderHealth;
 
+    public static event Action onGameClear;
+
     private void OnEnable()
     {
         SpawnManager.onEnemyLeaderSpawn += DisplayBossUI;
@@ -63,6 +68,7 @@ public class UIManager : MonoBehaviour
         EnemyLeader.onShieldDamage += UpdateEnemyLeaderShield;
         EnemyLeader.onShieldCharge += UpdateEnemyLeaderShield;
         EnemyLeader.onHealthDamage += UpdateEnemyLeaderHealth;
+        EnemyLeader.onDestruction += InitiateGameClearUI;
     }
 
     private void OnDisable()
@@ -72,6 +78,7 @@ public class UIManager : MonoBehaviour
         EnemyLeader.onShieldDamage -= UpdateEnemyLeaderShield;
         EnemyLeader.onShieldCharge -= UpdateEnemyLeaderShield;
         EnemyLeader.onHealthDamage -= UpdateEnemyLeaderHealth;
+        EnemyLeader.onDestruction -= InitiateGameClearUI;
     }
 
     // Start is called before the first frame update
@@ -261,7 +268,7 @@ public class UIManager : MonoBehaviour
 
         StartCoroutine(_camera.CameraShake());
         StartCoroutine(GameOverBlink());
-        StartCoroutine(DisplayMenuOptions());
+        StartCoroutine(DisplayGameOverUI());
     }
 
     private IEnumerator GameOverBlink()
@@ -277,7 +284,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private IEnumerator DisplayMenuOptions()
+    private IEnumerator DisplayGameOverUI()
     {
         yield return new WaitForSeconds(3);
         _restartUI.SetActive(true);
@@ -316,5 +323,21 @@ public class UIManager : MonoBehaviour
     {
         float healthPercent = currentHealth / maxHealth;
         _enemyLeaderHealth.fillAmount = healthPercent;
+    }
+
+    private void InitiateGameClearUI()
+    {
+        StartCoroutine(DisplayGameClearUI());
+    }
+
+    private IEnumerator DisplayGameClearUI()
+    {
+        _youDefeated.SetActive(true);
+        yield return new WaitForSeconds(3);
+        _theBoss.SetActive(true);
+        yield return new WaitForSeconds(2);
+        _restartUI.SetActive(true);
+        _returnToMainMenuUI.SetActive(true);
+        onGameClear?.Invoke();
     }
 }

@@ -43,6 +43,7 @@ public class EnemyLeader : SpaceShip
     [SerializeField] private float _xExplosionOffset = -1f;
     private Vector2 _damageExplosionPosition;
     [SerializeField] private List<GameObject> _damageEffectList;
+    private float _damageEffectCount;
     private WaitForSeconds _damageEffectWaitForSeconds = new WaitForSeconds(1f);
     private WaitForSeconds _midExplosionWaitForSeconds = new WaitForSeconds(0.25f);
     [SerializeField] private Vector2 _crashDirection;
@@ -89,6 +90,8 @@ public class EnemyLeader : SpaceShip
         transform.position = _spawnPosition;
 
         onApproach?.Invoke();
+
+        _damageEffectCount = _damageEffectList.Count;
 
         float yCrashDirection = UnityEngine.Random.value < 0.5f ? _crashDirection.y : -_crashDirection.y;
         _crashDirection = new Vector2(_crashDirection.x, yCrashDirection);
@@ -288,9 +291,7 @@ public class EnemyLeader : SpaceShip
 
     private IEnumerator DestructionExplosions()
     {
-        int damageEffectCount = _damageEffectList.Count;
-
-        for (int i = 0; i < damageEffectCount; i++)
+        for (int i = 0; i < _damageEffectCount; i++)
         {
             yield return _damageEffectWaitForSeconds;
 
