@@ -37,10 +37,16 @@ public class EnemyLeader : SpaceShip
     [Header("Health/Damage")]
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private int _health = 100;
+
+    [Header("Defeat")]
     [SerializeField] private GameObject _explosion;
+    [SerializeField] private float _xExplosionOffset = -1f;
+    private Vector2 _damageExplosionPosition;
     [SerializeField] private List<GameObject> _damageEffectList;
     private WaitForSeconds _damageEffectWaitForSeconds = new WaitForSeconds(1f);
-    private WaitForSeconds _midExplosionWaitForSeconds = new WaitForSeconds(0.5f);
+    private WaitForSeconds _midExplosionWaitForSeconds = new WaitForSeconds(0.25f);
+    [SerializeField] private Vector2 _crashDirection;
+    [SerializeField] private float _yCrashBoundary = 11f;
 
     public static event Action onApproach;
     public static event Action onCommenceAttack;
@@ -82,24 +88,37 @@ public class EnemyLeader : SpaceShip
         transform.position = _spawnPosition;
 
         onApproach?.Invoke();
+
+        float yCrashDirection = UnityEngine.Random.value < 0.5f ? _crashDirection.y : -_crashDirection.y;
+        _crashDirection = new Vector2(_crashDirection.x, yCrashDirection);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (_health > 0)
+        {
+            Move();
+        }
+        else
+        {
+            Crash();
+        }
     }
 
     private void Move()
     {
-        if (transform.position.y >= _upperBoundary || transform.position.y <= _lowerBoundary)
+        if (_holdPosition)
         {
-            Change_Y_Direction();
-        }
+            if (transform.position.y >= _upperBoundary || transform.position.y <= _lowerBoundary)
+            {
+                Change_Y_Direction();
+            }
 
-        if (_holdPosition && (transform.position.x <= _leftBoundary || transform.position.x >= _rightBoundary))
-        {
-            Change_X_Direction();
+            if (transform.position.x <= _leftBoundary || transform.position.x >= _rightBoundary)
+            {
+                Change_X_Direction();
+            } 
         }
 
         transform.Translate(_direction * _speed * Time.deltaTime);
@@ -147,6 +166,17 @@ public class EnemyLeader : SpaceShip
         else if (transform.position.x >= _rightBoundary)
         {
             _direction.x = _xHoldDirection;
+        }
+    }
+
+    private void Crash()
+    {
+        transform.Translate(_crashDirection * _speed * Time.deltaTime);
+
+        if (transform.position.y > 0 && transform.position.y > _yCrashBoundary ||
+            transform.position.y < 0 && transform.position.y < -_yCrashBoundary)
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -255,7 +285,11 @@ public class EnemyLeader : SpaceShip
             yield return _damageEffectWaitForSeconds;
 
             int randomIndex = UnityEngine.Random.Range(0, _damageEffectList.Count);
-            Instantiate(_explosion, _damageEffectList[randomIndex].transform.position, Quaternion.identity);
+
+            _damageExplosionPosition = _damageEffectList[randomIndex].transform.position;
+            _damageExplosionPosition.x += _xExplosionOffset;
+
+            Instantiate(_explosion, _damageExplosionPosition, Quaternion.identity);
             StartCoroutine(DisplayDamageEffect(randomIndex));
         }
     }
