@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyTrooper : SpaceShip
+public class EnemyTrooper : Damageable
 {
     private const string _playerTag = "Player";
     private const string _powerUpTag = "PowerUp";

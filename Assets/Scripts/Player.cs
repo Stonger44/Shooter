@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Player : SpaceShip
+public class Player : Damageable
 {
     private const string _laserEnemyTag = "LaserEnemy";
 

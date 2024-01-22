@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyMissileer : SpaceShip
+public class EnemyMissileer : Damageable
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";

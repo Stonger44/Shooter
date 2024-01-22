@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyLeader : SpaceShip
+public class EnemyLeader : Damageable
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
