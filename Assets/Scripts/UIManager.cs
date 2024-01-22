@@ -333,7 +333,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator DisplayGameClearUI()
     {
         _youDefeated.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         _theBoss.SetActive(true);
         yield return new WaitForSeconds(2);
         _restartUI.SetActive(true);

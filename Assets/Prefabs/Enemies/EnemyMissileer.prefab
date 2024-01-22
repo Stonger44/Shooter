@@ -585,7 +585,7 @@ MonoBehaviour:
   _shield: {fileID: 155247360}
   _pointsOnDeath: 300
   _pointsOnBoundary: -30
-  _powerUpDropChance: 0.75
+  _powerUpDropChance: 0.8
   _xRayCastOffset: -3.5
   _yRayCastOffset: 0.558
   _rayCastDistance: 16
