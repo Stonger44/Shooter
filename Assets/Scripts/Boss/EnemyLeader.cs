@@ -56,6 +56,7 @@ public class EnemyLeader : SpaceShip
 
     public static event Action<float, float> onHealthDamage;
     public static event Action onDefeat;
+    public static event Action onDestruction;
 
     private void OnEnable()
     {
@@ -176,6 +177,7 @@ public class EnemyLeader : SpaceShip
         if (transform.position.y > 0 && transform.position.y > _yCrashBoundary ||
             transform.position.y < 0 && transform.position.y < -_yCrashBoundary)
         {
+            onDestruction?.Invoke();
             Destroy(this.gameObject);
         }
     }
