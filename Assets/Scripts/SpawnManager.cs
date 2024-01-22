@@ -126,8 +126,8 @@ public class SpawnManager : MonoBehaviour
 
             int spawnIndex = GetSpawnIndex(_enemySpawnDistribution);
 
-            // Do not spawn EnemyMissileer on Wave 1, instead spawn EnemyTrooper
-            if (spawnIndex == 2 && _currentWave == 1)
+            // Only spawn EnemyTrooper on Wave 1
+            if (_currentWave == 1)
             {
                 spawnIndex = 0;
             }
