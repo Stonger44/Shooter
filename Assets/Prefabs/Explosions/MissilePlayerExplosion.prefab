@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2311671573649503389}
   - component: {fileID: -2888007894988079444}
   - component: {fileID: 1438431760383018903}
+  - component: {fileID: 8817023358293984606}
   m_Layer: 0
   m_Name: MissilePlayerExplosion
   m_TagString: Untagged
@@ -102,6 +103,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8817023358293984606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5998372259099333284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470e9e970ba98dd46a70edbea65e945d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8707084785393389301
 PrefabInstance:
   m_ObjectHideFlags: 0
