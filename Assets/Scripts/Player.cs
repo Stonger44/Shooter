@@ -74,6 +74,8 @@ public class Player : SpaceShip
     [SerializeField] private bool _isEngineDamaged = false;
     private int _lives = 3;
     private Vector2 _deathPosition = new Vector2(-44f, 0f);
+    private bool _isInvulnerable = false;
+    private WaitForSeconds _invulnerableWaitForSeconds = new WaitForSeconds(0.5f);
 
     [Header("TripleShot")]
     [SerializeField] private GameObject _tripleShot;
@@ -207,29 +209,41 @@ public class Player : SpaceShip
 
     public void Damage()
     {
-        if (_shieldLevel > 0)
+        if (!_isInvulnerable)
         {
-            _shieldLevel--;
-            if (_shieldLevel < 1)
+            _isInvulnerable = true;
+            StartCoroutine(InvulnerablilityCoolDown());
+
+            if (_shieldLevel > 0)
             {
-                StartCoroutine(ShieldFailure(_shield));
-                onShieldDepletion?.Invoke();
+                _shieldLevel--;
+                if (_shieldLevel < 1)
+                {
+                    StartCoroutine(ShieldFailure(_shield));
+                    onShieldDepletion?.Invoke();
+                }
+                _uiManager.UpdateShieldsUI(_shieldLevel);
+
+                return;
             }
-            _uiManager.UpdateShieldsUI(_shieldLevel);
 
-            return;
+            _lives--;
+            _audioManager.PlayExplosionSound();
+            _uiManager.UpdateLivesUI(_lives);
+            StartCoroutine(ShowPlayerDamage());
+
+            if (_lives < 1)
+            {
+                _spawnManager.StopSpawning();
+                DestroyPlayer();
+            }
         }
+    }
 
-        _lives--;
-        _audioManager.PlayExplosionSound();
-        _uiManager.UpdateLivesUI(_lives);
-        StartCoroutine(ShowPlayerDamage());
-
-        if (_lives < 1)
-        {
-            _spawnManager.StopSpawning();
-            DestroyPlayer();
-        }
+    private IEnumerator InvulnerablilityCoolDown()
+    {
+        yield return _invulnerableWaitForSeconds;
+        _isInvulnerable = false;
     }
 
     public bool GetAfterBurnerCoolDown()

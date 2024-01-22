@@ -2101,22 +2101,22 @@ PrefabInstance:
     - target: {fileID: 3036907280719354972, guid: c575d8ded422d024f8cd2031e4bef721,
         type: 3}
       propertyPath: _health
-      value: 15
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3036907280719354972, guid: c575d8ded422d024f8cd2031e4bef721,
         type: 3}
       propertyPath: _shields
-      value: 15
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3036907280719354972, guid: c575d8ded422d024f8cd2031e4bef721,
         type: 3}
       propertyPath: _maxHealth
-      value: 15
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3036907280719354972, guid: c575d8ded422d024f8cd2031e4bef721,
         type: 3}
       propertyPath: _maxShields
-      value: 15
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c575d8ded422d024f8cd2031e4bef721, type: 3}
