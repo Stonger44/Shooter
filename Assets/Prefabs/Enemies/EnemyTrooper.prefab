@@ -566,6 +566,8 @@ MonoBehaviour:
   _pointsOnDeath: 100
   _pointsOnBoundary: -10
   _powerUpDropChance: 0.3
+  _renderer: {fileID: 3557925016122327516}
+  _shieldRenderer: {fileID: 1404051496}
   _xRayCastOffset: -3.5
   _yRayCastOffset: 0.558
   _rayCastDistance: 16

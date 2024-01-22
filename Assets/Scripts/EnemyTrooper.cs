@@ -50,6 +50,9 @@ public class EnemyTrooper : Damageable
     [SerializeField] private int _pointsOnBoundary = -10;
     private bool _isExploding;
     [SerializeField] private float _powerUpDropChance = 0.25f;
+    [SerializeField] private SpriteRenderer _renderer;
+    private Color _defaultColor;
+
 
     [Header("Targeting System")]
     [SerializeField] private float _xRayCastOffset = -3.5f;
@@ -105,6 +108,7 @@ public class EnemyTrooper : Damageable
             Debug.LogError("AudioSource is null!");
         }
 
+        _defaultColor = _renderer.color;
         _speed = _standardSpeed;
 
         Warp();
@@ -323,6 +327,7 @@ public class EnemyTrooper : Damageable
         else
         {
             _health--;
+            StartCoroutine(DamageFlicker(_renderer, _defaultColor));
 
             if (_health < 1)
             {

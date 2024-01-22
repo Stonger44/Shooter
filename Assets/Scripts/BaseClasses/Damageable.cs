@@ -3,16 +3,23 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
-    private WaitForSeconds _damageflickerWaitTime = new WaitForSeconds(0.2f);
-    private Color _damageColor = Color.red;
+    private WaitForSeconds _damageflickerWaitTime = new WaitForSeconds(0.08f);
 
-    protected IEnumerator DamageDisplay()
+    protected IEnumerator DamageFlicker(SpriteRenderer renderer, Color defaultColor)
     {
         for (int i = 0; i < 4;i++)
         {
             yield return _damageflickerWaitTime;
-
+            if (i % 2 == 0)
+            {
+                renderer.color = Color.red;
+            }
+            else
+            {
+                renderer.color = defaultColor;
+            }
         }
+        renderer.color = defaultColor;
     }
 
     protected IEnumerator ShieldFailure(GameObject shield)

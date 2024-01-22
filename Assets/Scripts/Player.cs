@@ -76,6 +76,10 @@ public class Player : Damageable
     private Vector2 _deathPosition = new Vector2(-44f, 0f);
     private bool _isInvulnerable = false;
     private WaitForSeconds _invulnerableWaitForSeconds = new WaitForSeconds(0.5f);
+    [SerializeField] private SpriteRenderer _renderer;
+    private Color _defaultColor;
+    [SerializeField] private SpriteRenderer _shieldRenderer;
+    private Color _defaultShieldColor;
 
     [Header("TripleShot")]
     [SerializeField] private GameObject _tripleShot;
@@ -166,6 +170,8 @@ public class Player : Damageable
             Debug.LogError("Camera is null!");
         }
 
+        _defaultColor = _renderer.color;
+        _defaultShieldColor = _shieldRenderer.color;
         _fireRate = _laserFireRate;
         _afterBurnerTimeRemaining = _afterBurnerMaxActiveTime;
     }
@@ -217,6 +223,7 @@ public class Player : Damageable
             if (_shieldLevel > 0)
             {
                 _shieldLevel--;
+                StartCoroutine(DamageFlicker(_shieldRenderer, _defaultShieldColor));
                 if (_shieldLevel < 1)
                 {
                     StartCoroutine(ShieldFailure(_shield));
@@ -228,6 +235,7 @@ public class Player : Damageable
             }
 
             _lives--;
+            StartCoroutine(DamageFlicker(_renderer, _defaultColor));
             _audioManager.PlayExplosionSound();
             _uiManager.UpdateLivesUI(_lives);
             StartCoroutine(ShowPlayerDamage());

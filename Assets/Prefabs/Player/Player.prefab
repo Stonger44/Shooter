@@ -206,8 +206,8 @@ GameObject:
   - component: {fileID: 2047516865496382098}
   - component: {fileID: 2047516865496382093}
   - component: {fileID: 2047516865496382097}
-  - component: {fileID: 2047516865496382092}
   - component: {fileID: 2047516865496382094}
+  - component: {fileID: 2047516865496382092}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -330,71 +330,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2047516865496382092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2047516865496382096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d22dc27c29bdec419237cb33784e034, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerLeftBoundary: -9.7
-  _playerRightBoundary: 9.7
-  _playerUpperBoundary: 4.25
-  _playerLowerBoundary: -5.25
-  _speed: 5
-  _speedStandard: 5
-  _thruster: {fileID: 2047516866139869330}
-  _afterBurner: {fileID: 2047516864767338938}
-  _afterBurnerSpeedMultiplier: 2
-  _afterBurnerMaxActiveTime: 2
-  _afterBurnerTimeRemaining: 0
-  _afterBurnerDepletionRate: 1.5
-  _afterBurnerRechargeRate: 1
-  _afterBurnerCoolDownTime: 3
-  _afterBurnerIsInCoolDown: 0
-  _laser: {fileID: 3264114618247424463, guid: 4027399934183d24d9fa123615b53eb8, type: 3}
-  _laserOffset: 0.57
-  _laserFireRate: 0.15
-  _canFire: 1
-  _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
-  _damageEffectList:
-  - {fileID: 2047516864895756006}
-  - {fileID: 2047516866510083177}
-  - {fileID: 2047516864935428073}
-  - {fileID: 2047516864990403779}
-  _deathExplosion: {fileID: 7482745557342030904, guid: 919888f68e4309a428593a29f409ddcb,
-    type: 3}
-  _engineDamage: {fileID: 2047516865715266066}
-  _engineDamageTime: 4
-  _engineDamageSpeedMultiplier: 0.3
-  _isEngineDamaged: 0
-  _tripleShot: {fileID: 4511263273684437505, guid: 9722d12d1719a36408099a6f3c740d85,
-    type: 3}
-  _tripleShotFireRate: 0.18
-  _tripleShotAmmo: 0
-  _tripleShotMaxAmmo: 15
-  _speedBoostActiveTime: 3
-  _speedBoostTimeScale: 0.5
-  _speedBoostSpeed: 10
-  _shield: {fileID: 2047516866730669811}
-  _shieldLevel: 0
-  _spaceBomb: {fileID: 1657648685121873620, guid: 41d2950208588ac4d8354a9942803b59,
-    type: 3}
-  _spaceBombOffset: 0.665
-  _spaceBombFireRate: 0.75
-  _spaceBombAmmo: 0
-  _spaceBombMaxAmmo: 3
-  _homingMissile: {fileID: 4804971160070910261, guid: 0043f236358781f4abd1f9ff2f2b13dd,
-    type: 3}
-  _homingMissileOffset: 0.665
-  _homingMissileFireRate: 0.75
-  _homingMissileAmmo: 0
-  _homingMissileMaxAmmo: 6
 --- !u!82 &2047516865496382094
 AudioSource:
   m_ObjectHideFlags: 0
@@ -491,6 +426,73 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2047516865496382092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047516865496382096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d22dc27c29bdec419237cb33784e034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerLeftBoundary: -9.7
+  _playerRightBoundary: 9.7
+  _playerUpperBoundary: 4.25
+  _playerLowerBoundary: -5.25
+  _speed: 5
+  _speedStandard: 5
+  _thruster: {fileID: 2047516866139869330}
+  _afterBurner: {fileID: 2047516864767338938}
+  _afterBurnerSpeedMultiplier: 2
+  _afterBurnerMaxActiveTime: 2
+  _afterBurnerTimeRemaining: 0
+  _afterBurnerDepletionRate: 1.5
+  _afterBurnerRechargeRate: 1
+  _afterBurnerCoolDownTime: 3
+  _afterBurnerIsInCoolDown: 0
+  _laser: {fileID: 3264114618247424463, guid: 4027399934183d24d9fa123615b53eb8, type: 3}
+  _laserOffset: 0.57
+  _laserFireRate: 0.15
+  _canFire: 1
+  _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  _damageEffectList:
+  - {fileID: 2047516864895756006}
+  - {fileID: 2047516866510083177}
+  - {fileID: 2047516864935428073}
+  - {fileID: 2047516864990403779}
+  _deathExplosion: {fileID: 7482745557342030904, guid: 919888f68e4309a428593a29f409ddcb,
+    type: 3}
+  _engineDamage: {fileID: 2047516865715266066}
+  _engineDamageTime: 4
+  _engineDamageSpeedMultiplier: 0.3
+  _isEngineDamaged: 0
+  _renderer: {fileID: 2047516865496382098}
+  _shieldRenderer: {fileID: 2047516866730669805}
+  _tripleShot: {fileID: 4511263273684437505, guid: 9722d12d1719a36408099a6f3c740d85,
+    type: 3}
+  _tripleShotFireRate: 0.18
+  _tripleShotAmmo: 0
+  _tripleShotMaxAmmo: 15
+  _speedBoostActiveTime: 3
+  _speedBoostTimeScale: 0.5
+  _speedBoostSpeed: 10
+  _shield: {fileID: 2047516866730669811}
+  _shieldLevel: 0
+  _spaceBomb: {fileID: 1657648685121873620, guid: 41d2950208588ac4d8354a9942803b59,
+    type: 3}
+  _spaceBombOffset: 0.665
+  _spaceBombFireRate: 0.75
+  _spaceBombAmmo: 0
+  _spaceBombMaxAmmo: 3
+  _homingMissile: {fileID: 4804971160070910261, guid: 0043f236358781f4abd1f9ff2f2b13dd,
+    type: 3}
+  _homingMissileOffset: 0.665
+  _homingMissileFireRate: 0.75
+  _homingMissileAmmo: 0
+  _homingMissileMaxAmmo: 6
 --- !u!1 &2047516865590015023
 GameObject:
   m_ObjectHideFlags: 0

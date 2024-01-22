@@ -192,7 +192,7 @@ public class EnemyLeader : Damageable
         {
             case _playerTag:
                 _player.Damage();
-                Damage(2);
+                Damage(5);
                 break;
             case _laserTag:
                 Destroy(other.gameObject);
@@ -208,10 +208,10 @@ public class EnemyLeader : Damageable
                 {
                     missilePlayer.DetonateMissile(this.gameObject);
                 }
-                Damage(4);
+                Damage(5);
                 break;
             case _blastZoneTag:
-                Damage(4);
+                Damage(10);
                 break;
             default:
                 break;

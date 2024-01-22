@@ -633,6 +633,8 @@ MonoBehaviour:
   _explosion: {fileID: 3718568161180189366, guid: a75b5765041ffae40b5dab78bf1c591e,
     type: 3}
   _midExplosionTime: 0.5
+  _renderer: {fileID: 3036907280270466945}
+  _shieldRenderer: {fileID: 0}
 --- !u!1 &3036907280662049489
 GameObject:
   m_ObjectHideFlags: 0

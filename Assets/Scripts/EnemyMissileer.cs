@@ -18,6 +18,7 @@ public class EnemyMissileer : Damageable
 
     [SerializeField] private GameObject _explosion;
     [SerializeField] private SpriteRenderer _renderer;
+    private Color _defaultColor;
 
     [Header("Boundaries")]
     [SerializeField] private float _enemyLeftBoundary = -12f;
@@ -97,6 +98,8 @@ public class EnemyMissileer : Damageable
         {
             Debug.LogError("Renderer is null!");
         }
+
+        _defaultColor = _renderer.color;
 
         Warp();
 
@@ -306,6 +309,8 @@ public class EnemyMissileer : Damageable
             {
                 _health--;
             }
+
+            StartCoroutine(DamageFlicker(_renderer, _defaultColor));
 
             if (_health < 1)
             {

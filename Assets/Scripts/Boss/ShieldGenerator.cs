@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
-public class ShieldGenerator : MonoBehaviour
+public class ShieldGenerator : Damageable
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
@@ -12,7 +13,8 @@ public class ShieldGenerator : MonoBehaviour
     private bool _noPower = false;
 
     private Player _player;
-    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _renderer;
+    private Color _defaultColor;
     private BoxCollider2D _collider;
 
     [SerializeField] private int _maxShieldPower = 25;
@@ -20,6 +22,7 @@ public class ShieldGenerator : MonoBehaviour
     [SerializeField] private int _shieldGeneratorPowerLossDamage = 25;
     [SerializeField] Color _shieldGeneratorActiveColor;
     [SerializeField] Color _shieldGeneratorInactiveColor;
+    private WaitForSeconds _shieldGeneratorPowerLossWaitForSeconds = new WaitForSeconds(0.4f);
 
     public static event Action<int> onShieldGeneratorDamage;
     public static event Action onShieldGeneratorPowerDepletion;
@@ -46,8 +49,8 @@ public class ShieldGenerator : MonoBehaviour
         {
             Debug.LogError("Player is null!");
         }
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        if (_spriteRenderer == null)
+        _renderer = GetComponent<SpriteRenderer>();
+        if (_renderer == null)
         {
             Debug.Log("SpriteRenderer is null!");
         }
@@ -56,6 +59,8 @@ public class ShieldGenerator : MonoBehaviour
         {
             Debug.Log("Collider is null!");
         }
+
+        _defaultColor = _shieldGeneratorActiveColor;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -101,6 +106,7 @@ public class ShieldGenerator : MonoBehaviour
     private void Damage(int damage)
     {
         _shieldPower -= damage;
+        StartCoroutine(DamageFlicker(_renderer, _defaultColor));
         onShieldGeneratorDamage?.Invoke(damage);
 
         if (_shieldPower <= 0)
@@ -115,14 +121,20 @@ public class ShieldGenerator : MonoBehaviour
     {
         _collider.enabled = false;
         onShieldGeneratorPowerDepletion?.Invoke();
-        _spriteRenderer.color = _shieldGeneratorInactiveColor;
+        StartCoroutine(ShieldGeneratorPowerLoss());
+    }
+
+    private IEnumerator ShieldGeneratorPowerLoss()
+    {
+        yield return _shieldGeneratorPowerLossWaitForSeconds;
+        _renderer.color = _shieldGeneratorInactiveColor;
     }
 
     private void PowerUpShieldGenerators()
     {
         if (!_noPower)
         {
-            _spriteRenderer.color = _shieldGeneratorActiveColor;
+            _renderer.color = _shieldGeneratorActiveColor;
             _shieldPower = _maxShieldPower;
             _collider.enabled = true; 
         }

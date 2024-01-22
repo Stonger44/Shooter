@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PowerCore : MonoBehaviour
+public class PowerCore : Damageable
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
@@ -23,13 +23,15 @@ public class PowerCore : MonoBehaviour
     private bool _retractPowerCore = false;
     private bool _noPower = false;
 
-    [Header("Health")]
+    [Header("Health/Damage")]
     [SerializeField] private int _maxHealth = 15;
     [SerializeField] private int _health = 15;
     [SerializeField] private int _powerCoreDepletionDamage = 20;
     [SerializeField] private GameObject _explosion;
     [SerializeField] private float _midExplosionTime = 0.5f;
     private WaitForSeconds _midExplosionWaitForSeconds;
+    [SerializeField] private SpriteRenderer _renderer;
+    private Color _defaultColor;
 
     public static event Action onPowerCoreRetracted;
     public static event Action onPowerCoreStartMovement;
@@ -66,6 +68,7 @@ public class PowerCore : MonoBehaviour
             Debug.Log("Collider is null!");
         }
 
+        _defaultColor = _renderer.color;
         transform.position = _internalPosition.transform.position;
         _collider.enabled = false;
         _midExplosionWaitForSeconds = new WaitForSeconds(_midExplosionTime);
@@ -173,6 +176,7 @@ public class PowerCore : MonoBehaviour
     private void Damage(int damage)
     {
         _health -= damage;
+        StartCoroutine(DamageFlicker(_renderer, _defaultColor));
         onPowerCoreDamage?.Invoke(damage);
 
         if (_health <= 0)

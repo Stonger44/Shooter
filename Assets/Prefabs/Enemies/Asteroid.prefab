@@ -192,6 +192,7 @@ MonoBehaviour:
   _health: 12
   _pointsOnDeath: 200
   _pointsOnBoundary: -20
+  _renderer: {fileID: 3756718339811606075}
 --- !u!1001 &4139685628897372255
 PrefabInstance:
   m_ObjectHideFlags: 0

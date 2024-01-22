@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : Damageable
 {
     private const string _playerTag = "Player";
     private const string _laserTag = "Laser";
@@ -39,6 +39,8 @@ public class Asteroid : MonoBehaviour
     private bool _isExploding;
     [SerializeField] private int _pointsOnDeath = 200;
     [SerializeField] private int _pointsOnBoundary = -20;
+    [SerializeField] private SpriteRenderer _renderer;
+    private Color _defaultColor;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +70,8 @@ public class Asteroid : MonoBehaviour
         {
             Debug.LogError("Asteroid Collider is null!");
         }
+
+        _defaultColor = _renderer.color;
 
         Warp();
 
@@ -143,6 +147,8 @@ public class Asteroid : MonoBehaviour
         {
             _health--;
         }
+
+        StartCoroutine(DamageFlicker(_renderer, _defaultColor));
 
         if (_health < 1 || otherTag == _playerTag || otherTag == _missileTag || otherTag == _blastZoneTag)
         {
