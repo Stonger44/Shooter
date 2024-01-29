@@ -185,7 +185,7 @@ public class EnemyMissileer : Damageable
         _rayCastOrigin.y += yOffset;
 
         RaycastHit2D hitObject = Physics2D.Raycast(_rayCastOrigin, direction, _rayCastDistance);
-        Debug.DrawRay(_rayCastOrigin, direction * _rayCastDistance, Color.green);
+        // Debug.DrawRay(_rayCastOrigin, direction * _rayCastDistance, Color.green);
         if (hitObject.collider != null)
         {
             if (hitObject.collider.tag == _playerTag)
