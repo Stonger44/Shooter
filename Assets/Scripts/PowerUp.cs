@@ -105,9 +105,12 @@ public class PowerUp : MonoBehaviour
 
     private void MoveTowardPlayer(GameObject player)
     {
-        _direction = (Vector2)player.transform.position - (Vector2)transform.position;
-        _direction.Normalize();
-        _speed = _collectionSpeed;
+        if (!_isBeingDestroyed)
+        {
+            _direction = (Vector2)player.transform.position - (Vector2)transform.position;
+            _direction.Normalize();
+            _speed = _collectionSpeed; 
+        }
     }
 
     private void StopMovingTowardPlayer()

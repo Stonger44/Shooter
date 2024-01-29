@@ -198,11 +198,11 @@ public class Player : Damageable
 
     private void AttractPowerUp()
     {
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Slash))
         {
             onAttractPowerUp?.Invoke(this.gameObject);
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
+        if (Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.Slash))
         {
             onStopAttractingPowerUp?.Invoke();
         }

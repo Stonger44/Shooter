@@ -80,6 +80,12 @@ TextureImporter:
   - first:
       213: 2898379276281856093
     second: Ctrl
+  - first:
+      213: -5140577359225333108
+    second: Z
+  - first:
+      213: 1291720555026959615
+    second: Slash
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -734,7 +740,7 @@ TextureImporter:
         width: 76
         height: 55
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -742,6 +748,48 @@ TextureImporter:
       bones: []
       spriteID: d504223789c193820800000000000000
       internalID: 2898379276281856093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 372
+        width: 56
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8a55f2b02009a8b0800000000000000
+      internalID: -5140577359225333108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slash
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 372
+        width: 55
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffcc37f300d1de110800000000000000
+      internalID: 1291720555026959615
       vertices: []
       indices: 
       edges: []
