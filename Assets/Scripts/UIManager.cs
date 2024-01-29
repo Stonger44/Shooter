@@ -327,7 +327,10 @@ public class UIManager : MonoBehaviour
 
     private void InitiateGameClearUI()
     {
-        StartCoroutine(DisplayGameClearUI());
+        if (!_gameManager.IsGameOver())
+        {
+            StartCoroutine(DisplayGameClearUI()); 
+        }
     }
 
     private IEnumerator DisplayGameClearUI()
