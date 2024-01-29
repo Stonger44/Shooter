@@ -49,7 +49,7 @@ public class EnemyTrooper : Damageable
     [SerializeField] private int _pointsOnDeath = 100;
     [SerializeField] private int _pointsOnBoundary = -10;
     private bool _isExploding;
-    [SerializeField] private float _powerUpDropChance = 0.4f;
+    [SerializeField] private float _powerUpDropChance = 0.5f;
     [SerializeField] private SpriteRenderer _renderer;
     private Color _defaultColor;
 

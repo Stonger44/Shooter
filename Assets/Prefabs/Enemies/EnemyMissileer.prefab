@@ -571,7 +571,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explosion: {fileID: 5592187454776845694}
   _renderer: {fileID: 4093667370062700029}
-  _shieldRenderer: {fileID: 155247363}
   _enemyLeftBoundary: -12
   _enemyRightBoundary: 11.15
   _enemyUpperBoundary: 3.6
@@ -586,7 +585,7 @@ MonoBehaviour:
   _shield: {fileID: 155247360}
   _pointsOnDeath: 300
   _pointsOnBoundary: -30
-  _powerUpDropChance: 0.8
+  _powerUpDropChance: 0.9
   _xRayCastOffset: -3.5
   _yRayCastOffset: 0.558
   _rayCastDistance: 16
