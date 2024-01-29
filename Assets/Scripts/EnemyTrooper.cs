@@ -49,14 +49,13 @@ public class EnemyTrooper : Damageable
     [SerializeField] private int _pointsOnDeath = 100;
     [SerializeField] private int _pointsOnBoundary = -10;
     private bool _isExploding;
-    [SerializeField] private float _powerUpDropChance = 0.25f;
+    [SerializeField] private float _powerUpDropChance = 0.4f;
     [SerializeField] private SpriteRenderer _renderer;
     private Color _defaultColor;
 
 
     [Header("Targeting System")]
     [SerializeField] private float _xRayCastOffset = -3.5f;
-    [SerializeField] private float _yRayCastOffset = 0.558f;
     [SerializeField] private float _rayCastDistance = 16f;
     private Vector2 _rayCastOrigin;
     [SerializeField] private LayerMask _layerMask;
